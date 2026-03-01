@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luke Bianchi | Graphic Designer & Photographer</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:#0a0a0f;
+  color:white;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+#starfield {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+/* Navbar offset fix */
+section {
+  scroll-margin-top: 100px;
+}
+
+.nav-link {
+  position:relative;
+  transition:all .3s ease;
+}
+
+.nav-link::after {
+  content:'';
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+  transition:width .3s ease;
+}
+
+.nav-link:hover::after {
+  width:100%;
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(30px);
+  transition:all .8s ease;
+}
+
+.reveal.active {
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="starfield"></canvas>
+
+<!-- NAV -->
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+  <div class="max-w-6xl mx-auto px-6 flex justify-center space-x-10">
+    <a href="#graphic-design" class="nav-link text-gray-300 hover:text-white text-lg">Graphic Design</a>
+    <a href="#photography" class="nav-link text-gray-300 hover:text-white text-lg">Photography</a>
+    <a href="#real-estate" class="nav-link text-gray-300 hover:text-white text-lg">Real Estate Photography</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="h-screen flex items-center justify-center text-center px-6">
+  <div>
+    <h1 class="text-6xl md:text-8xl font-bold mb-6">
+      Luke <span class="text-blue-500">Bianchi</span>
+    </h1>
+    <p class="text-xl text-gray-400 mb-8">Graphic Designer & Photographer</p>
+    <a href="#graphic-design" class="px-8 py-3 border border-white/30 rounded-full hover:border-blue-500 transition inline-block">
+      View Portfolio
+    </a>
+  </div>
+</section>
+
+<!-- GRAPHIC DESIGN -->
+<section id="graphic-design" class="py-32 px-6 bg-black/80 backdrop-blur">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 reveal">Graphic Design</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Project 1</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Project 2</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Project 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section id="photography" class="py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 reveal">Photography</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Photo 1</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Photo 2</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Photo 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL ESTATE -->
+<section id="real-estate" class="py-32 px-6 bg-black/80 backdrop-blur">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold mb-12 reveal">Real Estate Photography</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Listing 1</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Listing 2</div>
+      <div class="bg-gray-900 p-20 rounded-xl reveal">Listing 3</div>
+    </div>
+  </div>
+</section>
+
+<script>
+
+/* ===== THREE JS STARFIELD ===== */
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+  canvas:document.getElementById('starfield'),
+  alpha:true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+camera.position.z = 30;
+
+const starsGeometry = new THREE.BufferGeometry();
+const starCount = 2000;
+const positions = new Float32Array(starCount * 3);
+
+for(let i=0;i<starCount*3;i++){
+  positions[i] = (Math.random()-0.5)*100;
+}
+
+starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
+
+const starsMaterial = new THREE.PointsMaterial({
+  size:0.15,
+  color:0x3b82f6,
+  transparent:true,
+  opacity:0.8
+});
+
+const stars = new THREE.Points(starsGeometry, starsMaterial);
+scene.add(stars);
+
+let mouseX=0, mouseY=0;
+
+document.addEventListener('mousemove',e=>{
+  mouseX = (e.clientX/window.innerWidth - 0.5);
+  mouseY = (e.clientY/window.innerHeight - 0.5);
+});
+
+function animate(){
+  requestAnimationFrame(animate);
+  stars.rotation.y += 0.002;
+  stars.rotation.x += mouseY * 0.02;
+  stars.rotation.y += mouseX * 0.02;
+  renderer.render(scene,camera);
+}
+
+animate();
+
+window.addEventListener('resize',()=>{
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+/* ===== NAVBAR SCROLL EFFECT ===== */
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>50){
+    navbar.classList.add('bg-black/90','backdrop-blur-md','py-4');
+    navbar.classList.remove('py-6');
+  } else {
+    navbar.classList.remove('bg-black/90','backdrop-blur-md','py-4');
+    navbar.classList.add('py-6');
+  }
+});
+
+/* ===== SCROLL REVEAL ===== */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.reveal').forEach(el=>{
+  observer.observe(el);
+});
+
+</script>
+
+</body>
+</html>
