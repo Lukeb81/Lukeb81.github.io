@@ -164,13 +164,7 @@ const starsMaterial = new THREE.PointsMaterial({
 
 const stars = new THREE.Points(starsGeometry, starsMaterial);
 scene.add(stars);
-
-let mouseX=0, mouseY=0;
-
-document.addEventListener('mousemove',e=>{
-  mouseX = (e.clientX/window.innerWidth - 0.5);
-  mouseY = (e.clientY/window.innerHeight - 0.5);
-});
+  
 
 function animate(){
   requestAnimationFrame(animate);
