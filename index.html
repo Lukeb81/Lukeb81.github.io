@@ -174,9 +174,11 @@ document.addEventListener('mousemove',e=>{
 
 function animate(){
   requestAnimationFrame(animate);
-  stars.rotation.y += 0.002;
-  stars.rotation.x += mouseY * 0.02;
-  stars.rotation.y += mouseX * 0.02;
+
+  // Constant slow rotation (same speed everywhere)
+  stars.rotation.y += 0.0008;
+  stars.rotation.x += 0.0003;
+
   renderer.render(scene,camera);
 }
 
