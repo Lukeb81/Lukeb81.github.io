@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Luke Bianchi · Graphic Design & Photography</title>
-  
+
   <!-- Tailwind + Three.js + Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -217,45 +217,186 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD ----------
+      // ---------- THREE.JS REALISTIC STARFIELD ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.position.z = 30;
+      camera.position.z = 50;
 
-      const starsGeometry = new THREE.BufferGeometry();
-      const starCount = 2200;
-      const positions = new Float32Array(starCount * 3);
-      for (let i = 0; i < starCount * 3; i += 3) {
-        // spread stars in a cube
-        positions[i] = (Math.random() - 0.5) * 120;
-        positions[i+1] = (Math.random() - 0.5) * 120;
-        positions[i+2] = (Math.random() - 0.5) * 120;
+      // --- Create realistic star distribution ---
+      
+      // 1. Distant tiny stars (cool white, slightly blue)
+      const starsGeometry1 = new THREE.BufferGeometry();
+      const starsCount1 = 4000;
+      const positions1 = new Float32Array(starsCount1 * 3);
+      const colors1 = new Float32Array(starsCount1 * 3); // for color variation
+      
+      for (let i = 0; i < starsCount1; i++) {
+        // Distribute in a sphere
+        const radius = 80 + Math.random() * 40; // shell radius
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+        
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi) * Math.sin(theta);
+        const z = radius * Math.cos(phi);
+        
+        positions1[i*3] = x;
+        positions1[i*3+1] = y;
+        positions1[i*3+2] = z;
+        
+        // Color temperature variation (more white/blue for distant)
+        const colorVal = 0.8 + Math.random() * 0.4;
+        colors1[i*3] = colorVal;     // R
+        colors1[i*3+1] = colorVal;   // G
+        colors1[i*3+2] = 1.0;        // B slightly boosted for coolness
       }
-      starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      starsGeometry1.setAttribute('position', new THREE.BufferAttribute(positions1, 3));
+      starsGeometry1.setAttribute('color', new THREE.BufferAttribute(colors1, 3));
+      
+      const starsMaterial1 = new THREE.PointsMaterial({
+        size: 0.15,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
+      });
+      
+      const stars1 = new THREE.Points(starsGeometry1, starsMaterial1);
+      scene.add(stars1);
 
-      const starsMaterial = new THREE.PointsMaterial({
-        size: 0.2,
-        color: 0x4f8aff,
+      // 2. Medium stars with warm/cool variation
+      const starsGeometry2 = new THREE.BufferGeometry();
+      const starsCount2 = 2000;
+      const positions2 = new Float32Array(starsCount2 * 3);
+      const colors2 = new Float32Array(starsCount2 * 3);
+      const sizes2 = new Float32Array(starsCount2);
+      
+      for (let i = 0; i < starsCount2; i++) {
+        const radius = 40 + Math.random() * 60;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+        
+        positions2[i*3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions2[i*3+1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions2[i*3+2] = radius * Math.cos(phi);
+        
+        // Random color between cool white and warm orange
+        const temp = Math.random();
+        if (temp < 0.3) {
+          // warm stars (orange/red)
+          colors2[i*3] = 1.0;
+          colors2[i*3+1] = 0.6 + Math.random() * 0.3;
+          colors2[i*3+2] = 0.3 + Math.random() * 0.3;
+        } else if (temp < 0.6) {
+          // cool stars (blue/white)
+          colors2[i*3] = 0.6 + Math.random() * 0.4;
+          colors2[i*3+1] = 0.7 + Math.random() * 0.3;
+          colors2[i*3+2] = 1.0;
+        } else {
+          // pure white stars
+          const w = 0.9 + Math.random() * 0.3;
+          colors2[i*3] = w;
+          colors2[i*3+1] = w;
+          colors2[i*3+2] = w;
+        }
+        
+        sizes2[i] = 0.2 + Math.random() * 0.4;
+      }
+      
+      starsGeometry2.setAttribute('position', new THREE.BufferAttribute(positions2, 3));
+      starsGeometry2.setAttribute('color', new THREE.BufferAttribute(colors2, 3));
+      
+      const starsMaterial2 = new THREE.PointsMaterial({
+        size: 0.25,
+        vertexColors: true,
         transparent: true,
         opacity: 0.9,
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
       });
-      const stars = new THREE.Points(starsGeometry, starsMaterial);
-      scene.add(stars);
-
-      // extra tiny layer
-      const stars2Geo = new THREE.BufferGeometry();
-      const pos2 = [];
-      for (let j = 0; j < 800; j++) {
-        pos2.push((Math.random()-0.5)*200, (Math.random()-0.5)*200, (Math.random()-0.5)*200);
-      }
-      stars2Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos2, 3));
-      const stars2 = new THREE.Points(stars2Geo, new THREE.PointsMaterial({ size: 0.1, color: 0xaaccff, blending: THREE.AdditiveBlending, opacity: 0.6 }));
+      
+      const stars2 = new THREE.Points(starsGeometry2, starsMaterial2);
       scene.add(stars2);
+
+      // 3. Nearby bright stars with distinct colors
+      const starsGeometry3 = new THREE.BufferGeometry();
+      const starsCount3 = 500;
+      const positions3 = new Float32Array(starsCount3 * 3);
+      const colors3 = new Float32Array(starsCount3 * 3);
+      
+      for (let i = 0; i < starsCount3; i++) {
+        const radius = 20 + Math.random() * 30;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+        
+        positions3[i*3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions3[i*3+1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions3[i*3+2] = radius * Math.cos(phi);
+        
+        // More vibrant colors for bright stars
+        const starType = Math.random();
+        if (starType < 0.2) {
+          // red giant
+          colors3[i*3] = 1.0;
+          colors3[i*3+1] = 0.3 + Math.random() * 0.2;
+          colors3[i*3+2] = 0.2;
+        } else if (starType < 0.4) {
+          // blue giant
+          colors3[i*3] = 0.4 + Math.random() * 0.2;
+          colors3[i*3+1] = 0.6 + Math.random() * 0.2;
+          colors3[i*3+2] = 1.0;
+        } else {
+          // white bright
+          const w = 0.9 + Math.random() * 0.5;
+          colors3[i*3] = w;
+          colors3[i*3+1] = w;
+          colors3[i*3+2] = w;
+        }
+      }
+      
+      starsGeometry3.setAttribute('position', new THREE.BufferAttribute(positions3, 3));
+      starsGeometry3.setAttribute('color', new THREE.BufferAttribute(colors3, 3));
+      
+      const starsMaterial3 = new THREE.PointsMaterial({
+        size: 0.4,
+        vertexColors: true,
+        transparent: true,
+        opacity: 1,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
+      });
+      
+      const stars3 = new THREE.Points(starsGeometry3, starsMaterial3);
+      scene.add(stars3);
+
+      // Add a few very bright "beacon" stars with glow effect
+      const beaconGeo = new THREE.BufferGeometry();
+      const beaconPos = [];
+      const beaconColors = [];
+      for (let k = 0; k < 50; k++) {
+        const r = 10 + Math.random() * 15;
+        const th = Math.random() * Math.PI * 2;
+        const ph = Math.acos((Math.random() * 2) - 1);
+        beaconPos.push(r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph));
+        
+        // gold/blue rare stars
+        if (Math.random() > 0.5) {
+          beaconColors.push(1.0, 0.9, 0.6); // gold
+        } else {
+          beaconColors.push(0.6, 0.8, 1.0); // ice blue
+        }
+      }
+      beaconGeo.setAttribute('position', new THREE.Float32BufferAttribute(beaconPos, 3));
+      beaconGeo.setAttribute('color', new THREE.Float32BufferAttribute(beaconColors, 3));
+      const beaconMat = new THREE.PointsMaterial({ size: 0.7, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, opacity: 0.9 });
+      const beacons = new THREE.Points(beaconGeo, beaconMat);
+      scene.add(beacons);
 
       // mouse interaction only in hero range
       let targetX = 0, targetY = 0;
@@ -279,20 +420,29 @@
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
         // smooth interpolation
-        currentX += (targetX - currentX) * 0.05;
-        currentY += (targetY - currentY) * 0.05;
+        currentX += (targetX - currentX) * 0.03;
+        currentY += (targetY - currentY) * 0.03;
 
-        // constant subtle rotation
-        stars.rotation.y += 0.0005;
-        stars.rotation.x += 0.0002;
-        stars2.rotation.y += 0.0003;
-        stars2.rotation.x += 0.0001;
+        // rotate all layers at different speeds for depth effect
+        stars1.rotation.y += 0.0002;
+        stars1.rotation.x += 0.0001;
+        stars2.rotation.y += 0.00035;
+        stars2.rotation.x += 0.00015;
+        stars3.rotation.y += 0.0005;
+        stars3.rotation.x += 0.0002;
+        beacons.rotation.y += 0.0006;
+        beacons.rotation.x += 0.0001;
 
         if (heroActive) {
-          stars.rotation.y += currentX * 0.002;
-          stars.rotation.x += currentY * 0.0015;
-          stars2.rotation.y += currentX * 0.001;
-          stars2.rotation.x += currentY * 0.001;
+          // subtle mouse influence
+          stars1.rotation.y += currentX * 0.0006;
+          stars1.rotation.x += currentY * 0.0005;
+          stars2.rotation.y += currentX * 0.0008;
+          stars2.rotation.x += currentY * 0.0006;
+          stars3.rotation.y += currentX * 0.001;
+          stars3.rotation.x += currentY * 0.0008;
+          beacons.rotation.y += currentX * 0.0012;
+          beacons.rotation.x += currentY * 0.0009;
         }
 
         renderer.render(scene, camera);
