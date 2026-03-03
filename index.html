@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS REALISTIC STARFIELD WITH FIXED MOUSE TRACKING ----------
+      // ---------- THREE.JS REALISTIC STARFIELD WITH SLOW, SUBTLE MOVEMENT ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,7 +342,7 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // Mouse interaction - FIXED FOR EVEN MOVEMENT
+      // Mouse interaction - SLOWED DOWN for subtle movement
       let targetX = 0, targetY = 0;
       let currentX = 0, currentY = 0;
       let heroActive = true;
@@ -366,27 +366,22 @@
         currentY += (targetY - currentY) * 0.02;
 
         if (heroActive) {
-          // FIXED: Apply mouse influence as an offset to base rotation for even left/right movement
-          // Base rotation continues independently, mouse adds a symmetrical offset in both directions
+          // SLOWED DOWN: Drastically reduced multipliers for subtle movement
+          // Base rotation continues with original slow speeds
+          layer1.rotation.y += 0.0001 + currentX * 0.00005;
+          layer1.rotation.x += 0.00005 + currentY * 0.00003;
           
-          // Calculate time-based base rotation
-          const time = Date.now() * 0.0001;
+          layer2.rotation.y += 0.0002 + currentX * 0.00008;
+          layer2.rotation.x += 0.0001 + currentY * 0.00005;
           
-          // Apply rotations with mouse offset - this ensures left and right movement are equal
-          layer1.rotation.y = time * 0.5 + currentX * 0.3;
-          layer1.rotation.x = time * 0.1 + currentY * 0.2;
+          layer3.rotation.y += 0.0003 + currentX * 0.0001;
+          layer3.rotation.x += 0.00015 + currentY * 0.00008;
           
-          layer2.rotation.y = time * 0.8 + currentX * 0.4;
-          layer2.rotation.x = time * 0.2 + currentY * 0.3;
+          layer4.rotation.y += 0.0004 + currentX * 0.00012;
+          layer4.rotation.x += 0.0002 + currentY * 0.0001;
           
-          layer3.rotation.y = time * 1.2 + currentX * 0.5;
-          layer3.rotation.x = time * 0.3 + currentY * 0.4;
-          
-          layer4.rotation.y = time * 1.5 + currentX * 0.6;
-          layer4.rotation.x = time * 0.4 + currentY * 0.5;
-          
-          bgGlow.rotation.y = time * 0.3 + currentX * 0.2;
-          bgGlow.rotation.x = time * 0.05 + currentY * 0.15;
+          bgGlow.rotation.y += 0.00005 + currentX * 0.00003;
+          bgGlow.rotation.x += 0.00002 + currentY * 0.00002;
         } else {
           // When not in hero, just use constant rotation
           layer1.rotation.y += 0.0001;
