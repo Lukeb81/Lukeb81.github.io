@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD WITH PERFECT BALANCE ----------
+      // ---------- THREE.JS STARFIELD WITH FIXED LEFT/RIGHT MOVEMENT ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,24 +342,25 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // PERFECT BALANCE - Noticeable mouse, slow base drift
-      let velocityY = 0;      // Horizontal rotation speed
-      let velocityX = 0;      // Vertical rotation speed
+      // SIMPLE DIRECT MOUSE CONTROL - Left/Right should work now
+      let targetRotY = 0;  // Horizontal rotation (left/right)
+      let targetRotX = 0;  // Vertical rotation (up/down)
+      let currentRotY = 0;
+      let currentRotX = 0;
       
-      // Base drift - very slow left rotation (slower than before)
-      const baseDrift = -0.00004;  // Half of previous value
+      // Base drift - slow left rotation
+      let baseRotation = 0;
       
-      // Mouse position
-      let mouseX = 0;
-      let mouseY = 0;
       let heroActive = true;
       const heroSection = document.getElementById('hero');
 
       document.addEventListener('mousemove', (e) => {
         if (heroActive) {
-          // Map mouse to range -1 to 1
-          mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-          mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+          // Map mouse to rotation targets
+          // Left/right (Y rotation): -0.5 to 0.5 range
+          targetRotY = (e.clientX / window.innerWidth - 0.5) * 0.8;
+          // Up/down (X rotation): -0.3 to 0.3 range  
+          targetRotX = (e.clientY / window.innerHeight - 0.5) * 0.5;
         }
       });
 
@@ -370,42 +371,30 @@
         const viewportMid = window.innerHeight / 2;
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
-        if (heroActive) {
-          // BALANCED THRUSTER - Noticeable but not overpowering
-          velocityY += mouseX * 0.00002;  // 4x stronger than before
-          velocityX += mouseY * 0.000015;
-          
-          // Light damping for smooth falloff
-          velocityY *= 0.99;
-          velocityX *= 0.99;
-        } else {
-          // When not in hero, return to base drift faster
-          velocityY *= 0.98;
-          velocityX *= 0.98;
-        }
+        // Slowly increase base rotation to the left
+        baseRotation -= 0.0001;
         
-        // Always add base drift (constant left rotation) - now slower
-        velocityY += baseDrift;
+        // Smoothly interpolate current rotation to target
+        currentRotY += (targetRotY - currentRotY) * 0.02;
+        currentRotX += (targetRotX - currentRotX) * 0.02;
+
+        // Apply rotations: BASE + MOUSE
+        // Y rotation = horizontal (left/right)
+        // X rotation = vertical (up/down)
+        layer1.rotation.y = baseRotation * 0.5 + currentRotY * 0.3;
+        layer1.rotation.x = currentRotX * 0.2;
         
-        // Gentle limits to prevent spinning
-        velocityY = Math.max(-0.0005, Math.min(0.0005, velocityY));
-        velocityX = Math.max(-0.0003, Math.min(0.0003, velocityX));
+        layer2.rotation.y = baseRotation * 0.8 + currentRotY * 0.4;
+        layer2.rotation.x = currentRotX * 0.25;
         
-        // Apply velocities to rotations (parallax effect)
-        layer1.rotation.y += velocityY * 0.5;
-        layer1.rotation.x += velocityX * 0.4;
+        layer3.rotation.y = baseRotation * 1.2 + currentRotY * 0.5;
+        layer3.rotation.x = currentRotX * 0.3;
         
-        layer2.rotation.y += velocityY * 0.8;
-        layer2.rotation.x += velocityX * 0.6;
+        layer4.rotation.y = baseRotation * 1.5 + currentRotY * 0.6;
+        layer4.rotation.x = currentRotX * 0.35;
         
-        layer3.rotation.y += velocityY * 1.2;
-        layer3.rotation.x += velocityX * 0.8;
-        
-        layer4.rotation.y += velocityY * 1.5;
-        layer4.rotation.x += velocityX * 1.0;
-        
-        bgGlow.rotation.y += velocityY * 0.3;
-        bgGlow.rotation.x += velocityX * 0.2;
+        bgGlow.rotation.y = baseRotation * 0.3 + currentRotY * 0.2;
+        bgGlow.rotation.x = currentRotX * 0.15;
 
         renderer.render(scene, camera);
       }
