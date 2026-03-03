@@ -310,7 +310,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS REALISTIC STARFIELD WITH SOFT GLOW ----------
+      // ---------- THREE.JS STATIC STARFIELD (NO MOUSE INTERACTION) ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -439,40 +439,15 @@
       const layer4 = new THREE.Points(layer4Geo, layer4Mat);
       scene.add(layer4);
 
-      // Mouse interaction
-      let targetX = 0, targetY = 0;
-      let currentX = 0, currentY = 0;
-
-      document.addEventListener('mousemove', (e) => {
-        targetX = (e.clientX / window.innerWidth) * 2 - 1;
-        targetY = (e.clientY / window.innerHeight) * 2 - 1;
-      });
-
+      // Simple animation loop - just constant rotation, no mouse interaction
       function animate() {
         requestAnimationFrame(animate);
 
-        currentX += (targetX - currentX) * 0.02;
-        currentY += (targetY - currentY) * 0.02;
-
-        // Rotate layers at different speeds
-        layer1.rotation.y += 0.0001;
-        layer1.rotation.x += 0.00005;
-        layer2.rotation.y += 0.0002;
-        layer2.rotation.x += 0.0001;
-        layer3.rotation.y += 0.0003;
-        layer3.rotation.x += 0.00015;
-        layer4.rotation.y += 0.0004;
-        layer4.rotation.x += 0.0002;
-
-        // Add mouse influence
-        layer1.rotation.y += currentX * 0.0003;
-        layer1.rotation.x += currentY * 0.0002;
-        layer2.rotation.y += currentX * 0.0004;
-        layer2.rotation.x += currentY * 0.0003;
-        layer3.rotation.y += currentX * 0.0005;
-        layer3.rotation.x += currentY * 0.0004;
-        layer4.rotation.y += currentX * 0.0006;
-        layer4.rotation.x += currentY * 0.0005;
+        // Very slow constant rotation - almost imperceptible
+        layer1.rotation.y += 0.00005;
+        layer2.rotation.y += 0.00003;
+        layer3.rotation.y += 0.00002;
+        layer4.rotation.y += 0.00001;
 
         renderer.render(scene, camera);
       }
