@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS REALISTIC STARFIELD WITH GENTLE THRUSTER MOVEMENT ----------
+      // ---------- THREE.JS REALISTIC STARFIELD WITH FIXED THRUSTER MOVEMENT ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,15 +342,16 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // Mouse interaction - GENTLE THRUSTER EFFECT
+      // Mouse interaction - FIXED THRUSTER EFFECT (works equally on both sides)
       let targetX = 0, targetY = 0;
       let currentX = 0, currentY = 0;
-      let velocityX = 0, velocityY = 0; // For thruster-like momentum
+      let velocityX = 0, velocityY = 0;
       let heroActive = true;
       const heroSection = document.getElementById('hero');
 
       document.addEventListener('mousemove', (e) => {
         if (heroActive) {
+          // Calculate target position (-1 to 1)
           targetX = (e.clientX / window.innerWidth) * 2 - 1;
           targetY = (e.clientY / window.innerHeight) * 2 - 1;
         }
@@ -364,45 +365,52 @@
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
         if (heroActive) {
-          // THRUSTER EFFECT: Add acceleration toward target, then smooth decay
-          // This creates a gentle push rather than instant movement
-          velocityX += (targetX - currentX) * 0.001; // Acceleration
-          velocityY += (targetY - currentY) * 0.001;
+          // FIXED: Calculate direction to target and apply force
+          // This ensures both left and right movement work identically
+          const dx = targetX - currentX;
+          const dy = targetY - currentY;
           
-          // Apply friction to slow down over time (thruster cut-off feel)
-          velocityX *= 0.98;
-          velocityY *= 0.98;
+          // Apply acceleration toward target (works for both positive and negative directions)
+          velocityX += dx * 0.002;
+          velocityY += dy * 0.002;
+          
+          // Apply friction to smooth out movement
+          velocityX *= 0.97;
+          velocityY *= 0.97;
           
           // Update position with velocity
           currentX += velocityX;
           currentY += velocityY;
           
-          // Clamp to reasonable range
+          // Clamp to reasonable range (-1 to 1)
           currentX = Math.max(-1, Math.min(1, currentX));
           currentY = Math.max(-1, Math.min(1, currentY));
           
-          // Apply very subtle rotation based on current position
-          // The multipliers are extremely small for gentle movement
-          layer1.rotation.y += 0.0001 + currentX * 0.00008;
-          layer1.rotation.x += 0.00005 + currentY * 0.00005;
+          // Apply rotation based on current position
+          // Using the same multiplier for both directions ensures equal response
+          layer1.rotation.y += 0.0001 + currentX * 0.0001;
+          layer1.rotation.x += 0.00005 + currentY * 0.00008;
           
-          layer2.rotation.y += 0.0002 + currentX * 0.00012;
-          layer2.rotation.x += 0.0001 + currentY * 0.00008;
+          layer2.rotation.y += 0.0002 + currentX * 0.00015;
+          layer2.rotation.x += 0.0001 + currentY * 0.00012;
           
-          layer3.rotation.y += 0.0003 + currentX * 0.00015;
-          layer3.rotation.x += 0.00015 + currentY * 0.0001;
+          layer3.rotation.y += 0.0003 + currentX * 0.0002;
+          layer3.rotation.x += 0.00015 + currentY * 0.00015;
           
-          layer4.rotation.y += 0.0004 + currentX * 0.00018;
-          layer4.rotation.x += 0.0002 + currentY * 0.00012;
+          layer4.rotation.y += 0.0004 + currentX * 0.00025;
+          layer4.rotation.x += 0.0002 + currentY * 0.00018;
           
-          bgGlow.rotation.y += 0.00005 + currentX * 0.00004;
-          bgGlow.rotation.x += 0.00002 + currentY * 0.00003;
+          bgGlow.rotation.y += 0.00005 + currentX * 0.00008;
+          bgGlow.rotation.x += 0.00002 + currentY * 0.00005;
         } else {
-          // When not in hero, slowly drift back to center and continue base rotation
-          velocityX += (0 - currentX) * 0.0005;
-          velocityY += (0 - currentY) * 0.0005;
-          velocityX *= 0.98;
-          velocityY *= 0.98;
+          // When not in hero, slowly drift back to center
+          const dx = 0 - currentX;
+          const dy = 0 - currentY;
+          
+          velocityX += dx * 0.001;
+          velocityY += dy * 0.001;
+          velocityX *= 0.97;
+          velocityY *= 0.97;
           currentX += velocityX;
           currentY += velocityY;
           
