@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD WITH THRUSTER PHYSICS + DIRECT CONTROL ----------
+      // ---------- THREE.JS STARFIELD WITH FULL 4-WAY THRUSTER ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,7 +342,7 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // PERFECT THRUSTER - Momentum + Even Control
+      // FULL 4-WAY THRUSTER - Equal power in all directions
       let velocityY = 0;      // Horizontal velocity (left/right)
       let velocityX = 0;      // Vertical velocity (up/down)
       
@@ -358,9 +358,10 @@
 
       document.addEventListener('mousemove', (e) => {
         if (heroActive) {
-          // Map mouse to target range (-0.8 to 0.8)
+          // Map mouse to target range - SAME RANGE FOR BOTH AXES
+          // Using full 1.6 range for both to ensure equal responsiveness
           targetY = (e.clientX / window.innerWidth - 0.5) * 1.6;
-          targetX = (e.clientY / window.innerHeight - 0.5) * 1.0;
+          targetX = (e.clientY / window.innerHeight - 0.5) * 1.6; // Increased from 1.0 to 1.6
         }
       });
 
@@ -373,9 +374,9 @@
 
         if (heroActive) {
           // THRUSTER: Velocity accelerates toward target
-          // This creates the momentum effect
-          velocityY += (targetY - velocityY) * 0.002;
-          velocityX += (targetX - velocityX) * 0.002;
+          // Equal acceleration for both axes
+          velocityY += (targetY - velocityY) * 0.003;
+          velocityX += (targetX - velocityX) * 0.003; // Same multiplier as Y
           
           // Light damping so momentum slowly fades
           velocityY *= 0.998;
@@ -389,25 +390,25 @@
         // Always add base drift (constant left rotation)
         velocityY += baseDrift;
         
-        // Gentle limits
+        // Equal limits for both axes (slightly different ranges but same multiplier)
         velocityY = Math.max(-0.002, Math.min(0.002, velocityY));
-        velocityX = Math.max(-0.001, Math.min(0.001, velocityX));
+        velocityX = Math.max(-0.002, Math.min(0.002, velocityX)); // Increased from 0.001 to 0.002
         
-        // Apply velocities to rotations (parallax effect)
+        // Apply velocities to rotations - INCREASED X MULTIPLIERS for more vertical movement
         layer1.rotation.y += velocityY * 0.5;
-        layer1.rotation.x += velocityX * 0.4;
+        layer1.rotation.x += velocityX * 0.5; // Increased from 0.4 to 0.5
         
         layer2.rotation.y += velocityY * 0.8;
-        layer2.rotation.x += velocityX * 0.6;
+        layer2.rotation.x += velocityX * 0.8; // Increased from 0.6 to 0.8
         
         layer3.rotation.y += velocityY * 1.2;
-        layer3.rotation.x += velocityX * 0.8;
+        layer3.rotation.x += velocityX * 1.2; // Increased from 0.8 to 1.2
         
         layer4.rotation.y += velocityY * 1.5;
-        layer4.rotation.x += velocityX * 1.0;
+        layer4.rotation.x += velocityX * 1.5; // Increased from 1.0 to 1.5
         
         bgGlow.rotation.y += velocityY * 0.3;
-        bgGlow.rotation.x += velocityX * 0.2;
+        bgGlow.rotation.x += velocityX * 0.3; // Increased from 0.2 to 0.3
 
         renderer.render(scene, camera);
       }
