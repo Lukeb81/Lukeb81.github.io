@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD WITH FIXED THRUSTER PHYSICS ----------
+      // ---------- THREE.JS STARFIELD WITH PERFECT BALANCE ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,12 +342,12 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // FIXED THRUSTER PHYSICS - Slower, more controlled
+      // PERFECT BALANCE - Noticeable mouse, slow base drift
       let velocityY = 0;      // Horizontal rotation speed
       let velocityX = 0;      // Vertical rotation speed
       
-      // Base drift - very slow left rotation
-      const baseDrift = -0.00008;  // Negative = left
+      // Base drift - very slow left rotation (slower than before)
+      const baseDrift = -0.00004;  // Half of previous value
       
       // Mouse position
       let mouseX = 0;
@@ -371,28 +371,27 @@
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
         if (heroActive) {
-          // THRUSTER EFFECT: Mouse gently pushes velocity
-          // Much smaller multipliers for subtle effect
-          velocityY += mouseX * 0.000005;  // Tiny pushes
-          velocityX += mouseY * 0.000003;
+          // BALANCED THRUSTER - Noticeable but not overpowering
+          velocityY += mouseX * 0.00002;  // 4x stronger than before
+          velocityX += mouseY * 0.000015;
           
-          // Strong damping to prevent runaway speed
-          velocityY *= 0.995;
-          velocityX *= 0.995;
-        } else {
-          // When not in hero, return to base drift
+          // Light damping for smooth falloff
           velocityY *= 0.99;
           velocityX *= 0.99;
+        } else {
+          // When not in hero, return to base drift faster
+          velocityY *= 0.98;
+          velocityX *= 0.98;
         }
         
-        // Always add base drift (constant left rotation)
+        // Always add base drift (constant left rotation) - now slower
         velocityY += baseDrift;
         
-        // Limit velocity to prevent spinning out of control
-        velocityY = Math.max(-0.001, Math.min(0.001, velocityY));
-        velocityX = Math.max(-0.0005, Math.min(0.0005, velocityX));
+        // Gentle limits to prevent spinning
+        velocityY = Math.max(-0.0005, Math.min(0.0005, velocityY));
+        velocityX = Math.max(-0.0003, Math.min(0.0003, velocityX));
         
-        // Apply velocities to rotations (different layers move at different speeds)
+        // Apply velocities to rotations (parallax effect)
         layer1.rotation.y += velocityY * 0.5;
         layer1.rotation.x += velocityX * 0.4;
         
