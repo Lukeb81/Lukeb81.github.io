@@ -11,14 +11,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    html { 
+      scroll-behavior: smooth; 
+    }
+    
     body {
       background: #0a0a0f;
       color: white;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
+    
     #starfield {
       position: fixed;
       top: 0;
@@ -28,13 +37,24 @@
       z-index: -1;
       pointer-events: none;
     }
-    section { scroll-margin-top: 80px; }
+    
+    section { 
+      scroll-margin-top: 80px; 
+      position: relative;
+      z-index: 1;
+    }
 
     /* nav link animation */
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
+      color: #d1d5db;
     }
+    
+    .nav-link:hover {
+      color: white;
+    }
+    
     .nav-link::after {
       content: '';
       position: absolute;
@@ -45,7 +65,10 @@
       background: linear-gradient(90deg, #3b82f6, #8b5cf6);
       transition: width 0.3s ease;
     }
-    .nav-link:hover::after { width: 100%; }
+    
+    .nav-link:hover::after { 
+      width: 100%; 
+    }
 
     /* fade-up reveal */
     .reveal {
@@ -53,43 +76,43 @@
       transform: translateY(30px);
       transition: all 0.8s ease;
     }
+    
     .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* placeholder card hover effect */
+    /* Project card styles */
     .project-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
-      min-height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 300;
-      color: #9ca3af;
+      min-height: 250px;
       border-radius: 1rem;
+      overflow: hidden;
     }
+    
     .project-card:hover {
       border-color: #3b82f6;
       transform: translateY(-6px);
       box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
       background: #151a28;
-      color: white;
     }
-    .bg-glass {
-      background: rgba(10, 10, 20, 0.7);
-      backdrop-filter: blur(8px);
+
+    /* Image card styles */
+    .image-card {
+      background: #11131f;
+      transition: all 0.3s;
+      border: 1px solid rgba(59,130,246,0.1);
+      border-radius: 1rem;
+      overflow: hidden;
+      cursor: pointer;
     }
-    input, textarea {
-      background: #0a0c14;
-      border: 1px solid #252a3a;
-      transition: 0.2s;
-    }
-    input:focus, textarea:focus {
+    
+    .image-card:hover {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
     }
 
     /* Social icon styles */
@@ -105,6 +128,7 @@
       transition: all 0.3s ease;
       background: rgba(0,0,0,0.3);
     }
+    
     .social-icon:hover {
       border-color: #3b82f6;
       color: #3b82f6;
@@ -112,48 +136,60 @@
       box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3);
     }
 
-    /* Lightbox animations */
+    /* Lightbox styles */
     #lightbox {
-      transition: opacity 0.3s ease;
-      backdrop-filter: blur(8px);
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
       z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      transition: opacity 0.3s ease;
     }
-
+    
+    #lightbox.active {
+      display: flex;
+    }
+    
     #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 0.5rem;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-
-    .cursor-pointer {
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- canvas starfield (background) -->
+  <!-- Starfield Canvas -->
   <canvas id="starfield"></canvas>
 
-  <!-- navigation -->
+  <!-- Navigation -->
   <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 bg-transparent backdrop-blur-sm">
     <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm md:text-base">
-      <a href="#hero" class="nav-link text-gray-300 hover:text-white">Home</a>
-      <a href="#graphic-design" class="nav-link text-gray-300 hover:text-white">Graphic Design</a>
-      <a href="#photography" class="nav-link text-gray-300 hover:text-white">Photography</a>
-      <a href="#real-estate" class="nav-link text-gray-300 hover:text-white">Real Estate</a>
-      <a href="#contact" class="nav-link text-gray-300 hover:text-white">Get In Touch</a>
+      <a href="#hero" class="nav-link">Home</a>
+      <a href="#graphic-design" class="nav-link">Graphic Design</a>
+      <a href="#photography" class="nav-link">Photography</a>
+      <a href="#real-estate" class="nav-link">Real Estate</a>
+      <a href="#contact" class="nav-link">Get In Touch</a>
     </div>
   </nav>
 
   <!-- HERO SECTION -->
-  <section id="hero" class="h-screen flex items-center justify-center text-center px-6 relative">
-    <div>
+  <section id="hero" class="min-h-screen flex items-center justify-center text-center px-6 pt-20">
+    <div class="reveal active">
       <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
         Luke <span class="text-blue-500">Bianchi</span>
       </h1>
       <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">Graphic Designer & Photographer — capturing stories, crafting visuals.</p>
       <a href="#graphic-design" class="group px-8 py-3 border border-white/20 rounded-full hover:border-blue-500 transition inline-flex items-center gap-2 backdrop-blur-sm bg-black/20">
         View portfolio
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
       </a>
     </div>
   </section>
@@ -161,49 +197,49 @@
   <!-- GRAPHIC DESIGN -->
   <section id="graphic-design" class="py-32 px-6 bg-black/70 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4 reveal">Graphic design</h2>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 reveal">Graphic Design</h2>
       <p class="text-gray-400 mb-12 max-w-2xl reveal">Brand identity, print, digital — minimal and bold.</p>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="project-card reveal">◉  brand identity</div>
-        <div class="project-card reveal">◉  editorial</div>
-        <div class="project-card reveal">◉  motion</div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">◉ brand identity</span>
+        </div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">◉ editorial</span>
+        </div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">◉ motion</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PHOTOGRAPHY WITH CLICKABLE IMAGES -->
+  <!-- PHOTOGRAPHY -->
   <section id="photography" class="py-32 px-6">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl md:text-5xl font-bold mb-4 reveal">Photography</h2>
       <p class="text-gray-400 mb-12 max-w-2xl reveal">Portrait · urban · documentary</p>
       <div class="grid md:grid-cols-3 gap-8">
         
-        <!-- First card - Burst 1.JPG -->
-        <div class="project-card reveal overflow-hidden p-0 relative cursor-pointer" onclick="openLightbox('/images/Burst%201.JPG', 'Burst')">
-          <img src="/images/Burst%201.JPG" 
-               alt="Burst" 
-               class="w-full h-64 object-cover hover:scale-105 transition duration-500">
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <!-- Burst -->
+        <div class="image-card reveal" onclick="openLightbox('/images/Burst%201.JPG', 'Burst')">
+          <img src="/images/Burst%201.JPG" alt="Burst" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+          <div class="p-4 bg-gradient-to-t from-black/70 to-transparent">
             <p class="text-white font-semibold">Burst</p>
           </div>
         </div>
         
-        <!-- Second card - Shallow-space.JPG -->
-        <div class="project-card reveal overflow-hidden p-0 relative cursor-pointer" onclick="openLightbox('/images/Shallow-space.JPG', 'Shallow Space')">
-          <img src="/images/Shallow-space.JPG" 
-               alt="Shallow Space" 
-               class="w-full h-64 object-cover hover:scale-105 transition duration-500">
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <!-- Shallow Space -->
+        <div class="image-card reveal" onclick="openLightbox('/images/Shallow-space.JPG', 'Shallow Space')">
+          <img src="/images/Shallow-space.JPG" alt="Shallow Space" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+          <div class="p-4 bg-gradient-to-t from-black/70 to-transparent">
             <p class="text-white font-semibold">Shallow Space</p>
           </div>
         </div>
         
-        <!-- Third card - IMG-1426.jpg -->
-        <div class="project-card reveal overflow-hidden p-0 relative cursor-pointer" onclick="openLightbox('/images/IMG-1426.jpg', 'IMG 1426')">
-          <img src="/images/IMG-1426.jpg" 
-               alt="IMG 1426" 
-               class="w-full h-64 object-cover hover:scale-105 transition duration-500">
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <!-- IMG 1426 -->
+        <div class="image-card reveal" onclick="openLightbox('/images/IMG-1426.jpg', 'IMG 1426')">
+          <img src="/images/IMG-1426.jpg" alt="IMG 1426" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+          <div class="p-4 bg-gradient-to-t from-black/70 to-transparent">
             <p class="text-white font-semibold">IMG 1426</p>
           </div>
         </div>
@@ -212,24 +248,30 @@
     </div>
   </section>
 
-  <!-- REAL ESTATE PHOTOGRAPHY -->
+  <!-- REAL ESTATE -->
   <section id="real-estate" class="py-32 px-6 bg-black/70 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4 reveal">Real estate</h2>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 reveal">Real Estate</h2>
       <p class="text-gray-400 mb-12 max-w-2xl reveal">Architecture, interiors, twilight & drone</p>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="project-card reveal">🏡  modern loft</div>
-        <div class="project-card reveal">🏠  suburban</div>
-        <div class="project-card reveal">🏢  commercial</div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">🏡 modern loft</span>
+        </div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">🏠 suburban</span>
+        </div>
+        <div class="project-card flex items-center justify-center p-8 reveal">
+          <span class="text-2xl">🏢 commercial</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT + FORM - WITH FORMSPREE INTEGRATION -->
+  <!-- CONTACT -->
   <section id="contact" class="py-32 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
       
-      <!-- left: info with Instagram and LinkedIn icons -->
+      <!-- Left side -->
       <div class="reveal">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's connect</h2>
         <p class="text-gray-400 mb-8 text-lg leading-relaxed">
@@ -241,29 +283,25 @@
           <p><span class="text-blue-400 font-medium">Location:</span> <span class="text-gray-300">Ocean Township, NJ/Remote</span></p>
         </div>
         
-        <!-- Instagram and LinkedIn icons -->
+        <!-- Social icons -->
         <div class="mt-8 flex gap-4">
-          <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+          <a href="https://instagram.com/lukebianchi81" target="_blank" class="social-icon">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/>
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
             </svg>
           </a>
           
-          <a href="https://linkedin.com/in/luke-bianchi-8561b6388/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/luke-bianchi-8561b6388/" target="_blank" class="social-icon">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065z"/>
             </svg>
           </a>
         </div>
       </div>
 
-      <!-- right: Formspree contact form -->
+      <!-- Contact form -->
       <div class="bg-gray-900/60 p-8 rounded-2xl backdrop-blur-sm border border-gray-800 reveal">
-        <form id="contactForm" action="https://formspree.io/f/mbdavgjb" method="POST" class="space-y-6">
-          <input type="hidden" name="_subject" value="New Portfolio Contact from LukeBianchi.design">
-          <input type="hidden" name="_replyto" value="email">
-          <input type="text" name="_gotcha" style="display:none">
-          
+        <form id="contactForm" class="space-y-6">
           <div>
             <input type="text" id="name" name="name" placeholder="Your name" required 
                    class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white">
@@ -277,320 +315,145 @@
                       class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white"></textarea>
           </div>
           <button type="submit" 
-                  class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition shadow-lg shadow-blue-600/20">
+                  class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition">
             Send message
           </button>
-          <p id="formFeedback" class="text-sm text-center h-4 text-green-400"></p>
+          <p id="formFeedback" class="text-sm text-center text-green-400"></p>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- LIGHTBOX MODAL -->
-  <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center" onclick="closeLightbox()">
-    <div class="relative max-w-6xl max-h-screen p-4" onclick="event.stopPropagation()">
-      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg">
+  <!-- LIGHTBOX -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <div class="relative" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="">
       <p id="lightbox-caption" class="text-white text-center mt-4 text-lg"></p>
-      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 transition">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-3">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-      <button onclick="changeImage(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 transition">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-      </button>
-      <button onclick="changeImage(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 transition">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- simple footer -->
+  <!-- Footer -->
   <footer class="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
     <p>© 2026 Luke Bianchi</p>
   </footer>
 
   <script>
-    (function() {
-      // ---------- THREE.JS PHOTOREALISTIC STARFIELD WITH SOFT GLOW ----------
-      const canvas = document.getElementById('starfield');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+    // Three.js Starfield
+    const canvas = document.getElementById('starfield');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    camera.position.z = 50;
+
+    // Create stars
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsCount = 2000;
+    const positions = new Float32Array(starsCount * 3);
+    
+    for (let i = 0; i < starsCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 200;
+      positions[i+1] = (Math.random() - 0.5) * 200;
+      positions[i+2] = (Math.random() - 0.5) * 200;
+    }
+    
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.15,
+      transparent: true
+    });
+    
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+
+    // Animation
+    function animate() {
+      requestAnimationFrame(animate);
+      stars.rotation.y += 0.0002;
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.position.z = 60;
+    });
 
-      // Create a canvas texture for a soft, circular star with falloff
-      function createStarTexture() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 64;
-        canvas.height = 64;
-        const ctx = canvas.getContext('2d');
-        
-        ctx.clearRect(0, 0, 64, 64);
-        
-        const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.9)');
-        gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.5)');
-        gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.2)');
-        gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0.05)');
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 64, 64);
-        
-        ctx.beginPath();
-        ctx.arc(32, 32, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
-        ctx.fill();
-        
-        return new THREE.CanvasTexture(canvas);
-      }
-
-      const starTexture = createStarTexture();
-
-      // Layer 1: Distant background stars
-      const layer1Geo = new THREE.BufferGeometry();
-      const pos1 = [], col1 = [];
-      for (let i = 0; i < 3000; i++) {
-        const r = 150 + Math.random() * 100;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos1.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const tint = Math.random();
-        if (tint < 0.3) {
-          col1.push(1.0, 0.8, 0.6);
-        } else if (tint < 0.7) {
-          col1.push(0.9, 0.9, 1.0);
-        } else {
-          col1.push(0.7, 0.8, 1.0);
-        }
-      }
-      layer1Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos1, 3));
-      layer1Geo.setAttribute('color', new THREE.Float32BufferAttribute(col1, 3));
-      const layer1Mat = new THREE.PointsMaterial({ size: 0.25, map: starTexture, vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, depthWrite: false, opacity: 0.7 });
-      const layer1 = new THREE.Points(layer1Geo, layer1Mat);
-      scene.add(layer1);
-
-      // Layer 2: Mid-distance stars
-      const layer2Geo = new THREE.BufferGeometry();
-      const pos2 = [], col2 = [];
-      for (let i = 0; i < 2000; i++) {
-        const r = 70 + Math.random() * 80;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos2.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const randc = Math.random();
-        if (randc < 0.4) {
-          col2.push(1.0, 0.8, 0.5);
-        } else if (randc < 0.8) {
-          col2.push(1.0, 1.0, 0.9);
-        } else {
-          col2.push(0.6, 0.8, 1.0);
-        }
-      }
-      layer2Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos2, 3));
-      layer2Geo.setAttribute('color', new THREE.Float32BufferAttribute(col2, 3));
-      const layer2Mat = new THREE.PointsMaterial({ size: 0.4, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 0.85 });
-      const layer2 = new THREE.Points(layer2Geo, layer2Mat);
-      scene.add(layer2);
-
-      // Layer 3: Foreground bright stars
-      const layer3Geo = new THREE.BufferGeometry();
-      const pos3 = [], col3 = [];
-      for (let i = 0; i < 800; i++) {
-        const r = 30 + Math.random() * 50;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos3.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const randc = Math.random();
-        if (randc < 0.3) {
-          col3.push(1.0, 0.5, 0.3);
-        } else if (randc < 0.6) {
-          col3.push(1.0, 1.0, 0.7);
-        } else {
-          col3.push(0.5, 0.7, 1.0);
-        }
-      }
-      layer3Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos3, 3));
-      layer3Geo.setAttribute('color', new THREE.Float32BufferAttribute(col3, 3));
-      const layer3Mat = new THREE.PointsMaterial({ size: 0.7, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 1.0 });
-      const layer3 = new THREE.Points(layer3Geo, layer3Mat);
-      scene.add(layer3);
-
-      // Layer 4: Very close, bright "beacon" stars
-      const layer4Geo = new THREE.BufferGeometry();
-      const pos4 = [], col4 = [];
-      for (let i = 0; i < 150; i++) {
-        const r = 15 + Math.random() * 25;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos4.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        if (Math.random() > 0.5) {
-          col4.push(1.0, 0.9, 0.5);
-        } else {
-          col4.push(0.5, 0.8, 1.0);
-        }
-      }
-      layer4Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos4, 3));
-      layer4Geo.setAttribute('color', new THREE.Float32BufferAttribute(col4, 3));
-      const layer4Mat = new THREE.PointsMaterial({ size: 1.2, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 1.0 });
-      const layer4 = new THREE.Points(layer4Geo, layer4Mat);
-      scene.add(layer4);
-
-      // Background glow layer
-      const bgGlowGeo = new THREE.BufferGeometry();
-      const bgPos = [];
-      for (let i = 0; i < 5000; i++) {
-        const r = 200 + Math.random() * 200;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        bgPos.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-      }
-      bgGlowGeo.setAttribute('position', new THREE.Float32BufferAttribute(bgPos, 3));
-      const bgGlowMat = new THREE.PointsMaterial({ size: 0.15, color: 0xaaccff, map: starTexture, transparent: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.3, depthWrite: false });
-      const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
-      scene.add(bgGlow);
-
-      // Mouse interaction
-      let targetX = 0, targetY = 0;
-      let currentX = 0, currentY = 0;
-      let heroActive = true;
-      const heroSection = document.getElementById('hero');
-
-      document.addEventListener('mousemove', (e) => {
-        if (heroActive) {
-          targetX = (e.clientX / window.innerWidth) * 2 - 1;
-          targetY = (e.clientY / window.innerHeight) * 2 - 1;
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
         }
       });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(r => observer.observe(r));
 
-      function animate() {
-        requestAnimationFrame(animate);
+    // Lightbox functions
+    function openLightbox(src, caption) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const captionEl = document.getElementById('lightbox-caption');
+      
+      img.src = src;
+      captionEl.textContent = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-        const heroRect = heroSection.getBoundingClientRect();
-        const viewportMid = window.innerHeight / 2;
-        heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
 
-        currentX += (targetX - currentX) * 0.02;
-        currentY += (targetY - currentY) * 0.02;
+    // Form handler
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
 
-        layer1.rotation.y += 0.0001;
-        layer1.rotation.x += 0.00005;
-        layer2.rotation.y += 0.0002;
-        layer2.rotation.x += 0.0001;
-        layer3.rotation.y += 0.0003;
-        layer3.rotation.x += 0.00015;
-        layer4.rotation.y += 0.0004;
-        layer4.rotation.x += 0.0002;
-        bgGlow.rotation.y += 0.00005;
-        bgGlow.rotation.x += 0.00002;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
 
-        if (heroActive) {
-          layer1.rotation.y += currentX * 0.0003;
-          layer1.rotation.x += currentY * 0.0002;
-          layer2.rotation.y += currentX * 0.0004;
-          layer2.rotation.x += currentY * 0.0003;
-          layer3.rotation.y += currentX * 0.0005;
-          layer3.rotation.x += currentY * 0.0004;
-          layer4.rotation.y += currentX * 0.0006;
-          layer4.rotation.x += currentY * 0.0005;
-          bgGlow.rotation.y += currentX * 0.0002;
-          bgGlow.rotation.x += currentY * 0.00015;
-        }
-
-        renderer.render(scene, camera);
+      if (!name || !email || !message) {
+        feedback.textContent = '⚠️ Please fill in all fields.';
+        feedback.style.color = '#fbbf24';
+        return;
       }
-      animate();
+      
+      feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
+      feedback.style.color = '#4ade80';
+      form.reset();
+    });
 
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      // ---------- REVEAL ON SCROLL ----------
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-      reveals.forEach(r => observer.observe(r));
-
-      // ---------- FORMSPREE AJAX FORM HANDLER ----------
-      const form = document.getElementById('contactForm');
-      const feedback = document.getElementById('formFeedback');
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !message) {
-          feedback.textContent = '⚠️ Please fill in all fields.';
-          feedback.style.color = '#fbbf24';
-          return;
-        }
-        if (!email.includes('@') || !email.includes('.')) {
-          feedback.textContent = '📧 Please enter a valid email.';
-          feedback.style.color = '#f87171';
-          return;
-        }
-
-        feedback.textContent = '⏱️ Sending...';
-        feedback.style.color = '#9ca3af';
-        
-        try {
-          const response = await fetch('https://formspree.io/f/mbdavgjb', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: name,
-              email: email,
-              message: message,
-              _subject: 'New Portfolio Contact from LukeBianchi.design'
-            })
-          });
-          
-          if (response.ok) {
-            feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
-            feedback.style.color = '#4ade80';
-            form.reset();
-          } else {
-            feedback.textContent = '❌ Something went wrong. Please try again.';
-            feedback.style.color = '#f87171';
-          }
-        } catch (error) {
-          feedback.textContent = '❌ Network error. Please check your connection.';
-          feedback.style.color = '#f87171';
-        }
-      });
-
-      // Nav background on scroll
-      const nav = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.remove('py-5');
-        } else {
-          nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.add('py-5');
-        }
-      });
-
-      // ---------- LIGHTBOX FUNCTIONALITY ----------
-      const lightboxImages = [
-        { src: '/images/Burst%201.JPG', caption: 'B
+    // Nav background on scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3');
+        nav.classList.remove('py-5');
+      } else {
+        nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3');
+        nav.classList.add('py-5');
+      }
+    });
+  </script>
+</body>
+</html>
