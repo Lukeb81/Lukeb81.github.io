@@ -71,7 +71,7 @@
       border: 1px solid rgba(59,130,246,0.1);
       border-radius: 1rem;
       overflow: hidden;
-      aspect-ratio: 1 / 1; /* Makes cards square - perfect for images */
+      aspect-ratio: 1 / 1;
       position: relative;
     }
     .image-card:hover {
@@ -118,7 +118,7 @@
       font-size: 0.875rem;
     }
 
-    /* Placeholder card (for when you don't have an image yet) */
+    /* Placeholder card */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
@@ -130,6 +130,8 @@
       justify-content: center;
       color: #6b7280;
       transition: all 0.3s;
+      text-align: center;
+      padding: 1rem;
     }
     
     .placeholder-card:hover {
@@ -141,6 +143,17 @@
     .placeholder-icon {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
+    }
+    
+    .placeholder-title {
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+    
+    .placeholder-subtitle {
+      font-size: 0.75rem;
+      color: #6b7280;
     }
 
     /* Social icon styles */
@@ -177,7 +190,7 @@
 </head>
 <body>
 
-  <!-- canvas starfield (background) -->
+  <!-- canvas starfield (background) - STATIC VERSION FROM PHOTOGRAPHY.HTML -->
   <canvas id="starfield"></canvas>
 
   <!-- navigation -->
@@ -197,109 +210,76 @@
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Graphic Design</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Brand identity · print · digital — minimal and bold.</p>
       
-      <!-- IMAGE-READY GRID - Just replace the src paths with your actual images -->
+      <!-- IMAGE-READY GRID - 6 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- 
           TO ADD YOUR IMAGES:
           1. Upload your images to: /images/graphic-design/ folder
-          2. Replace the src="/images/graphic-design/your-image.jpg" with your actual file names
-          3. Update the title and category text
-          4. Remove the placeholder div when you add a real image
-        -->
-        
-        <!-- EXAMPLE WITH ACTUAL IMAGE - Uncomment and use this format -->
-        <!-- 
-        <div class="image-card reveal">
-          <img src="/images/graphic-design/brand-identity.jpg" alt="Brand Identity Project">
-          <div class="overlay">
-            <div class="project-title">Brand Identity</div>
-            <div class="project-category">Logo · Guidelines · Stationery</div>
+          2. Replace the placeholder div with this format:
+          
+          <div class="image-card reveal">
+            <img src="/images/graphic-design/your-image.jpg" alt="Project Title">
+            <div class="overlay">
+              <div class="project-title">Your Title</div>
+              <div class="project-category">Category</div>
+            </div>
           </div>
-        </div>
         -->
         
         <!-- Placeholder Card 1 - Brand Identity -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">◉</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Brand Identity</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Brand Identity</div>
+          <div class="placeholder-subtitle">Logo · Guidelines · Stationery</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
         <!-- Placeholder Card 2 - Editorial -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">📖</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Editorial</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Editorial</div>
+          <div class="placeholder-subtitle">Magazines · Books · Reports</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
         <!-- Placeholder Card 3 - Motion -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">🎬</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Motion</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Motion</div>
+          <div class="placeholder-subtitle">Animation · Video Graphics</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
         <!-- Placeholder Card 4 - Packaging -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">📦</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Packaging</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Packaging</div>
+          <div class="placeholder-subtitle">Product · Labels · Unboxing</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
         <!-- Placeholder Card 5 - Digital -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">💻</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Digital</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Digital</div>
+          <div class="placeholder-subtitle">Web · Social · Email</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
         <!-- Placeholder Card 6 - Print -->
         <div class="placeholder-card reveal">
           <div class="placeholder-icon">🖨️</div>
-          <div class="text-center">
-            <p class="font-semibold text-white mb-1">Print</p>
-            <p class="text-sm">Ready for image</p>
-            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
-          </div>
+          <div class="placeholder-title">Print</div>
+          <div class="placeholder-subtitle">Posters · Flyers · Signage</div>
+          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
         </div>
         
       </div>
-
-      <!-- INSTRUCTIONS FOR ADDING MORE ROWS -->
-      <!-- 
-      To add another row of 3 images, copy this block:
       
+      <!-- You can add more rows of projects here -->
+      <!-- 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="image-card reveal">
-          <img src="/images/graphic-design/your-image.jpg" alt="Project">
-          <div class="overlay">
-            <div class="project-title">Project Title</div>
-            <div class="project-category">Category</div>
-          </div>
-        </div>
-        <div class="image-card reveal">
-          <img src="/images/graphic-design/your-image.jpg" alt="Project">
-          <div class="overlay">
-            <div class="project-title">Project Title</div>
-            <div class="project-category">Category</div>
-          </div>
-        </div>
         <div class="image-card reveal">
           <img src="/images/graphic-design/your-image.jpg" alt="Project">
           <div class="overlay">
@@ -309,11 +289,10 @@
         </div>
       </div>
       -->
-      
     </div>
   </section>
 
-  <!-- CONTACT SECTION (same as index.html) -->
+  <!-- CONTACT SECTION -->
   <section id="contact" class="py-32 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
       
@@ -333,13 +312,13 @@
         <div class="mt-8 flex gap-4">
           <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/>
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
             </svg>
           </a>
           
           <a href="https://linkedin.com/in/luke-bianchi-8561b6388/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065z"/>
             </svg>
           </a>
         </div>
@@ -348,7 +327,6 @@
       <!-- right side - contact form -->
       <div class="bg-gray-900/60 p-8 rounded-2xl backdrop-blur-sm border border-gray-800 reveal">
         <form id="contactForm" action="https://formspree.io/f/mbdavgjb" method="POST" class="space-y-6">
-          <!-- Formspree required fields -->
           <input type="hidden" name="_subject" value="New Portfolio Contact from LukeBianchi.design">
           <input type="hidden" name="_replyto" value="email">
           <input type="text" name="_gotcha" style="display:none">
@@ -382,11 +360,11 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STATIC STARFIELD (NO MOUSE INTERACTION) ----------
+      // ---------- THREE.JS STATIC STARFIELD (FROM PHOTOGRAPHY.HTML) ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -402,12 +380,12 @@
         ctx.clearRect(0, 0, 64, 64);
         
         const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.9)');
-        gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.5)');
-        gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.2)');
-        gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0.05)');
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        gradient.addColorStop(0, 'rgba(255,255,255,1)');
+        gradient.addColorStop(0.3, 'rgba(255,255,255,0.9)');
+        gradient.addColorStop(0.5, 'rgba(255,255,255,0.5)');
+        gradient.addColorStop(0.7, 'rgba(255,255,255,0.2)');
+        gradient.addColorStop(0.9, 'rgba(255,255,255,0.05)');
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
         
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 64, 64);
@@ -422,109 +400,55 @@
 
       const starTexture = createStarTexture();
 
-      // Layer 1: Distant background stars
+      // Layer 1 - Distant stars (slower rotation)
       const layer1Geo = new THREE.BufferGeometry();
-      const pos1 = [], col1 = [];
-      for (let i = 0; i < 3000; i++) {
-        const r = 150 + Math.random() * 100;
+      const pos1 = [];
+      for (let i = 0; i < 2000; i++) {
+        const r = 100 + Math.random() * 100;
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos((Math.random() * 2) - 1);
-        pos1.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const tint = Math.random();
-        if (tint < 0.3) {
-          col1.push(1.0, 0.8, 0.6); // warm
-        } else if (tint < 0.7) {
-          col1.push(0.9, 0.9, 1.0); // cool white
-        } else {
-          col1.push(0.7, 0.8, 1.0); // blue
-        }
+        pos1.push(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta),
+          r * Math.cos(phi)
+        );
       }
       layer1Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos1, 3));
-      layer1Geo.setAttribute('color', new THREE.Float32BufferAttribute(col1, 3));
-      const layer1Mat = new THREE.PointsMaterial({ size: 0.25, map: starTexture, vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, depthWrite: false, opacity: 0.7 });
+      const layer1Mat = new THREE.PointsMaterial({ size: 0.2, map: starTexture, color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending });
       const layer1 = new THREE.Points(layer1Geo, layer1Mat);
       scene.add(layer1);
 
-      // Layer 2: Mid-distance stars
+      // Layer 2 - Closer stars (slightly faster rotation)
       const layer2Geo = new THREE.BufferGeometry();
-      const pos2 = [], col2 = [];
-      for (let i = 0; i < 2000; i++) {
-        const r = 70 + Math.random() * 80;
+      const pos2 = [];
+      for (let i = 0; i < 1000; i++) {
+        const r = 40 + Math.random() * 60;
         const theta = Math.random() * Math.PI * 2;
         const phi = Math.acos((Math.random() * 2) - 1);
-        pos2.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const randc = Math.random();
-        if (randc < 0.4) {
-          col2.push(1.0, 0.8, 0.5); // orange
-        } else if (randc < 0.8) {
-          col2.push(1.0, 1.0, 0.9); // white
-        } else {
-          col2.push(0.6, 0.8, 1.0); // blue
-        }
+        pos2.push(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta),
+          r * Math.cos(phi)
+        );
       }
       layer2Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos2, 3));
-      layer2Geo.setAttribute('color', new THREE.Float32BufferAttribute(col2, 3));
-      const layer2Mat = new THREE.PointsMaterial({ size: 0.4, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 0.85 });
+      const layer2Mat = new THREE.PointsMaterial({ size: 0.3, map: starTexture, color: 0xaaccff, transparent: true, blending: THREE.AdditiveBlending });
       const layer2 = new THREE.Points(layer2Geo, layer2Mat);
       scene.add(layer2);
 
-      // Layer 3: Foreground bright stars
-      const layer3Geo = new THREE.BufferGeometry();
-      const pos3 = [], col3 = [];
-      for (let i = 0; i < 800; i++) {
-        const r = 30 + Math.random() * 50;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos3.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        const randc = Math.random();
-        if (randc < 0.3) {
-          col3.push(1.0, 0.5, 0.3); // red giant
-        } else if (randc < 0.6) {
-          col3.push(1.0, 1.0, 0.7); // yellow
-        } else {
-          col3.push(0.5, 0.7, 1.0); // blue giant
-        }
-      }
-      layer3Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos3, 3));
-      layer3Geo.setAttribute('color', new THREE.Float32BufferAttribute(col3, 3));
-      const layer3Mat = new THREE.PointsMaterial({ size: 0.7, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 1.0 });
-      const layer3 = new THREE.Points(layer3Geo, layer3Mat);
-      scene.add(layer3);
-
-      // Layer 4: Very close bright "beacon" stars
-      const layer4Geo = new THREE.BufferGeometry();
-      const pos4 = [], col4 = [];
-      for (let i = 0; i < 150; i++) {
-        const r = 15 + Math.random() * 25;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos4.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-        if (Math.random() > 0.5) {
-          col4.push(1.0, 0.9, 0.5); // gold
-        } else {
-          col4.push(0.5, 0.8, 1.0); // ice blue
-        }
-      }
-      layer4Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos4, 3));
-      layer4Geo.setAttribute('color', new THREE.Float32BufferAttribute(col4, 3));
-      const layer4Mat = new THREE.PointsMaterial({ size: 1.2, map: starTexture, vertexColors: true, blending: THREE.AdditiveBlending, sizeAttenuation: true, transparent: true, depthWrite: false, opacity: 1.0 });
-      const layer4 = new THREE.Points(layer4Geo, layer4Mat);
-      scene.add(layer4);
-
-      // Simple animation loop - just constant rotation, no mouse interaction
+      // Animation loop - slow constant rotation
       function animate() {
         requestAnimationFrame(animate);
-
-        // Very slow constant rotation - almost imperceptible
-        layer1.rotation.y += 0.00005;
-        layer2.rotation.y += 0.00003;
-        layer3.rotation.y += 0.00002;
-        layer4.rotation.y += 0.00001;
-
+        
+        // Different rotation speeds for depth effect
+        layer1.rotation.y += 0.0001;
+        layer2.rotation.y += 0.00005;
+        
         renderer.render(scene, camera);
       }
       animate();
 
+      // Handle window resize
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -539,7 +463,7 @@
             entry.target.classList.add('active');
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+      }, { threshold: 0.1 });
       reveals.forEach(r => observer.observe(r));
 
       // ---------- FORMSPREE FORM HANDLER ----------
