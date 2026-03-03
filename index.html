@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS REALISTIC STARFIELD WITH SLOW, SUBTLE MOVEMENT ----------
+      // ---------- THREE.JS REALISTIC STARFIELD WITH GENTLE THRUSTER MOVEMENT ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,9 +342,10 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // Mouse interaction - SLOWED DOWN for subtle movement
+      // Mouse interaction - GENTLE THRUSTER EFFECT
       let targetX = 0, targetY = 0;
       let currentX = 0, currentY = 0;
+      let velocityX = 0, velocityY = 0; // For thruster-like momentum
       let heroActive = true;
       const heroSection = document.getElementById('hero');
 
@@ -362,28 +363,50 @@
         const viewportMid = window.innerHeight / 2;
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
-        currentX += (targetX - currentX) * 0.02;
-        currentY += (targetY - currentY) * 0.02;
-
         if (heroActive) {
-          // SLOWED DOWN: Drastically reduced multipliers for subtle movement
-          // Base rotation continues with original slow speeds
-          layer1.rotation.y += 0.0001 + currentX * 0.00005;
-          layer1.rotation.x += 0.00005 + currentY * 0.00003;
+          // THRUSTER EFFECT: Add acceleration toward target, then smooth decay
+          // This creates a gentle push rather than instant movement
+          velocityX += (targetX - currentX) * 0.001; // Acceleration
+          velocityY += (targetY - currentY) * 0.001;
           
-          layer2.rotation.y += 0.0002 + currentX * 0.00008;
-          layer2.rotation.x += 0.0001 + currentY * 0.00005;
+          // Apply friction to slow down over time (thruster cut-off feel)
+          velocityX *= 0.98;
+          velocityY *= 0.98;
           
-          layer3.rotation.y += 0.0003 + currentX * 0.0001;
-          layer3.rotation.x += 0.00015 + currentY * 0.00008;
+          // Update position with velocity
+          currentX += velocityX;
+          currentY += velocityY;
           
-          layer4.rotation.y += 0.0004 + currentX * 0.00012;
-          layer4.rotation.x += 0.0002 + currentY * 0.0001;
+          // Clamp to reasonable range
+          currentX = Math.max(-1, Math.min(1, currentX));
+          currentY = Math.max(-1, Math.min(1, currentY));
           
-          bgGlow.rotation.y += 0.00005 + currentX * 0.00003;
-          bgGlow.rotation.x += 0.00002 + currentY * 0.00002;
+          // Apply very subtle rotation based on current position
+          // The multipliers are extremely small for gentle movement
+          layer1.rotation.y += 0.0001 + currentX * 0.00008;
+          layer1.rotation.x += 0.00005 + currentY * 0.00005;
+          
+          layer2.rotation.y += 0.0002 + currentX * 0.00012;
+          layer2.rotation.x += 0.0001 + currentY * 0.00008;
+          
+          layer3.rotation.y += 0.0003 + currentX * 0.00015;
+          layer3.rotation.x += 0.00015 + currentY * 0.0001;
+          
+          layer4.rotation.y += 0.0004 + currentX * 0.00018;
+          layer4.rotation.x += 0.0002 + currentY * 0.00012;
+          
+          bgGlow.rotation.y += 0.00005 + currentX * 0.00004;
+          bgGlow.rotation.x += 0.00002 + currentY * 0.00003;
         } else {
-          // When not in hero, just use constant rotation
+          // When not in hero, slowly drift back to center and continue base rotation
+          velocityX += (0 - currentX) * 0.0005;
+          velocityY += (0 - currentY) * 0.0005;
+          velocityX *= 0.98;
+          velocityY *= 0.98;
+          currentX += velocityX;
+          currentY += velocityY;
+          
+          // Base rotation only
           layer1.rotation.y += 0.0001;
           layer1.rotation.x += 0.00005;
           layer2.rotation.y += 0.0002;
