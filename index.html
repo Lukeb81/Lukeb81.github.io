@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD WITH FIXED LEFT/RIGHT MOVEMENT ----------
+      // ---------- THREE.JS STARFIELD WITH THRUSTER PHYSICS + DIRECT CONTROL ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,25 +342,25 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // SIMPLE DIRECT MOUSE CONTROL - Left/Right should work now
-      let targetRotY = 0;  // Horizontal rotation (left/right)
-      let targetRotX = 0;  // Vertical rotation (up/down)
-      let currentRotY = 0;
-      let currentRotX = 0;
+      // PERFECT THRUSTER - Momentum + Even Control
+      let velocityY = 0;      // Horizontal velocity (left/right)
+      let velocityX = 0;      // Vertical velocity (up/down)
       
-      // Base drift - slow left rotation
-      let baseRotation = 0;
+      // Mouse target position (where mouse wants to push)
+      let targetY = 0;
+      let targetX = 0;
+      
+      // Base drift - constant slow left rotation
+      const baseDrift = -0.00005;
       
       let heroActive = true;
       const heroSection = document.getElementById('hero');
 
       document.addEventListener('mousemove', (e) => {
         if (heroActive) {
-          // Map mouse to rotation targets
-          // Left/right (Y rotation): -0.5 to 0.5 range
-          targetRotY = (e.clientX / window.innerWidth - 0.5) * 0.8;
-          // Up/down (X rotation): -0.3 to 0.3 range  
-          targetRotX = (e.clientY / window.innerHeight - 0.5) * 0.5;
+          // Map mouse to target range (-0.8 to 0.8)
+          targetY = (e.clientX / window.innerWidth - 0.5) * 1.6;
+          targetX = (e.clientY / window.innerHeight - 0.5) * 1.0;
         }
       });
 
@@ -371,30 +371,43 @@
         const viewportMid = window.innerHeight / 2;
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
-        // Slowly increase base rotation to the left
-        baseRotation -= 0.0001;
+        if (heroActive) {
+          // THRUSTER: Velocity accelerates toward target
+          // This creates the momentum effect
+          velocityY += (targetY - velocityY) * 0.002;
+          velocityX += (targetX - velocityX) * 0.002;
+          
+          // Light damping so momentum slowly fades
+          velocityY *= 0.998;
+          velocityX *= 0.998;
+        } else {
+          // When not in hero, return to base drift
+          velocityY *= 0.99;
+          velocityX *= 0.99;
+        }
         
-        // Smoothly interpolate current rotation to target
-        currentRotY += (targetRotY - currentRotY) * 0.02;
-        currentRotX += (targetRotX - currentRotX) * 0.02;
-
-        // Apply rotations: BASE + MOUSE
-        // Y rotation = horizontal (left/right)
-        // X rotation = vertical (up/down)
-        layer1.rotation.y = baseRotation * 0.5 + currentRotY * 0.3;
-        layer1.rotation.x = currentRotX * 0.2;
+        // Always add base drift (constant left rotation)
+        velocityY += baseDrift;
         
-        layer2.rotation.y = baseRotation * 0.8 + currentRotY * 0.4;
-        layer2.rotation.x = currentRotX * 0.25;
+        // Gentle limits
+        velocityY = Math.max(-0.002, Math.min(0.002, velocityY));
+        velocityX = Math.max(-0.001, Math.min(0.001, velocityX));
         
-        layer3.rotation.y = baseRotation * 1.2 + currentRotY * 0.5;
-        layer3.rotation.x = currentRotX * 0.3;
+        // Apply velocities to rotations (parallax effect)
+        layer1.rotation.y += velocityY * 0.5;
+        layer1.rotation.x += velocityX * 0.4;
         
-        layer4.rotation.y = baseRotation * 1.5 + currentRotY * 0.6;
-        layer4.rotation.x = currentRotX * 0.35;
+        layer2.rotation.y += velocityY * 0.8;
+        layer2.rotation.x += velocityX * 0.6;
         
-        bgGlow.rotation.y = baseRotation * 0.3 + currentRotY * 0.2;
-        bgGlow.rotation.x = currentRotX * 0.15;
+        layer3.rotation.y += velocityY * 1.2;
+        layer3.rotation.x += velocityX * 0.8;
+        
+        layer4.rotation.y += velocityY * 1.5;
+        layer4.rotation.x += velocityX * 1.0;
+        
+        bgGlow.rotation.y += velocityY * 0.3;
+        bgGlow.rotation.x += velocityX * 0.2;
 
         renderer.render(scene, camera);
       }
