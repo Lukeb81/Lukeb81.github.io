@@ -199,7 +199,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STARFIELD WITH CONSTANT LEFT ROTATION + EVEN MOUSE ----------
+      // ---------- THREE.JS STARFIELD WITH THRUSTER PHYSICS ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -342,20 +342,24 @@
       const bgGlow = new THREE.Points(bgGlowGeo, bgGlowMat);
       scene.add(bgGlow);
 
-      // SEPARATE BASE ROTATION AND MOUSE OFFSET
-      let baseRotY = 0;  // Accumulates constant left rotation
-      let targetOffsetY = 0;
-      let targetOffsetX = 0;
-      let currentOffsetY = 0;
-      let currentOffsetX = 0;
+      // THRUSTER PHYSICS - Stars have momentum
+      let velocityY = 0;      // Current rotational velocity (horizontal)
+      let velocityX = 0;      // Current rotational velocity (vertical)
+      
+      // Base drift - constant left drift
+      const baseDrift = -0.00015;  // Negative = left
+      
+      // Mouse position for thrust direction
+      let mouseX = 0;
+      let mouseY = 0;
       let heroActive = true;
       const heroSection = document.getElementById('hero');
 
       document.addEventListener('mousemove', (e) => {
         if (heroActive) {
-          // Map mouse to offset range (-0.5 to 0.5) - symmetrical for all directions
-          targetOffsetY = (e.clientX / window.innerWidth - 0.5) * 0.8;
-          targetOffsetX = (e.clientY / window.innerHeight - 0.5) * 0.5;
+          // Map mouse to thrust direction (-1 to 1)
+          mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+          mouseY = (e.clientY / window.innerHeight) * 2 - 1;
         }
       });
 
@@ -366,29 +370,35 @@
         const viewportMid = window.innerHeight / 2;
         heroActive = (heroRect.top <= viewportMid && heroRect.bottom >= viewportMid);
 
-        // Constant left rotation (negative values = left)
-        baseRotY -= 0.0002;  // Negative for left rotation
+        if (heroActive) {
+          // THRUSTER EFFECT: Mouse pushes velocity in its direction
+          // The farther the mouse is from center, the stronger the push
+          velocityY += mouseX * 0.00003;  // Mouse left/right pushes Y rotation
+          velocityX += mouseY * 0.00002;  // Mouse up/down pushes X rotation
+          
+          // Apply friction/damping (energy slowly dissipates)
+          velocityY *= 0.99;
+          velocityX *= 0.99;
+        }
         
-        // Smoothly interpolate mouse offset
-        currentOffsetY += (targetOffsetY - currentOffsetY) * 0.02;
-        currentOffsetX += (targetOffsetX - currentOffsetX) * 0.02;
-
-        // Apply rotation = BASE + MOUSE OFFSET
-        // This way they don't fight - mouse just adds on top of constant rotation
-        layer1.rotation.y = baseRotY * 0.5 + currentOffsetY * 0.3;
-        layer1.rotation.x = currentOffsetX * 0.2;
+        // Always apply base drift (constant left rotation)
+        velocityY += baseDrift;
         
-        layer2.rotation.y = baseRotY * 0.8 + currentOffsetY * 0.4;
-        layer2.rotation.x = currentOffsetX * 0.25;
+        // Apply velocities to rotations (with different multipliers for depth)
+        layer1.rotation.y += velocityY * 0.5;
+        layer1.rotation.x += velocityX * 0.4;
         
-        layer3.rotation.y = baseRotY * 1.2 + currentOffsetY * 0.5;
-        layer3.rotation.x = currentOffsetX * 0.3;
+        layer2.rotation.y += velocityY * 0.8;
+        layer2.rotation.x += velocityX * 0.6;
         
-        layer4.rotation.y = baseRotY * 1.5 + currentOffsetY * 0.6;
-        layer4.rotation.x = currentOffsetX * 0.35;
+        layer3.rotation.y += velocityY * 1.2;
+        layer3.rotation.x += velocityX * 0.8;
         
-        bgGlow.rotation.y = baseRotY * 0.3 + currentOffsetY * 0.2;
-        bgGlow.rotation.x = currentOffsetX * 0.15;
+        layer4.rotation.y += velocityY * 1.5;
+        layer4.rotation.x += velocityX * 1.0;
+        
+        bgGlow.rotation.y += velocityY * 0.3;
+        bgGlow.rotation.x += velocityX * 0.2;
 
         renderer.render(scene, camera);
       }
