@@ -64,68 +64,83 @@
       transform: translateY(0);
     }
 
-    /* Project card styles for graphic design */
-    .project-card {
+    /* Image-ready card styles */
+    .image-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
-      min-height: 300px;
+      border-radius: 1rem;
+      overflow: hidden;
+      aspect-ratio: 1 / 1; /* Makes cards square - perfect for images */
+      position: relative;
+    }
+    .image-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
+    }
+    
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .image-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .image-card .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 1.5rem 1rem 1rem 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .image-card:hover .overlay {
+      opacity: 1;
+    }
+    
+    .image-card .project-title {
+      color: white;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .image-card .project-category {
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+
+    /* Placeholder card (for when you don't have an image yet) */
+    .placeholder-card {
+      background: #11131f;
+      border: 2px dashed #374151;
+      border-radius: 1rem;
+      aspect-ratio: 1 / 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-weight: 300;
-      color: #9ca3af;
-      border-radius: 1rem;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
+      color: #6b7280;
+      transition: all 0.3s;
     }
-    .project-card:hover {
+    
+    .placeholder-card:hover {
       border-color: #3b82f6;
-      transform: translateY(-6px);
-      box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
-      background: #151a28;
-      color: white;
+      color: #9ca3af;
+      background: #1a1f2e;
     }
-
-    /* Optional overlay for future image backgrounds */
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .project-card:hover::before {
-      opacity: 1;
-    }
-
-    .project-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .project-title {
-      font-size: 1.5rem;
-      font-weight: 600;
+    
+    .placeholder-icon {
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .project-description {
-      font-size: 0.9rem;
-      text-align: center;
-      opacity: 0.7;
-      position: relative;
-      z-index: 1;
     }
 
     /* Social icon styles */
@@ -182,62 +197,119 @@
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Graphic Design</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Brand identity · print · digital — minimal and bold.</p>
       
+      <!-- IMAGE-READY GRID - Just replace the src paths with your actual images -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 1 - Brand Identity -->
-        <div class="project-card reveal">
-          <div class="project-icon">◉</div>
-          <h3 class="project-title">Brand Identity</h3>
-          <p class="project-description">Logo design, brand guidelines, stationery</p>
+        <!-- 
+          TO ADD YOUR IMAGES:
+          1. Upload your images to: /images/graphic-design/ folder
+          2. Replace the src="/images/graphic-design/your-image.jpg" with your actual file names
+          3. Update the title and category text
+          4. Remove the placeholder div when you add a real image
+        -->
+        
+        <!-- EXAMPLE WITH ACTUAL IMAGE - Uncomment and use this format -->
+        <!-- 
+        <div class="image-card reveal">
+          <img src="/images/graphic-design/brand-identity.jpg" alt="Brand Identity Project">
+          <div class="overlay">
+            <div class="project-title">Brand Identity</div>
+            <div class="project-category">Logo · Guidelines · Stationery</div>
+          </div>
+        </div>
+        -->
+        
+        <!-- Placeholder Card 1 - Brand Identity -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">◉</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Brand Identity</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
-        <!-- Project 2 - Editorial -->
-        <div class="project-card reveal">
-          <div class="project-icon">📖</div>
-          <h3 class="project-title">Editorial</h3>
-          <p class="project-description">Magazines, books, brochures, reports</p>
+        <!-- Placeholder Card 2 - Editorial -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">📖</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Editorial</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
-        <!-- Project 3 - Motion -->
-        <div class="project-card reveal">
-          <div class="project-icon">🎬</div>
-          <h3 class="project-title">Motion</h3>
-          <p class="project-description">Animation, video graphics, title sequences</p>
+        <!-- Placeholder Card 3 - Motion -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">🎬</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Motion</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
-        <!-- Project 4 - Packaging -->
-        <div class="project-card reveal">
-          <div class="project-icon">📦</div>
-          <h3 class="project-title">Packaging</h3>
-          <p class="project-description">Product packaging, labels, unboxing experience</p>
+        <!-- Placeholder Card 4 - Packaging -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">📦</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Packaging</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
-        <!-- Project 5 - Digital -->
-        <div class="project-card reveal">
-          <div class="project-icon">💻</div>
-          <h3 class="project-title">Digital</h3>
-          <p class="project-description">Web design, social media, email campaigns</p>
+        <!-- Placeholder Card 5 - Digital -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">💻</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Digital</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
-        <!-- Project 6 - Print -->
-        <div class="project-card reveal">
-          <div class="project-icon">🖨️</div>
-          <h3 class="project-title">Print</h3>
-          <p class="project-description">Posters, flyers, business cards, signage</p>
+        <!-- Placeholder Card 6 - Print -->
+        <div class="placeholder-card reveal">
+          <div class="placeholder-icon">🖨️</div>
+          <div class="text-center">
+            <p class="font-semibold text-white mb-1">Print</p>
+            <p class="text-sm">Ready for image</p>
+            <p class="text-xs mt-2 text-gray-600">Add to /images/graphic-design/</p>
+          </div>
         </div>
         
       </div>
 
-      <!-- You can add more rows of projects here -->
+      <!-- INSTRUCTIONS FOR ADDING MORE ROWS -->
       <!-- 
+      To add another row of 3 images, copy this block:
+      
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="project-card reveal">
-          <div class="project-icon">🎨</div>
-          <h3 class="project-title">Project Name</h3>
-          <p class="project-description">Project description goes here</p>
+        <div class="image-card reveal">
+          <img src="/images/graphic-design/your-image.jpg" alt="Project">
+          <div class="overlay">
+            <div class="project-title">Project Title</div>
+            <div class="project-category">Category</div>
+          </div>
+        </div>
+        <div class="image-card reveal">
+          <img src="/images/graphic-design/your-image.jpg" alt="Project">
+          <div class="overlay">
+            <div class="project-title">Project Title</div>
+            <div class="project-category">Category</div>
+          </div>
+        </div>
+        <div class="image-card reveal">
+          <img src="/images/graphic-design/your-image.jpg" alt="Project">
+          <div class="overlay">
+            <div class="project-title">Project Title</div>
+            <div class="project-category">Category</div>
+          </div>
         </div>
       </div>
       -->
+      
     </div>
   </section>
 
