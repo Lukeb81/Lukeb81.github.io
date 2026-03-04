@@ -1,648 +1,610 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luke Bianchi · Real Estate Photography</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📷 camera back · wheel & grid</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            user-select: none;
+        }
 
-  <!-- Tailwind + Three.js + Google Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+        body {
+            background: #2b2b2b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #0a0a0f;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-    #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-    section { scroll-margin-top: 80px; }
+        /* main camera back plate */
+        .camera-body {
+            background: #1e1e1e;
+            background-image: radial-gradient(circle at 30% 40%, #3a3a3a 2px, transparent 2px),
+                              radial-gradient(circle at 70% 70%, #3a3a3a 1px, transparent 2px);
+            background-size: 40px 40px;
+            width: 860px;
+            max-width: 100%;
+            border-radius: 40px 40px 30px 30px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset -2px -3px 8px #0a0a0a, inset 3px 3px 8px #4f4f4f;
+            padding: 25px 25px 35px 25px;
+            border: 2px solid #3c3c3c;
+        }
 
-    /* nav link animation */
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-      color: #d1d5db;
-    }
-    .nav-link:hover {
-      color: white;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after { 
-      width: 100%; 
-    }
+        /* top strip with fake dials / texture */
+        .top-strip {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+            padding: 0 12px;
+        }
+        .top-strip .dial {
+            width: 50px;
+            height: 50px;
+            background: #292929;
+            border-radius: 50%;
+            border: 2px solid #5a5a5a;
+            box-shadow: inset -3px -3px 5px #101010, inset 2px 2px 5px #6a6a6a;
+            position: relative;
+        }
+        .top-strip .dial::after {
+            content: "⚙";
+            position: absolute;
+            color: #999;
+            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+        }
+        .top-strip .speaker {
+            width: 80px;
+            height: 18px;
+            background: #2f2f2f;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 4px #0c0c0c;
+            border: 1px solid #505050;
+        }
+        .top-strip .label {
+            color: #aaa;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            margin-left: auto;
+            text-shadow: 0 1px 0 #1f1f1f;
+        }
 
-    /* fade-up reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        /* main screen area – changes between grid and single */
+        .display-panel {
+            background: #141414;
+            border-radius: 24px;
+            padding: 20px;
+            border: 4px solid #383838;
+            box-shadow: inset 0 0 0 2px #5f5f5f, 0 8px 0 #0b0b0b;
+            margin-bottom: 25px;
+            min-height: 380px;
+            transition: background 0.1s ease;
+        }
 
-    /* Image-ready card styles for real estate */
-    .image-card {
-      background: #11131f;
-      transition: all 0.3s;
-      border: 1px solid rgba(59,130,246,0.1);
-      border-radius: 1rem;
-      overflow: hidden;
-      aspect-ratio: 4 / 3; /* Landscape orientation - perfect for property photos */
-      position: relative;
-    }
-    .image-card:hover {
-      border-color: #3b82f6;
-      transform: translateY(-6px);
-      box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
-    }
-    
-    .image-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    .image-card:hover img {
-      transform: scale(1.05);
-    }
-    
-    .image-card .overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      padding: 2rem 1rem 1rem 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .image-card:hover .overlay {
-      opacity: 1;
-    }
-    
-    .image-card .property-title {
-      color: white;
-      font-weight: 600;
-      font-size: 1.25rem;
-      margin-bottom: 0.25rem;
-    }
-    
-    .image-card .property-location {
-      color: #9ca3af;
-      font-size: 0.875rem;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    
-    .image-card .property-location svg {
-      width: 1rem;
-      height: 1rem;
-    }
-    
-    .image-card .property-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    
-    .image-card .tag {
-      background: rgba(59,130,246,0.2);
-      color: #93c5fd;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(59,130,246,0.3);
-    }
+        /* 3x3 grid layout */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            aspect-ratio: 1 / 0.9;
+        }
 
-    /* Placeholder card (for when you don't have an image yet) */
-    .placeholder-card {
-      background: #11131f;
-      border: 2px dashed #374151;
-      border-radius: 1rem;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #6b7280;
-      transition: all 0.3s;
-      text-align: center;
-      padding: 1rem;
-    }
-    
-    .placeholder-card:hover {
-      border-color: #3b82f6;
-      color: #9ca3af;
-      background: #1a1f2e;
-    }
-    
-    .placeholder-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .placeholder-title {
-      font-weight: 600;
-      color: white;
-      margin-bottom: 0.25rem;
-    }
-    
-    .placeholder-subtitle {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
+        .grid-item {
+            background: #2d2d2d;
+            border-radius: 16px;
+            border: 3px solid #4c4c4c;
+            box-shadow: inset 0 0 0 1px #6a6a6a, 0 4px 0 #1b1b1b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ddd;
+            font-weight: 500;
+            transition: all 0.1s;
+            cursor: pointer;
+            padding: 12px 0 8px 0;
+        }
 
-    /* Social icon styles */
-    .social-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid #374151;
-      color: #9ca3af;
-      transition: all 0.3s ease;
-      background: rgba(0,0,0,0.3);
-    }
-    .social-icon:hover {
-      border-color: #3b82f6;
-      color: #3b82f6;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3);
-    }
+        .grid-item.selected {
+            border: 4px solid #ffcc00;
+            box-shadow: 0 0 0 2px #f5e56b, 0 4px 0 #1b1b1b;
+            transform: scale(1.01);
+            background: #3b3b3b;
+        }
 
-    /* Form styles */
-    input, textarea {
-      background: #0a0c14;
-      border: 1px solid #252a3a;
-      transition: 0.2s;
-    }
-    input:focus, textarea:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
-    }
-  </style>
+        .grid-item .thumb-icon {
+            font-size: 48px;
+            line-height: 1;
+            margin-bottom: 6px;
+            filter: drop-shadow(2px 4px 4px #0f0f0f);
+        }
+
+        .grid-item .image-label {
+            background: rgba(0,0,0,0.6);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 15px;
+            color: #efefef;
+            border: 1px solid #777;
+        }
+
+        /* single image enlarged view */
+        .single-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            padding: 20px;
+            background: #1b1b1b;
+            border-radius: 20px;
+            border: 2px solid #5d5d5d;
+            box-shadow: inset 0 0 20px #0a0a0a;
+        }
+
+        .big-image {
+            font-size: 140px;
+            line-height: 1;
+            filter: drop-shadow(0 8px 6px #080808);
+            margin-bottom: 16px;
+            background: #232323;
+            padding: 20px 40px;
+            border-radius: 60px;
+            border: 2px solid #7a7a7a;
+        }
+
+        .big-label {
+            font-size: 32px;
+            background: #00000060;
+            padding: 8px 28px;
+            border-radius: 60px;
+            color: #ffd966;
+            border: 1px solid #b9a153;
+            letter-spacing: 2px;
+        }
+
+        .hint-text {
+            color: #8f8f8f;
+            margin-top: 12px;
+            font-size: 16px;
+            border-top: 1px dashed #4a4a4a;
+            padding-top: 10px;
+        }
+
+        /* bottom controls — wheel & buttons */
+        .control-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 8px 10px 0 10px;
+        }
+
+        .nav-wheel {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            background: #252525;
+            border-radius: 999px;
+            border: 5px solid #4b4b4b;
+            box-shadow: inset 0 -3px 8px #0e0e0e, inset 0 3px 8px #6d6d6d, 0 10px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.05s linear;
+        }
+
+        .wheel-inner {
+            width: 70px;
+            height: 70px;
+            background: #353535;
+            border-radius: 50%;
+            border: 3px solid #797979;
+            box-shadow: inset -3px -3px 8px #1f1f1f, inset 3px 3px 8px #999999;
+        }
+
+        .wheel-symbols {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            font-weight: bold;
+            color: #ccc;
+            font-size: 22px;
+            pointer-events: none;
+        }
+
+        .wheel-symbols div {
+            position: absolute;
+            text-shadow: 0 2px 2px black;
+        }
+        .sym-up { top: 8px; left: 55px; }
+        .sym-down { bottom: 8px; left: 52px; }
+        .sym-left { left: 12px; top: 52px; }
+        .sym-right { right: 12px; top: 52px; }
+
+        .button-group {
+            display: flex;
+            gap: 18px;
+        }
+
+        .camera-btn {
+            background: #303030;
+            border: none;
+            border-bottom: 5px solid #121212;
+            border-radius: 40px;
+            padding: 16px 28px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #ddd;
+            box-shadow: inset 1px 2px 5px #767676, 0 6px 0 #131313;
+            cursor: pointer;
+            transition: 0.06s linear;
+            min-width: 110px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .camera-btn:active {
+            transform: translateY(4px);
+            border-bottom-width: 2px;
+            box-shadow: inset 2px 3px 6px #3f3f3f;
+        }
+
+        .menu-btn {
+            background: #3a3a3a;
+            color: #fee7a0;
+        }
+
+        .status-led {
+            width: 20px;
+            height: 20px;
+            background: #303030;
+            border-radius: 50%;
+            border: 2px solid #5e5e5e;
+            box-shadow: inset 0 0 5px #151515;
+            margin-left: 5px;
+        }
+
+        .footer-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            color: #7a7a7a;
+            font-size: 14px;
+            padding: 0 8px;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- canvas starfield (background) -->
-  <canvas id="starfield"></canvas>
-
-  <!-- navigation -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 bg-transparent backdrop-blur-sm">
-    <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm md:text-base">
-      <a href="index.html" class="nav-link text-gray-300 hover:text-white">Home</a>
-      <a href="graphic-design.html" class="nav-link text-gray-300 hover:text-white">Graphic Design</a>
-      <a href="photography.html" class="nav-link text-gray-300 hover:text-white">Photography</a>
-      <a href="real-estate.html" class="nav-link text-gray-300 hover:text-white">Real Estate</a>
-      <a href="#contact" class="nav-link text-gray-300 hover:text-white">Get In Touch</a>
+<div class="camera-body">
+    <!-- top decoration -->
+    <div class="top-strip">
+        <div class="dial"></div>
+        <div class="speaker"></div>
+        <div class="label">📷 EOS · 5n</div>
     </div>
-  </nav>
 
-  <!-- REAL ESTATE PORTFOLIO SECTION -->
-  <section class="pt-32 pb-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Real Estate Photography</h1>
-      <p class="text-gray-400 mb-12 text-xl reveal">Architecture · interiors · twilight · drone</p>
-      
-      <!-- FIRST ROW - 3 images -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        
-        <!-- 
-          TO ADD YOUR IMAGES:
-          1. Upload your images to: /images/real-estate/ folder
-          2. Replace the src="/images/real-estate/your-image.jpg" with your actual file names
-          3. Update the property details (title, location, tags)
-          4. Remove the placeholder div when you add a real image
-        -->
-        
-        <!-- EXAMPLE WITH ACTUAL IMAGE - Copy this format for each property -->
-        <!-- 
-        <div class="image-card reveal">
-          <img src="/images/real-estate/modern-loft.jpg" alt="Modern Loft Interior">
-          <div class="overlay">
-            <div class="property-title">Modern Loft</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Downtown
-            </div>
-            <div class="property-tags">
-              <span class="tag">Interior</span>
-              <span class="tag">Industrial</span>
-            </div>
-          </div>
-        </div>
-        -->
-        
-        <!-- Placeholder Card 1 - Modern Loft -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏢</div>
-          <div class="placeholder-title">Modern Loft</div>
-          <div class="placeholder-subtitle">Downtown</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/modern-loft.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 2 - Suburban Home -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏠</div>
-          <div class="placeholder-title">Suburban Home</div>
-          <div class="placeholder-subtitle">Family Residence</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/suburban-home.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 3 - Commercial Space -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏬</div>
-          <div class="placeholder-title">Commercial</div>
-          <div class="placeholder-subtitle">Retail Space</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/commercial.jpg</div>
-        </div>
-        
-      </div>
-      
-      <!-- SECOND ROW - 3 images -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        
-        <!-- Placeholder Card 4 - Luxury Estate -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏰</div>
-          <div class="placeholder-title">Luxury Estate</div>
-          <div class="placeholder-subtitle">Hillside</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/luxury-estate.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 5 - Twilight Shots -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🌆</div>
-          <div class="placeholder-title">Twilight</div>
-          <div class="placeholder-subtitle">Golden Hour</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/twilight.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 6 - Aerial Drone -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🚁</div>
-          <div class="placeholder-title">Drone Photography</div>
-          <div class="placeholder-subtitle">Aerial View</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/drone.jpg</div>
-        </div>
-        
-      </div>
-      
-      <!-- THIRD ROW - 3 images -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        
-        <!-- Placeholder Card 7 - Interior Design -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🪑</div>
-          <div class="placeholder-title">Interior Design</div>
-          <div class="placeholder-subtitle">Styled Living</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/interior.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 8 - New Construction -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏗️</div>
-          <div class="placeholder-title">New Construction</div>
-          <div class="placeholder-subtitle">Modern Build</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/new-construction.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 9 - Vacation Rentals -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🌴</div>
-          <div class="placeholder-title">Vacation Rentals</div>
-          <div class="placeholder-subtitle">Beach House</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/vacation.jpg</div>
-        </div>
-        
-      </div>
-      
-      <!-- FOURTH ROW - 3 images -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Placeholder Card 10 - Condos -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🏙️</div>
-          <div class="placeholder-title">Condos</div>
-          <div class="placeholder-subtitle">High-Rise Living</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/condos.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 11 - Staging -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">✨</div>
-          <div class="placeholder-title">Staged Homes</div>
-          <div class="placeholder-subtitle">Professionally Staged</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/staged.jpg</div>
-        </div>
-        
-        <!-- Placeholder Card 12 - Virtual Tours -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🔄</div>
-          <div class="placeholder-title">Virtual Tours</div>
-          <div class="placeholder-subtitle">360° Panoramic</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/virtual-tour.jpg</div>
-        </div>
-        
-      </div>
-      
-      <!-- INSTRUCTIONS FOR ADDING MORE ROWS -->
-      <!-- 
-      To add another row of 3 images, copy this block:
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
-      
+    <!-- dynamic display area (grid / big image) -->
+    <div class="display-panel" id="displayPanel">
+        <!-- javascript will fill this -->
     </div>
-  </section>
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="py-32 px-6">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-      
-      <!-- left side - info -->
-      <div class="reveal">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's connect</h2>
-        <p class="text-gray-400 mb-8 text-lg leading-relaxed">
-          Interested in working together? Have a project in mind? Feel free to reach out — I'd love to hear from you.
-        </p>
-        <div class="space-y-4 text-lg">
-          <p><span class="text-blue-400 font-medium">Email:</span> <span class="text-gray-300">Lukebianchi81@gmail.com</span></p>
-          <p><span class="text-blue-400 font-medium">Phone:</span> <span class="text-gray-300">+1 (732) 768‑8857</span></p>
-          <p><span class="text-blue-400 font-medium">Location:</span> <span class="text-gray-300">Ocean Township, NJ/Remote</span></p>
+    <!-- bottom interactive controls -->
+    <div class="control-panel">
+        <!-- The wheel: click areas for up/down/left/right (simulated) -->
+        <div class="nav-wheel" id="wheel">
+            <div class="wheel-inner" id="wheelInner"></div>
+            <div class="wheel-symbols">
+                <div class="sym-up">▲</div>
+                <div class="sym-down">▼</div>
+                <div class="sym-left">◀</div>
+                <div class="sym-right">▶</div>
+            </div>
         </div>
-        
-        <!-- Social icons -->
-        <div class="mt-8 flex gap-4">
-          <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
-            </svg>
-          </a>
-          
-          <a href="https://linkedin.com/in/luke-bianchi-8561b6388/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065z"/>
-            </svg>
-          </a>
+        <div class="button-group">
+            <button class="camera-btn" id="okBtn">OK</button>
+            <button class="camera-btn menu-btn" id="menuBtn">MENU</button>
         </div>
-      </div>
-
-      <!-- right side - contact form -->
-      <div class="bg-gray-900/60 p-8 rounded-2xl backdrop-blur-sm border border-gray-800 reveal">
-        <form id="contactForm" action="https://formspree.io/f/mbdavgjb" method="POST" class="space-y-6">
-          <input type="hidden" name="_subject" value="New Portfolio Contact from LukeBianchi.design">
-          <input type="hidden" name="_replyto" value="email">
-          <input type="text" name="_gotcha" style="display:none">
-          
-          <div>
-            <input type="text" id="name" name="name" placeholder="Your name" required 
-                   class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white">
-          </div>
-          <div>
-            <input type="email" id="email" name="email" placeholder="Email address" required 
-                   class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white">
-          </div>
-          <div>
-            <textarea id="message" name="message" placeholder="Tell me about your project..." rows="4" required 
-                      class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white"></textarea>
-          </div>
-          <button type="submit" 
-                  class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition shadow-lg shadow-blue-600/20">
-            Send message
-          </button>
-          <p id="formFeedback" class="text-sm text-center h-4 text-green-400"></p>
-        </form>
-      </div>
+        <div class="status-led"></div>
     </div>
-  </section>
 
-  <!-- footer -->
-  <footer class="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-    <p>© 2026 Luke Bianchi</p>
-  </footer>
+    <div class="footer-text">
+        <span>⬤ LIVE</span>
+        <span>GRID 3x3  ▶  SCROLL</span>
+    </div>
+</div>
 
-  <script>
+<script>
     (function() {
-      // ---------- THREE.JS STATIC STARFIELD ----------
-      const canvas = document.getElementById('starfield');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.position.z = 60;
+        // ----- image data: 3x3 grid, but we simulate "scrolling" with 12 images (4 groups of 3x3)
+        // each page holds 9 images, we have 4 pages. initial page = 0 (first 9)
+        const allImages = [
+            // page 0 (indices 0-8)
+            { emoji: '🌄', name: 'alpine' },
+            { emoji: '🌊', name: 'ocean' },
+            { emoji: '🏞️', name: 'canyon' },
+            { emoji: '🌲', name: 'forest' },
+            { emoji: '🏔️', name: 'mountain' },
+            { emoji: '🌃', name: 'night' },
+            { emoji: '🌌', name: 'stars' },
+            { emoji: '🏖️', name: 'beach' },
+            { emoji: '🌋', name: 'volcano' },
+            // page 1 (9-17)
+            { emoji: '🛤️', name: 'rails' },
+            { emoji: '🌁', name: 'fog' },
+            { emoji: '🏜️', name: 'desert' },
+            { emoji: '⛰️', name: 'peak' },
+            { emoji: '🏝️', name: 'island' },
+            { emoji: '🌅', name: 'sunrise' },
+            { emoji: '🌇', name: 'sunset' },
+            { emoji: '🏛️', name: 'ruins' },
+            { emoji: '🕍', name: 'temple' },
+            // page 2 (18-26)
+            { emoji: '🗻', name: 'fuji' },
+            { emoji: '🏯', name: 'castle' },
+            { emoji: '🌿', name: 'jungle' },
+            { emoji: '🍂', name: 'autumn' },
+            { emoji: '❄️', name: 'winter' },
+            { emoji: '🌈', name: 'rainbow' },
+            { emoji: '☀️', name: 'sunny' },
+            { emoji: '⛅', name: 'clouds' },
+            { emoji: '🌧️', name: 'rain' },
+            // page 3 (27-35)
+            { emoji: '🌪️', name: 'tornado' },
+            { emoji: '🔥', name: 'fire' },
+            { emoji: '💧', name: 'water' },
+            { emoji: '🌫️', name: 'mist' },
+            { emoji: '🎑', name: 'moon' },
+            { emoji: '🏙️', name: 'city' },
+            { emoji: '🌆', name: 'dusk' },
+            { emoji: '🗿', name: 'moai' },
+            { emoji: '🗽', name: 'statue' }
+        ];
 
-      function createStarTexture() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 64;
-        canvas.height = 64;
-        const ctx = canvas.getContext('2d');
-        
-        ctx.clearRect(0, 0, 64, 64);
-        
-        const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-        gradient.addColorStop(0, 'rgba(255,255,255,1)');
-        gradient.addColorStop(0.3, 'rgba(255,255,255,0.9)');
-        gradient.addColorStop(0.5, 'rgba(255,255,255,0.5)');
-        gradient.addColorStop(0.7, 'rgba(255,255,255,0.2)');
-        gradient.addColorStop(0.9, 'rgba(255,255,255,0.05)');
-        gradient.addColorStop(1, 'rgba(255,255,255,0)');
-        
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 64, 64);
-        
-        ctx.beginPath();
-        ctx.arc(32, 32, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
-        ctx.fill();
-        
-        return new THREE.CanvasTexture(canvas);
-      }
+        // total images = 36, pages = 4 (each 9)
+        const IMGS_PER_PAGE = 9;
+        const TOTAL_PAGES = 4;  // 36/9
 
-      const starTexture = createStarTexture();
-      const starLayers = [];
+        // state
+        let currentPage = 0;                // 0..3
+        let selectedIndexInPage = 0;         // 0..8  (position in current 3x3)
+        let enlargedMode = false;            // whether big image is shown
+        let enlargedImageIndex = 0;           // global index of currently enlarged image
 
-      // Layer 1
-      const layer1Geo = new THREE.BufferGeometry();
-      const pos1 = [];
-      for (let i = 0; i < 2000; i++) {
-        const r = 100 + Math.random() * 100;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos1.push(
-          r * Math.sin(phi) * Math.cos(theta),
-          r * Math.sin(phi) * Math.sin(theta),
-          r * Math.cos(phi)
-        );
-      }
-      layer1Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos1, 3));
-      const layer1Mat = new THREE.PointsMaterial({ size: 0.2, map: starTexture, color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending });
-      const layer1 = new THREE.Points(layer1Geo, layer1Mat);
-      scene.add(layer1);
+        // DOM elements
+        const displayPanel = document.getElementById('displayPanel');
+        const okBtn = document.getElementById('okBtn');
+        const menuBtn = document.getElementById('menuBtn');
+        const wheel = document.getElementById('wheel');
 
-      // Layer 2
-      const layer2Geo = new THREE.BufferGeometry();
-      const pos2 = [];
-      for (let i = 0; i < 1000; i++) {
-        const r = 40 + Math.random() * 60;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-        pos2.push(
-          r * Math.sin(phi) * Math.cos(theta),
-          r * Math.sin(phi) * Math.sin(theta),
-          r * Math.cos(phi)
-        );
-      }
-      layer2Geo.setAttribute('position', new THREE.Float32BufferAttribute(pos2, 3));
-      const layer2Mat = new THREE.PointsMaterial({ size: 0.3, map: starTexture, color: 0xaaccff, transparent: true, blending: THREE.AdditiveBlending });
-      const layer2 = new THREE.Points(layer2Geo, layer2Mat);
-      scene.add(layer2);
+        // helper: get global image index from page + internal index
+        function globalIndex(page, idxInPage) {
+            return page * IMGS_PER_PAGE + idxInPage;
+        }
 
-      function animate() {
-        requestAnimationFrame(animate);
-        
-        layer1.rotation.y += 0.0001;
-        layer2.rotation.y += 0.00005;
-        
-        renderer.render(scene, camera);
-      }
-      animate();
+        // render based on state
+        function renderDisplay() {
+            if (!enlargedMode) {
+                // show grid
+                const startIdx = currentPage * IMGS_PER_PAGE;
+                const pageImages = allImages.slice(startIdx, startIdx + IMGS_PER_PAGE);
 
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
+                let gridHtml = '<div class="image-grid">';
+                for (let i = 0; i < IMGS_PER_PAGE; i++) {
+                    const img = pageImages[i];
+                    const isSelected = (i === selectedIndexInPage);
+                    const selectedClass = isSelected ? 'selected' : '';
+                    // for grid items we use data属性 later for clicks but we can just rely on click on wheel. but click on grid also works?  we'll attach event delegation. but we keep emoji + label
+                    gridHtml += `<div class="grid-item ${selectedClass}" data-grid-index="${i}" data-global="${startIdx + i}">
+                        <div class="thumb-icon">${img.emoji}</div>
+                        <span class="image-label">${img.name}</span>
+                    </div>`;
+                }
+                gridHtml += '</div>';
+                // add a tiny scroll hint
+                gridHtml += '<div class="hint-text">◀ ▶ wheel moves · OK selects · MENU back to grid</div>';
+                displayPanel.innerHTML = gridHtml;
 
-      // Reveal on scroll
-      const reveals = document.querySelectorAll('.reveal');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
+                // after rendering, attach click handler for direct grid clicks (optional but nice)
+                document.querySelectorAll('.grid-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        // if click on grid, we set selected index, and if they want to enlarge they still need ok.
+                        const idx = item.dataset.gridIndex;
+                        if (idx !== undefined) {
+                            selectedIndexInPage = parseInt(idx, 10);
+                            // also if they doubleclick? but we stick to spec: "ok" makes bigger
+                            renderDisplay();
+                        }
+                    });
+                });
+
+            } else {
+                // enlarged mode: show single big image
+                const img = allImages[enlargedImageIndex];
+                const pageOfThis = Math.floor(enlargedImageIndex / IMGS_PER_PAGE);
+                const pos = (enlargedImageIndex % IMGS_PER_PAGE) + 1;
+                displayPanel.innerHTML = `
+                    <div class="single-view">
+                        <div class="big-image">${img.emoji}</div>
+                        <div class="big-label">${img.name}  #${enlargedImageIndex+1}</div>
+                        <div class="hint-text">🔽 MENU to return to 3x3 grid</div>
+                    </div>
+                `;
+            }
+        }
+
+        // move wheel (direction: 'up','down','left','right')
+        function handleWheel(direction) {
+            if (enlargedMode) {
+                // in enlarged mode, wheel could be used to change image? spec says: only grid scrolls, OK enlarges, menu back.
+                // But we can allow wheel in enlarged mode to browse next/prev image (makes sense, but spec not strict)
+                // However spec: "button wheel is interactive to move to the next image in a 3x3 grid that scrolls down after you keep moving images"
+                // In enlarged view, we could disable or still allow (but let's disable as per "ok" makes bigger and menu back)
+                // I'll keep it disabled (no movement) to avoid complexity. but up/down could change big image if we wanted – better keep minimal.
+                // So do nothing in enlarged.
+                return;
+            }
+
+            // grid mode: move selection & scroll page if needed
+            let newSelected = selectedIndexInPage;
+            let newPage = currentPage;
+
+            if (direction === 'up') {
+                if (selectedIndexInPage - 3 >= 0) {
+                    newSelected -= 3;
+                } else {
+                    // scroll page up (previous page) if possible, wrap? let's scroll but keep selection similar (row 2 becomes row 2? but we'll set to bottom row)
+                    if (currentPage > 0) {
+                        newPage = currentPage - 1;
+                        // move to same column? better keep column but go to last row (index = col + 6)
+                        const col = selectedIndexInPage % 3;
+                        newSelected = 6 + col;  // last row (index 6,7,8)
+                    } // else at first page, no scroll
+                }
+            } else if (direction === 'down') {
+                if (selectedIndexInPage + 3 < IMGS_PER_PAGE) {
+                    newSelected += 3;
+                } else {
+                    // scroll down to next page if exists
+                    if (currentPage < TOTAL_PAGES - 1) {
+                        newPage = currentPage + 1;
+                        const col = selectedIndexInPage % 3;
+                        newSelected = col; // top row (0,1,2)
+                    }
+                }
+            } else if (direction === 'left') {
+                if (selectedIndexInPage % 3 !== 0) {
+                    newSelected -= 1;
+                } else {
+                    // wrap to previous page? optional but spec "scrolls down after you keep moving" but left/right also? we allow scroll left at leftmost? go to prev page same row?
+                    // we'll implement: at left edge, go to previous page, column 2 (rightmost)
+                    if (currentPage > 0) {
+                        newPage = currentPage - 1;
+                        const row = Math.floor(selectedIndexInPage / 3);
+                        newSelected = row * 3 + 2;  // rightmost column in same row
+                    }
+                }
+            } else if (direction === 'right') {
+                if (selectedIndexInPage % 3 !== 2) {
+                    newSelected += 1;
+                } else {
+                    if (currentPage < TOTAL_PAGES - 1) {
+                        newPage = currentPage + 1;
+                        const row = Math.floor(selectedIndexInPage / 3);
+                        newSelected = row * 3;  // leftmost column
+                    }
+                }
+            }
+
+            // apply changes
+            currentPage = newPage;
+            selectedIndexInPage = newSelected;
+            renderDisplay();
+        }
+
+        // wheel click handling via quadrant (simple)
+        function handleWheelClick(e) {
+            if (enlargedMode) return; // no movement when enlarged
+
+            const rect = wheel.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+
+            const dx = clickX - centerX;
+            const dy = clickY - centerY;
+
+            if (Math.abs(dx) > Math.abs(dy)) {
+                // left or right
+                if (dx > 0) {
+                    handleWheel('right');
+                } else {
+                    handleWheel('left');
+                }
+            } else {
+                if (dy > 0) {
+                    handleWheel('down');
+                } else {
+                    handleWheel('up');
+                }
+            }
+        }
+
+        // OK button
+        function handleOk() {
+            if (!enlargedMode) {
+                // switch to enlarged view with currently selected image
+                const globalIdx = globalIndex(currentPage, selectedIndexInPage);
+                enlargedImageIndex = globalIdx;
+                enlargedMode = true;
+                renderDisplay();
+            } else {
+                // already enlarged, maybe do nothing (or could act as select? but spec: "ok" makes the image bigger as you have selected it.
+                // so while enlarged, ok does nothing extra.
+            }
+        }
+
+        // MENU button: back to grid
+        function handleMenu() {
+            if (enlargedMode) {
+                enlargedMode = false;
+                // synchronize page and selected to the previously enlarged image? let's show page where that image belongs.
+                // we want highlight that image when return. good ux.
+                currentPage = Math.floor(enlargedImageIndex / IMGS_PER_PAGE);
+                selectedIndexInPage = enlargedImageIndex % IMGS_PER_PAGE;
+                renderDisplay();
+            } else {
+                // already in grid, could reset to first page? but not needed. maybe just stay.
+                // but we can keep as is.
+            }
+        }
+
+        // initial render
+        renderDisplay();
+
+        // Event listeners
+        wheel.addEventListener('click', handleWheelClick);
+
+        okBtn.addEventListener('click', handleOk);
+        menuBtn.addEventListener('click', handleMenu);
+
+        // optional: keyboard support (bonus)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') handleWheel('up');
+            else if (e.key === 'ArrowDown') handleWheel('down');
+            else if (e.key === 'ArrowLeft') handleWheel('left');
+            else if (e.key === 'ArrowRight') handleWheel('right');
+            else if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleOk();
+            }
+            else if (e.key === 'Escape') handleMenu();
         });
-      }, { threshold: 0.1 });
-      reveals.forEach(r => observer.observe(r));
 
-      // Form handler
-      const form = document.getElementById('contactForm');
-      const feedback = document.getElementById('formFeedback');
+        // also allow clicking wheel inner? already covered
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !message) {
-          feedback.textContent = '⚠️ Please fill in all fields.';
-          feedback.style.color = '#fbbf24';
-          return;
-        }
-        
-        feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
-        feedback.style.color = '#4ade80';
-        form.reset();
-      });
-
-      // Nav background on scroll
-      const nav = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.remove('py-5');
-        } else {
-          nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.add('py-5');
-        }
-      });
+        // tiny extra: make wheel feel pressable
+        wheelInner.addEventListener('click', (e) => {
+            // treat as center? maybe do nothing but stop prop
+            e.stopPropagation();
+        });
 
     })();
-  </script>
+</script>
 </body>
 </html>
