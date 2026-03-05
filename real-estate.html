@@ -64,14 +64,14 @@
       transform: translateY(0);
     }
 
-    /* Image card styles - matching photography page */
+    /* Image card styles - for when images are added */
     .image-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
       border-radius: 1rem;
       overflow: hidden;
-      aspect-ratio: 4 / 3; /* Landscape format for real estate */
+      aspect-ratio: 4 / 3;
       position: relative;
       cursor: pointer;
     }
@@ -107,49 +107,13 @@
     .image-card:hover .overlay {
       opacity: 1;
     }
-    
-    .image-card .property-title {
-      color: white;
-      font-weight: 600;
-      font-size: 1.25rem;
-      margin-bottom: 0.25rem;
-    }
-    
-    .image-card .property-location {
-      color: #9ca3af;
-      font-size: 0.875rem;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    
-    .image-card .property-location svg {
-      width: 1rem;
-      height: 1rem;
-    }
-    
-    .image-card .property-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    
-    .image-card .tag {
-      background: rgba(59,130,246,0.2);
-      color: #93c5fd;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(59,130,246,0.3);
-    }
 
-    /* Placeholder card */
+    /* Placeholder card - currently being used */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
       border-radius: 1rem;
-      aspect-ratio: 4 / 3; /* Match image-card aspect ratio */
+      aspect-ratio: 4 / 3;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -183,7 +147,7 @@
       color: #6b7280;
     }
 
-    /* Lightbox Styles - matching photography page */
+    /* Lightbox Styles */
     .lightbox {
       position: fixed;
       top: 0;
@@ -215,61 +179,51 @@
       align-items: center;
     }
     
-    .lightbox img {
-      max-width: 100%;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
+    .lightbox-placeholder {
+      width: 600px;
+      height: 450px;
+      background: #11131f;
+      border: 2px dashed #3b82f6;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      text-align: center;
+      padding: 2rem;
     }
     
-    .lightbox.active img {
-      transform: scale(1);
+    .lightbox-placeholder .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #3b82f6;
+    }
+    
+    .lightbox-placeholder h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .lightbox-placeholder p {
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    
+    .lightbox-placeholder .hint {
+      font-size: 0.875rem;
+      color: #6b7280;
+      background: #1a1f2e;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
     }
     
     .lightbox-info {
       margin-top: 1rem;
       text-align: center;
       color: white;
-    }
-    
-    .lightbox-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-    
-    .lightbox-location {
-      color: #9ca3af;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.25rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .lightbox-location svg {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
-    
-    .lightbox-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-    
-    .lightbox-tag {
-      background: rgba(59,130,246,0.2);
-      color: #93c5fd;
-      font-size: 0.875rem;
-      padding: 0.25rem 1rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(59,130,246,0.3);
     }
     
     .lightbox-close {
@@ -294,37 +248,6 @@
     .lightbox-close:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: rotate(90deg);
-    }
-    
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1001;
-    }
-    
-    .lightbox-nav:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .lightbox-prev {
-      left: 2rem;
-    }
-    
-    .lightbox-next {
-      right: 2rem;
     }
 
     /* Social icon styles */
@@ -378,20 +301,8 @@
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#8249;</button>
-    <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#8250;</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="">
-      <div class="lightbox-info">
-        <div id="lightbox-title" class="lightbox-title"></div>
-        <div id="lightbox-location" class="lightbox-location">
-          <svg fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <span id="lightbox-location-text"></span>
-        </div>
-        <div id="lightbox-tags" class="lightbox-tags"></div>
-      </div>
+    <div class="lightbox-content" id="lightbox-content">
+      <!-- Content will be inserted by JavaScript -->
     </div>
   </div>
 
@@ -409,7 +320,7 @@
           <div class="placeholder-icon">🏢</div>
           <div class="placeholder-title">Modern Loft</div>
           <div class="placeholder-subtitle">Downtown · Interior</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 2 - Suburban Home -->
@@ -417,7 +328,7 @@
           <div class="placeholder-icon">🏠</div>
           <div class="placeholder-title">Suburban Home</div>
           <div class="placeholder-subtitle">Family Residence · Pool</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 3 - Commercial Space -->
@@ -425,7 +336,7 @@
           <div class="placeholder-icon">🏬</div>
           <div class="placeholder-title">Commercial Space</div>
           <div class="placeholder-subtitle">Retail · Office</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
       </div>
@@ -438,7 +349,7 @@
           <div class="placeholder-icon">🏰</div>
           <div class="placeholder-title">Luxury Estate</div>
           <div class="placeholder-subtitle">Hillside · Panoramic</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 5 - Twilight Shots -->
@@ -446,7 +357,7 @@
           <div class="placeholder-icon">🌆</div>
           <div class="placeholder-title">Twilight Series</div>
           <div class="placeholder-subtitle">Golden Hour · Exterior</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 6 - Aerial Drone -->
@@ -454,7 +365,7 @@
           <div class="placeholder-icon">🚁</div>
           <div class="placeholder-title">Drone Photography</div>
           <div class="placeholder-subtitle">Aerial · Property Context</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
       </div>
@@ -467,7 +378,7 @@
           <div class="placeholder-icon">🪑</div>
           <div class="placeholder-title">Interior Design</div>
           <div class="placeholder-subtitle">Styled Living · Details</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 8 - New Construction -->
@@ -475,7 +386,7 @@
           <div class="placeholder-icon">🏗️</div>
           <div class="placeholder-title">New Construction</div>
           <div class="placeholder-subtitle">Modern Build · Progress</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 9 - Vacation Rentals -->
@@ -483,7 +394,7 @@
           <div class="placeholder-icon">🌴</div>
           <div class="placeholder-title">Vacation Rentals</div>
           <div class="placeholder-subtitle">Beach House · Airbnb</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
       </div>
@@ -496,7 +407,7 @@
           <div class="placeholder-icon">🏙️</div>
           <div class="placeholder-title">Condos</div>
           <div class="placeholder-subtitle">High-Rise · Downtown</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 11 - Staged Homes -->
@@ -504,7 +415,7 @@
           <div class="placeholder-icon">✨</div>
           <div class="placeholder-title">Staged Homes</div>
           <div class="placeholder-subtitle">Professionally Staged</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
         <!-- Placeholder Card 12 - Virtual Tours -->
@@ -512,7 +423,7 @@
           <div class="placeholder-icon">🔄</div>
           <div class="placeholder-title">Virtual Tours</div>
           <div class="placeholder-subtitle">360° Panoramic</div>
-          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view details</div>
         </div>
         
       </div>
@@ -752,77 +663,138 @@
     })();
 
     // ---------- LIGHTBOX FUNCTIONALITY ----------
-    // Define your real estate properties here
+    // Placeholder data for real estate properties
     const properties = [
       { 
-        src: '/images/real-estate/modern-loft.jpg', 
         title: 'Modern Loft', 
         location: 'Downtown',
-        tags: ['Interior', 'Industrial', 'Natural Light']
+        description: 'Interior · Industrial · Natural Light'
       },
       { 
-        src: '/images/real-estate/suburban-home.jpg', 
         title: 'Suburban Home', 
         location: 'Family Residence',
-        tags: ['Exterior', 'Pool', 'Garden']
+        description: 'Exterior · Pool · Garden'
       },
       { 
-        src: '/images/real-estate/commercial.jpg', 
         title: 'Commercial Space', 
         location: 'Retail District',
-        tags: ['Office', 'Retail', 'Interior']
+        description: 'Office · Retail · Interior'
       },
       { 
-        src: '/images/real-estate/luxury-estate.jpg', 
         title: 'Luxury Estate', 
         location: 'Hillside',
-        tags: ['Panoramic', 'Exterior', 'Pool']
+        description: 'Panoramic · Exterior · Pool'
       },
       { 
-        src: '/images/real-estate/twilight.jpg', 
         title: 'Twilight Series', 
         location: 'Various',
-        tags: ['Golden Hour', 'Blue Hour', 'Exterior']
+        description: 'Golden Hour · Blue Hour · Exterior'
       },
       { 
-        src: '/images/real-estate/drone.jpg', 
         title: 'Drone Photography', 
         location: 'Aerial',
-        tags: ['Drone', 'Aerial', 'Property Context']
+        description: 'Drone · Aerial · Property Context'
       },
       { 
-        src: '/images/real-estate/interior.jpg', 
         title: 'Interior Design', 
         location: 'Styled Living',
-        tags: ['Interior', 'Details', 'Staging']
+        description: 'Interior · Details · Staging'
       },
       { 
-        src: '/images/real-estate/new-construction.jpg', 
         title: 'New Construction', 
         location: 'Modern Build',
-        tags: ['Construction', 'Progress', 'Exterior']
+        description: 'Construction · Progress · Exterior'
       },
       { 
-        src: '/images/real-estate/vacation.jpg', 
         title: 'Vacation Rentals', 
         location: 'Beach House',
-        tags: ['Airbnb', 'VRBO', 'Interior/Exterior']
+        description: 'Airbnb · VRBO · Interior/Exterior'
       },
       { 
-        src: '/images/real-estate/condos.jpg', 
         title: 'Condos', 
         location: 'Downtown',
-        tags: ['High-Rise', 'Interior', 'View']
+        description: 'High-Rise · Interior · View'
       },
       { 
-        src: '/images/real-estate/staged.jpg', 
         title: 'Staged Homes', 
         location: 'Various',
-        tags: ['Staging', 'Interior', 'Design']
+        description: 'Staging · Interior · Design'
       },
       { 
-        src: '/images/real-estate/virtual-tour.jpg', 
         title: 'Virtual Tours', 
         location: '360° Panoramic',
-        tags: ['Virtual', 'Interactive', '360°']
-     
+        description: 'Virtual · Interactive · 360°'
+      }
+    ];
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const content = document.getElementById('lightbox-content');
+      const property = properties[currentIndex];
+      
+      content.innerHTML = `
+        <div class="lightbox-placeholder">
+          <div class="icon">${getIconForIndex(currentIndex)}</div>
+          <h3>${property.title}</h3>
+          <p>📍 ${property.location}</p>
+          <p>${property.description}</p>
+          <div class="hint">
+            Image coming soon<br>
+            <span class="text-xs">Add to: /images/real-estate/${getFileNameForIndex(currentIndex)}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function getIconForIndex(index) {
+      const icons = ['🏢', '🏠', '🏬', '🏰', '🌆', '🚁', '🪑', '🏗️', '🌴', '🏙️', '✨', '🔄'];
+      return icons[index] || '🏠';
+    }
+
+    function getFileNameForIndex(index) {
+      const files = [
+        'modern-loft.jpg',
+        'suburban-home.jpg',
+        'commercial.jpg',
+        'luxury-estate.jpg',
+        'twilight.jpg',
+        'drone.jpg',
+        'interior.jpg',
+        'new-construction.jpg',
+        'vacation.jpg',
+        'condos.jpg',
+        'staged.jpg',
+        'virtual-tour.jpg'
+      ];
+      return files[index] || 'property.jpg';
+    }
+
+    // Close lightbox on background click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
