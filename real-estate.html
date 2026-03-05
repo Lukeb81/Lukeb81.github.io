@@ -64,15 +64,16 @@
       transform: translateY(0);
     }
 
-    /* Image-ready card styles for real estate */
+    /* Image card styles - matching photography page */
     .image-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
       border-radius: 1rem;
       overflow: hidden;
-      aspect-ratio: 4 / 3; /* Landscape orientation - perfect for property photos */
+      aspect-ratio: 4 / 3; /* Landscape format for real estate */
       position: relative;
+      cursor: pointer;
     }
     .image-card:hover {
       border-color: #3b82f6;
@@ -96,10 +97,11 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      padding: 2rem 1rem 1rem 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 1.5rem 1rem 1rem 1rem;
       opacity: 0;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
     
     .image-card:hover .overlay {
@@ -142,12 +144,12 @@
       border: 1px solid rgba(59,130,246,0.3);
     }
 
-    /* Placeholder card (for when you don't have an image yet) */
+    /* Placeholder card */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
       border-radius: 1rem;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4 / 3; /* Match image-card aspect ratio */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -156,6 +158,7 @@
       transition: all 0.3s;
       text-align: center;
       padding: 1rem;
+      cursor: pointer;
     }
     
     .placeholder-card:hover {
@@ -178,6 +181,150 @@
     .placeholder-subtitle {
       font-size: 0.75rem;
       color: #6b7280;
+    }
+
+    /* Lightbox Styles - matching photography page */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .lightbox img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    
+    .lightbox-info {
+      margin-top: 1rem;
+      text-align: center;
+      color: white;
+    }
+    
+    .lightbox-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .lightbox-location {
+      color: #9ca3af;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .lightbox-location svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    
+    .lightbox-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    
+    .lightbox-tag {
+      background: rgba(59,130,246,0.2);
+      color: #93c5fd;
+      font-size: 0.875rem;
+      padding: 0.25rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .lightbox-prev {
+      left: 2rem;
+    }
+    
+    .lightbox-next {
+      right: 2rem;
     }
 
     /* Social icon styles */
@@ -228,211 +375,147 @@
     </div>
   </nav>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#8250;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-info">
+        <div id="lightbox-title" class="lightbox-title"></div>
+        <div id="lightbox-location" class="lightbox-location">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          <span id="lightbox-location-text"></span>
+        </div>
+        <div id="lightbox-tags" class="lightbox-tags"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- REAL ESTATE PORTFOLIO SECTION -->
   <section class="pt-32 pb-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Real Estate Photography</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Architecture · interiors · twilight · drone</p>
       
-      <!-- FIRST ROW - 3 images -->
+      <!-- ROW 1 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- 
-          TO ADD YOUR IMAGES:
-          1. Upload your images to: /images/real-estate/ folder
-          2. Replace the src="/images/real-estate/your-image.jpg" with your actual file names
-          3. Update the property details (title, location, tags)
-          4. Remove the placeholder div when you add a real image
-        -->
-        
-        <!-- EXAMPLE WITH ACTUAL IMAGE - Copy this format for each property -->
-        <!-- 
-        <div class="image-card reveal">
-          <img src="/images/real-estate/modern-loft.jpg" alt="Modern Loft Interior">
-          <div class="overlay">
-            <div class="property-title">Modern Loft</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Downtown
-            </div>
-            <div class="property-tags">
-              <span class="tag">Interior</span>
-              <span class="tag">Industrial</span>
-            </div>
-          </div>
-        </div>
-        -->
-        
         <!-- Placeholder Card 1 - Modern Loft -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(0)">
           <div class="placeholder-icon">🏢</div>
           <div class="placeholder-title">Modern Loft</div>
-          <div class="placeholder-subtitle">Downtown</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/modern-loft.jpg</div>
+          <div class="placeholder-subtitle">Downtown · Interior</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 2 - Suburban Home -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(1)">
           <div class="placeholder-icon">🏠</div>
           <div class="placeholder-title">Suburban Home</div>
-          <div class="placeholder-subtitle">Family Residence</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/suburban-home.jpg</div>
+          <div class="placeholder-subtitle">Family Residence · Pool</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 3 - Commercial Space -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(2)">
           <div class="placeholder-icon">🏬</div>
-          <div class="placeholder-title">Commercial</div>
-          <div class="placeholder-subtitle">Retail Space</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/commercial.jpg</div>
+          <div class="placeholder-title">Commercial Space</div>
+          <div class="placeholder-subtitle">Retail · Office</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
       </div>
       
-      <!-- SECOND ROW - 3 images -->
+      <!-- ROW 2 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
         <!-- Placeholder Card 4 - Luxury Estate -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(3)">
           <div class="placeholder-icon">🏰</div>
           <div class="placeholder-title">Luxury Estate</div>
-          <div class="placeholder-subtitle">Hillside</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/luxury-estate.jpg</div>
+          <div class="placeholder-subtitle">Hillside · Panoramic</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 5 - Twilight Shots -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(4)">
           <div class="placeholder-icon">🌆</div>
-          <div class="placeholder-title">Twilight</div>
-          <div class="placeholder-subtitle">Golden Hour</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/twilight.jpg</div>
+          <div class="placeholder-title">Twilight Series</div>
+          <div class="placeholder-subtitle">Golden Hour · Exterior</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 6 - Aerial Drone -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(5)">
           <div class="placeholder-icon">🚁</div>
           <div class="placeholder-title">Drone Photography</div>
-          <div class="placeholder-subtitle">Aerial View</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/drone.jpg</div>
+          <div class="placeholder-subtitle">Aerial · Property Context</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
       </div>
       
-      <!-- THIRD ROW - 3 images -->
+      <!-- ROW 3 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
         <!-- Placeholder Card 7 - Interior Design -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(6)">
           <div class="placeholder-icon">🪑</div>
           <div class="placeholder-title">Interior Design</div>
-          <div class="placeholder-subtitle">Styled Living</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/interior.jpg</div>
+          <div class="placeholder-subtitle">Styled Living · Details</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 8 - New Construction -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(7)">
           <div class="placeholder-icon">🏗️</div>
           <div class="placeholder-title">New Construction</div>
-          <div class="placeholder-subtitle">Modern Build</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/new-construction.jpg</div>
+          <div class="placeholder-subtitle">Modern Build · Progress</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 9 - Vacation Rentals -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(8)">
           <div class="placeholder-icon">🌴</div>
           <div class="placeholder-title">Vacation Rentals</div>
-          <div class="placeholder-subtitle">Beach House</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/vacation.jpg</div>
+          <div class="placeholder-subtitle">Beach House · Airbnb</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
       </div>
       
-      <!-- FOURTH ROW - 3 images -->
+      <!-- ROW 4 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Placeholder Card 10 - Condos -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(9)">
           <div class="placeholder-icon">🏙️</div>
           <div class="placeholder-title">Condos</div>
-          <div class="placeholder-subtitle">High-Rise Living</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/condos.jpg</div>
+          <div class="placeholder-subtitle">High-Rise · Downtown</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
-        <!-- Placeholder Card 11 - Staging -->
-        <div class="placeholder-card reveal">
+        <!-- Placeholder Card 11 - Staged Homes -->
+        <div class="placeholder-card reveal" onclick="openLightbox(10)">
           <div class="placeholder-icon">✨</div>
           <div class="placeholder-title">Staged Homes</div>
           <div class="placeholder-subtitle">Professionally Staged</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/staged.jpg</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 12 - Virtual Tours -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(11)">
           <div class="placeholder-icon">🔄</div>
           <div class="placeholder-title">Virtual Tours</div>
           <div class="placeholder-subtitle">360° Panoramic</div>
-          <div class="text-xs mt-4 text-gray-600">Add image to:<br>/images/real-estate/virtual-tour.jpg</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
       </div>
-      
-      <!-- INSTRUCTIONS FOR ADDING MORE ROWS -->
-      <!-- 
-      To add another row of 3 images, copy this block:
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-        <div class="image-card reveal">
-          <img src="/images/real-estate/your-image.jpg" alt="Property">
-          <div class="overlay">
-            <div class="property-title">Property Title</div>
-            <div class="property-location">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              Location
-            </div>
-            <div class="property-tags">
-              <span class="tag">Tag 1</span>
-              <span class="tag">Tag 2</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
       
     </div>
   </section>
@@ -543,7 +626,6 @@
       }
 
       const starTexture = createStarTexture();
-      const starLayers = [];
 
       // Layer 1
       const layer1Geo = new THREE.BufferGeometry();
@@ -625,9 +707,34 @@
           return;
         }
         
-        feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
-        feedback.style.color = '#4ade80';
-        form.reset();
+        if (!email.includes('@') || !email.includes('.')) {
+          feedback.textContent = '📧 Please enter a valid email.';
+          feedback.style.color = '#f87171';
+          return;
+        }
+        
+        feedback.textContent = '⏱️ Sending...';
+        feedback.style.color = '#9ca3af';
+        
+        try {
+          const response = await fetch('https://formspree.io/f/mbdavgjb', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message, _subject: 'New Portfolio Contact from LukeBianchi.design' })
+          });
+          
+          if (response.ok) {
+            feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
+            feedback.style.color = '#4ade80';
+            form.reset();
+          } else {
+            feedback.textContent = '❌ Something went wrong. Please try again.';
+            feedback.style.color = '#f87171';
+          }
+        } catch (error) {
+          feedback.textContent = '❌ Network error. Please check your connection.';
+          feedback.style.color = '#f87171';
+        }
       });
 
       // Nav background on scroll
@@ -643,6 +750,79 @@
       });
 
     })();
-  </script>
-</body>
-</html>
+
+    // ---------- LIGHTBOX FUNCTIONALITY ----------
+    // Define your real estate properties here
+    const properties = [
+      { 
+        src: '/images/real-estate/modern-loft.jpg', 
+        title: 'Modern Loft', 
+        location: 'Downtown',
+        tags: ['Interior', 'Industrial', 'Natural Light']
+      },
+      { 
+        src: '/images/real-estate/suburban-home.jpg', 
+        title: 'Suburban Home', 
+        location: 'Family Residence',
+        tags: ['Exterior', 'Pool', 'Garden']
+      },
+      { 
+        src: '/images/real-estate/commercial.jpg', 
+        title: 'Commercial Space', 
+        location: 'Retail District',
+        tags: ['Office', 'Retail', 'Interior']
+      },
+      { 
+        src: '/images/real-estate/luxury-estate.jpg', 
+        title: 'Luxury Estate', 
+        location: 'Hillside',
+        tags: ['Panoramic', 'Exterior', 'Pool']
+      },
+      { 
+        src: '/images/real-estate/twilight.jpg', 
+        title: 'Twilight Series', 
+        location: 'Various',
+        tags: ['Golden Hour', 'Blue Hour', 'Exterior']
+      },
+      { 
+        src: '/images/real-estate/drone.jpg', 
+        title: 'Drone Photography', 
+        location: 'Aerial',
+        tags: ['Drone', 'Aerial', 'Property Context']
+      },
+      { 
+        src: '/images/real-estate/interior.jpg', 
+        title: 'Interior Design', 
+        location: 'Styled Living',
+        tags: ['Interior', 'Details', 'Staging']
+      },
+      { 
+        src: '/images/real-estate/new-construction.jpg', 
+        title: 'New Construction', 
+        location: 'Modern Build',
+        tags: ['Construction', 'Progress', 'Exterior']
+      },
+      { 
+        src: '/images/real-estate/vacation.jpg', 
+        title: 'Vacation Rentals', 
+        location: 'Beach House',
+        tags: ['Airbnb', 'VRBO', 'Interior/Exterior']
+      },
+      { 
+        src: '/images/real-estate/condos.jpg', 
+        title: 'Condos', 
+        location: 'Downtown',
+        tags: ['High-Rise', 'Interior', 'View']
+      },
+      { 
+        src: '/images/real-estate/staged.jpg', 
+        title: 'Staged Homes', 
+        location: 'Various',
+        tags: ['Staging', 'Interior', 'Design']
+      },
+      { 
+        src: '/images/real-estate/virtual-tour.jpg', 
+        title: 'Virtual Tours', 
+        location: '360° Panoramic',
+        tags: ['Virtual', 'Interactive', '360°']
+     
