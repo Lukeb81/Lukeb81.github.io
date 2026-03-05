@@ -64,7 +64,7 @@
       transform: translateY(0);
     }
 
-    /* Image-ready card styles */
+    /* Image card styles - matching photography page */
     .image-card {
       background: #11131f;
       transition: all 0.3s;
@@ -73,6 +73,7 @@
       overflow: hidden;
       aspect-ratio: 1 / 1;
       position: relative;
+      cursor: pointer;
     }
     .image-card:hover {
       border-color: #3b82f6;
@@ -100,6 +101,7 @@
       padding: 1.5rem 1rem 1rem 1rem;
       opacity: 0;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
     
     .image-card:hover .overlay {
@@ -132,6 +134,7 @@
       transition: all 0.3s;
       text-align: center;
       padding: 1rem;
+      cursor: pointer;
     }
     
     .placeholder-card:hover {
@@ -154,6 +157,124 @@
     .placeholder-subtitle {
       font-size: 0.75rem;
       color: #6b7280;
+    }
+
+    /* Lightbox Styles - matching photography page */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .lightbox img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    
+    .lightbox-info {
+      margin-top: 1rem;
+      text-align: center;
+      color: white;
+    }
+    
+    .lightbox-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .lightbox-category {
+      color: #9ca3af;
+      font-size: 1rem;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .lightbox-prev {
+      left: 2rem;
+    }
+    
+    .lightbox-next {
+      right: 2rem;
     }
 
     /* Social icon styles */
@@ -190,7 +311,7 @@
 </head>
 <body>
 
-  <!-- canvas starfield (background) - STATIC VERSION FROM PHOTOGRAPHY.HTML -->
+  <!-- canvas starfield (background) -->
   <canvas id="starfield"></canvas>
 
   <!-- navigation -->
@@ -204,91 +325,113 @@
     </div>
   </nav>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#8250;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-info">
+        <div id="lightbox-title" class="lightbox-title"></div>
+        <div id="lightbox-category" class="lightbox-category"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- GRAPHIC DESIGN PORTFOLIO SECTION -->
   <section class="pt-32 pb-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Graphic Design</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Brand identity · print · digital — minimal and bold.</p>
       
-      <!-- IMAGE-READY GRID - 6 placeholder cards -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- 
-          TO ADD YOUR IMAGES:
-          1. Upload your images to: /images/graphic-design/ folder
-          2. Replace the placeholder div with this format:
-          
-          <div class="image-card reveal">
-            <img src="/images/graphic-design/your-image.jpg" alt="Project Title">
-            <div class="overlay">
-              <div class="project-title">Your Title</div>
-              <div class="project-category">Category</div>
-            </div>
-          </div>
-        -->
+      <!-- ROW 1 - 3 placeholder cards -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
         
         <!-- Placeholder Card 1 - Brand Identity -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(0)">
           <div class="placeholder-icon">◉</div>
           <div class="placeholder-title">Brand Identity</div>
           <div class="placeholder-subtitle">Logo · Guidelines · Stationery</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 2 - Editorial -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(1)">
           <div class="placeholder-icon">📖</div>
           <div class="placeholder-title">Editorial</div>
           <div class="placeholder-subtitle">Magazines · Books · Reports</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
         <!-- Placeholder Card 3 - Motion -->
-        <div class="placeholder-card reveal">
+        <div class="placeholder-card reveal" onclick="openLightbox(2)">
           <div class="placeholder-icon">🎬</div>
           <div class="placeholder-title">Motion</div>
           <div class="placeholder-subtitle">Animation · Video Graphics</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
-        </div>
-        
-        <!-- Placeholder Card 4 - Packaging -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">📦</div>
-          <div class="placeholder-title">Packaging</div>
-          <div class="placeholder-subtitle">Product · Labels · Unboxing</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
-        </div>
-        
-        <!-- Placeholder Card 5 - Digital -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">💻</div>
-          <div class="placeholder-title">Digital</div>
-          <div class="placeholder-subtitle">Web · Social · Email</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
-        </div>
-        
-        <!-- Placeholder Card 6 - Print -->
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🖨️</div>
-          <div class="placeholder-title">Print</div>
-          <div class="placeholder-subtitle">Posters · Flyers · Signage</div>
-          <div class="text-xs mt-4 text-gray-600">Ready for image</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
         
       </div>
       
-      <!-- You can add more rows of projects here -->
-      <!-- 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div class="image-card reveal">
-          <img src="/images/graphic-design/your-image.jpg" alt="Project">
-          <div class="overlay">
-            <div class="project-title">Project Title</div>
-            <div class="project-category">Category</div>
-          </div>
+      <!-- ROW 2 - 3 placeholder cards -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        
+        <!-- Placeholder Card 4 - Packaging -->
+        <div class="placeholder-card reveal" onclick="openLightbox(3)">
+          <div class="placeholder-icon">📦</div>
+          <div class="placeholder-title">Packaging</div>
+          <div class="placeholder-subtitle">Product · Labels · Unboxing</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
         </div>
+        
+        <!-- Placeholder Card 5 - Digital -->
+        <div class="placeholder-card reveal" onclick="openLightbox(4)">
+          <div class="placeholder-icon">💻</div>
+          <div class="placeholder-title">Digital</div>
+          <div class="placeholder-subtitle">Web · Social · Email</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+        </div>
+        
+        <!-- Placeholder Card 6 - Print -->
+        <div class="placeholder-card reveal" onclick="openLightbox(5)">
+          <div class="placeholder-icon">🖨️</div>
+          <div class="placeholder-title">Print</div>
+          <div class="placeholder-subtitle">Posters · Flyers · Signage</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+        </div>
+        
       </div>
-      -->
+      
+      <!-- ROW 3 - 3 placeholder cards -->
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Placeholder Card 7 - Illustration -->
+        <div class="placeholder-card reveal" onclick="openLightbox(6)">
+          <div class="placeholder-icon">🎨</div>
+          <div class="placeholder-title">Illustration</div>
+          <div class="placeholder-subtitle">Custom Art · Graphics</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+        </div>
+        
+        <!-- Placeholder Card 8 - Typography -->
+        <div class="placeholder-card reveal" onclick="openLightbox(7)">
+          <div class="placeholder-icon">🔤</div>
+          <div class="placeholder-title">Typography</div>
+          <div class="placeholder-subtitle">Type Design · Lettering</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+        </div>
+        
+        <!-- Placeholder Card 9 - UI/UX -->
+        <div class="placeholder-card reveal" onclick="openLightbox(8)">
+          <div class="placeholder-icon">📱</div>
+          <div class="placeholder-title">UI/UX</div>
+          <div class="placeholder-subtitle">App Design · Interface</div>
+          <div class="text-xs mt-4 text-gray-600">Click to view</div>
+        </div>
+        
+      </div>
+      
     </div>
   </section>
 
@@ -360,7 +503,7 @@
 
   <script>
     (function() {
-      // ---------- THREE.JS STATIC STARFIELD (FROM PHOTOGRAPHY.HTML) ----------
+      // ---------- THREE.JS STATIC STARFIELD ----------
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -370,7 +513,6 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       camera.position.z = 60;
 
-      // Create a canvas texture for soft, circular stars
       function createStarTexture() {
         const canvas = document.createElement('canvas');
         canvas.width = 64;
@@ -400,7 +542,7 @@
 
       const starTexture = createStarTexture();
 
-      // Layer 1 - Distant stars (slower rotation)
+      // Layer 1
       const layer1Geo = new THREE.BufferGeometry();
       const pos1 = [];
       for (let i = 0; i < 2000; i++) {
@@ -418,7 +560,7 @@
       const layer1 = new THREE.Points(layer1Geo, layer1Mat);
       scene.add(layer1);
 
-      // Layer 2 - Closer stars (slightly faster rotation)
+      // Layer 2
       const layer2Geo = new THREE.BufferGeometry();
       const pos2 = [];
       for (let i = 0; i < 1000; i++) {
@@ -436,11 +578,9 @@
       const layer2 = new THREE.Points(layer2Geo, layer2Mat);
       scene.add(layer2);
 
-      // Animation loop - slow constant rotation
       function animate() {
         requestAnimationFrame(animate);
         
-        // Different rotation speeds for depth effect
         layer1.rotation.y += 0.0001;
         layer2.rotation.y += 0.00005;
         
@@ -448,14 +588,13 @@
       }
       animate();
 
-      // Handle window resize
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      // ---------- REVEAL ON SCROLL ----------
+      // Reveal on scroll
       const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -466,7 +605,7 @@
       }, { threshold: 0.1 });
       reveals.forEach(r => observer.observe(r));
 
-      // ---------- FORMSPREE FORM HANDLER ----------
+      // Form handler
       const form = document.getElementById('contactForm');
       const feedback = document.getElementById('formFeedback');
 
@@ -482,12 +621,13 @@
           feedback.style.color = '#fbbf24';
           return;
         }
+        
         if (!email.includes('@') || !email.includes('.')) {
           feedback.textContent = '📧 Please enter a valid email.';
           feedback.style.color = '#f87171';
           return;
         }
-
+        
         feedback.textContent = '⏱️ Sending...';
         feedback.style.color = '#9ca3af';
         
@@ -525,6 +665,67 @@
       });
 
     })();
+
+    // ---------- LIGHTBOX FUNCTIONALITY ----------
+    // Define your graphic design projects here
+    const projects = [
+      { src: '/images/graphic-design/brand-identity.jpg', title: 'Brand Identity', category: 'Logo · Guidelines · Stationery' },
+      { src: '/images/graphic-design/editorial.jpg', title: 'Editorial', category: 'Magazines · Books · Reports' },
+      { src: '/images/graphic-design/motion.jpg', title: 'Motion', category: 'Animation · Video Graphics' },
+      { src: '/images/graphic-design/packaging.jpg', title: 'Packaging', category: 'Product · Labels · Unboxing' },
+      { src: '/images/graphic-design/digital.jpg', title: 'Digital', category: 'Web · Social · Email' },
+      { src: '/images/graphic-design/print.jpg', title: 'Print', category: 'Posters · Flyers · Signage' },
+      { src: '/images/graphic-design/illustration.jpg', title: 'Illustration', category: 'Custom Art · Graphics' },
+      { src: '/images/graphic-design/typography.jpg', title: 'Typography', category: 'Type Design · Lettering' },
+      { src: '/images/graphic-design/uiux.jpg', title: 'UI/UX', category: 'App Design · Interface' }
+    ];
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const img = document.getElementById('lightbox-img');
+      const title = document.getElementById('lightbox-title');
+      const category = document.getElementById('lightbox-category');
+      
+      img.src = projects[currentIndex].src;
+      title.textContent = projects[currentIndex].title;
+      category.textContent = projects[currentIndex].category;
+    }
+
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = projects.length - 1;
+      if (currentIndex >= projects.length) currentIndex = 0;
+      updateLightbox();
+    }
+
+    // Close lightbox on background click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') changeImage(-1);
+      if (e.key === 'ArrowRight') changeImage(1);
+    });
   </script>
 </body>
 </html>
