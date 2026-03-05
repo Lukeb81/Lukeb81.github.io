@@ -249,6 +249,37 @@
       background: rgba(255, 255, 255, 0.2);
       transform: rotate(90deg);
     }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .lightbox-prev {
+      left: 2rem;
+    }
+    
+    .lightbox-next {
+      right: 2rem;
+    }
 
     /* Social icon styles */
     .social-icon {
@@ -301,6 +332,8 @@
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#8250;</button>
     <div class="lightbox-content" id="lightbox-content">
       <!-- Content will be inserted by JavaScript -->
     </div>
@@ -741,6 +774,13 @@
       document.body.style.overflow = '';
     }
 
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = properties.length - 1;
+      if (currentIndex >= properties.length) currentIndex = 0;
+      updateLightbox();
+    }
+
     function updateLightbox() {
       const content = document.getElementById('lightbox-content');
       const property = properties[currentIndex];
@@ -794,6 +834,8 @@
       if (!document.getElementById('lightbox').classList.contains('active')) return;
       
       if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') changeImage(-1);
+      if (e.key === 'ArrowRight') changeImage(1);
     });
   </script>
 </body>
