@@ -147,7 +147,7 @@
       color: #6b7280;
     }
 
-    /* Lightbox Styles */
+    /* Lightbox Styles - EXACTLY like photography.html */
     .lightbox {
       position: fixed;
       top: 0;
@@ -180,8 +180,8 @@
     }
     
     .lightbox-placeholder {
-      width: 600px;
-      height: 450px;
+      max-width: 85vw;
+      max-height: 80vh;
       background: #11131f;
       border: 2px dashed #3b82f6;
       border-radius: 1rem;
@@ -191,17 +191,19 @@
       justify-content: center;
       color: #9ca3af;
       text-align: center;
-      padding: 2rem;
+      padding: 3rem;
+      min-width: 400px;
+      min-height: 300px;
     }
     
     .lightbox-placeholder .icon {
-      font-size: 4rem;
+      font-size: 5rem;
       margin-bottom: 1rem;
       color: #3b82f6;
     }
     
     .lightbox-placeholder h3 {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 600;
       color: white;
       margin-bottom: 0.5rem;
@@ -209,21 +211,34 @@
     
     .lightbox-placeholder p {
       color: #9ca3af;
-      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
     }
     
     .lightbox-placeholder .hint {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       color: #6b7280;
       background: #1a1f2e;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 0.5rem;
+      margin-top: 1rem;
     }
     
     .lightbox-info {
       margin-top: 1rem;
       text-align: center;
       color: white;
+    }
+    
+    .lightbox-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .lightbox-category {
+      color: #9ca3af;
+      font-size: 1rem;
     }
     
     .lightbox-close {
@@ -236,13 +251,15 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
+      padding-bottom: 4px;
     }
     
     .lightbox-close:hover {
@@ -260,13 +277,15 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
+      padding-bottom: 4px;
     }
     
     .lightbox-nav:hover {
@@ -329,13 +348,19 @@
     </div>
   </nav>
 
-  <!-- Lightbox -->
+  <!-- Lightbox - EXACT same structure as photography.html -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
     <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#8249;</button>
     <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#8250;</button>
-    <div class="lightbox-content" id="lightbox-content">
-      <!-- Content will be inserted by JavaScript -->
+    <div class="lightbox-content">
+      <div id="lightbox-display">
+        <!-- Content inserted by JavaScript -->
+      </div>
+      <div class="lightbox-info">
+        <div id="lightbox-title" class="lightbox-title"></div>
+        <div id="lightbox-category" class="lightbox-category"></div>
+      </div>
     </div>
   </div>
 
@@ -695,68 +720,67 @@
 
     })();
 
-    // ---------- LIGHTBOX FUNCTIONALITY ----------
-    // Placeholder data for real estate properties
+    // ---------- LIGHTBOX FUNCTIONALITY - EXACTLY like photography.html ----------
     const properties = [
       { 
+        icon: '🏢',
         title: 'Modern Loft', 
-        location: 'Downtown',
-        description: 'Interior · Industrial · Natural Light'
+        category: 'Downtown · Interior'
       },
       { 
+        icon: '🏠',
         title: 'Suburban Home', 
-        location: 'Family Residence',
-        description: 'Exterior · Pool · Garden'
+        category: 'Family Residence · Pool'
       },
       { 
+        icon: '🏬',
         title: 'Commercial Space', 
-        location: 'Retail District',
-        description: 'Office · Retail · Interior'
+        category: 'Retail · Office'
       },
       { 
+        icon: '🏰',
         title: 'Luxury Estate', 
-        location: 'Hillside',
-        description: 'Panoramic · Exterior · Pool'
+        category: 'Hillside · Panoramic'
       },
       { 
+        icon: '🌆',
         title: 'Twilight Series', 
-        location: 'Various',
-        description: 'Golden Hour · Blue Hour · Exterior'
+        category: 'Golden Hour · Exterior'
       },
       { 
+        icon: '🚁',
         title: 'Drone Photography', 
-        location: 'Aerial',
-        description: 'Drone · Aerial · Property Context'
+        category: 'Aerial · Property Context'
       },
       { 
+        icon: '🪑',
         title: 'Interior Design', 
-        location: 'Styled Living',
-        description: 'Interior · Details · Staging'
+        category: 'Styled Living · Details'
       },
       { 
+        icon: '🏗️',
         title: 'New Construction', 
-        location: 'Modern Build',
-        description: 'Construction · Progress · Exterior'
+        category: 'Modern Build · Progress'
       },
       { 
+        icon: '🌴',
         title: 'Vacation Rentals', 
-        location: 'Beach House',
-        description: 'Airbnb · VRBO · Interior/Exterior'
+        category: 'Beach House · Airbnb'
       },
       { 
+        icon: '🏙️',
         title: 'Condos', 
-        location: 'Downtown',
-        description: 'High-Rise · Interior · View'
+        category: 'High-Rise · Downtown'
       },
       { 
+        icon: '✨',
         title: 'Staged Homes', 
-        location: 'Various',
-        description: 'Staging · Interior · Design'
+        category: 'Professionally Staged'
       },
       { 
+        icon: '🔄',
         title: 'Virtual Tours', 
-        location: '360° Panoramic',
-        description: 'Virtual · Interactive · 360°'
+        category: '360° Panoramic'
       }
     ];
 
@@ -782,44 +806,23 @@
     }
 
     function updateLightbox() {
-      const content = document.getElementById('lightbox-content');
+      const display = document.getElementById('lightbox-display');
+      const title = document.getElementById('lightbox-title');
+      const category = document.getElementById('lightbox-category');
       const property = properties[currentIndex];
       
-      content.innerHTML = `
+      // Create placeholder display
+      display.innerHTML = `
         <div class="lightbox-placeholder">
-          <div class="icon">${getIconForIndex(currentIndex)}</div>
+          <div class="icon">${property.icon}</div>
           <h3>${property.title}</h3>
-          <p>📍 ${property.location}</p>
-          <p>${property.description}</p>
-          <div class="hint">
-            Image coming soon<br>
-            <span class="text-xs">Add to: /images/real-estate/${getFileNameForIndex(currentIndex)}</span>
-          </div>
+          <p>${property.category}</p>
+          <div class="hint">Image coming soon</div>
         </div>
       `;
-    }
-
-    function getIconForIndex(index) {
-      const icons = ['🏢', '🏠', '🏬', '🏰', '🌆', '🚁', '🪑', '🏗️', '🌴', '🏙️', '✨', '🔄'];
-      return icons[index] || '🏠';
-    }
-
-    function getFileNameForIndex(index) {
-      const files = [
-        'modern-loft.jpg',
-        'suburban-home.jpg',
-        'commercial.jpg',
-        'luxury-estate.jpg',
-        'twilight.jpg',
-        'drone.jpg',
-        'interior.jpg',
-        'new-construction.jpg',
-        'vacation.jpg',
-        'condos.jpg',
-        'staged.jpg',
-        'virtual-tour.jpg'
-      ];
-      return files[index] || 'property.jpg';
+      
+      title.textContent = property.title;
+      category.textContent = property.category;
     }
 
     // Close lightbox on background click
