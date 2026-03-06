@@ -411,12 +411,12 @@
       <!-- ROW 1 - 3 project folders -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Modern Loft (3 images) -->
+        <!-- Project 1 - Modern Loft (with all 39 Deck images) -->
         <div class="placeholder-card reveal" onclick="openProject(0)">
           <div class="placeholder-icon">🏢</div>
-          <div class="placeholder-title">Modern Loft</div>
-          <div class="placeholder-subtitle">Downtown · Interior</div>
-          <div class="placeholder-count">3 photos</div>
+          <div class="placeholder-title">Deck Project</div>
+          <div class="placeholder-subtitle">Outdoor Living Space</div>
+          <div class="placeholder-count">39 photos</div>
         </div>
         
         <!-- Project 2 - Suburban Home (4 images) -->
@@ -758,16 +758,51 @@
 
     })();
 
-    // ---------- PROJECT-BASED LIGHTBOX ----------
-    // Each project has its own array of images
+    // ---------- PROJECT-BASED LIGHTBOX WITH EXACTLY 39 DECK IMAGES ----------
     const projects = [
       { 
-        name: 'Modern Loft',
-        location: 'Downtown',
+        name: 'Deck Project',
+        location: 'Outdoor Living Space',
         images: [
-          { src: '/images/real-estate/modern-loft-1.jpg', alt: 'Modern Loft - Living Room' },
-          { src: '/images/real-estate/modern-loft-2.jpg', alt: 'Modern Loft - Kitchen' },
-          { src: '/images/real-estate/modern-loft-3.jpg', alt: 'Modern Loft - Bedroom' }
+          { src: '/images/real%20estate/Deck%20(1).png', alt: 'Deck 1' },
+          { src: '/images/real%20estate/Deck%20(2).png', alt: 'Deck 2' },
+          { src: '/images/real%20estate/Deck%20(3).png', alt: 'Deck 3' },
+          { src: '/images/real%20estate/Deck%20(4).png', alt: 'Deck 4' },
+          { src: '/images/real%20estate/Deck%20(5).png', alt: 'Deck 5' },
+          { src: '/images/real%20estate/Deck%20(6).png', alt: 'Deck 6' },
+          { src: '/images/real%20estate/Deck%20(7).png', alt: 'Deck 7' },
+          { src: '/images/real%20estate/Deck%20(8).png', alt: 'Deck 8' },
+          { src: '/images/real%20estate/Deck%20(9).png', alt: 'Deck 9' },
+          { src: '/images/real%20estate/Deck%20(10).png', alt: 'Deck 10' },
+          { src: '/images/real%20estate/Deck%20(11).png', alt: 'Deck 11' },
+          { src: '/images/real%20estate/Deck%20(12).png', alt: 'Deck 12' },
+          { src: '/images/real%20estate/Deck%20(13).png', alt: 'Deck 13' },
+          { src: '/images/real%20estate/Deck%20(14).png', alt: 'Deck 14' },
+          { src: '/images/real%20estate/Deck%20(15).png', alt: 'Deck 15' },
+          { src: '/images/real%20estate/Deck%20(16).png', alt: 'Deck 16' },
+          { src: '/images/real%20estate/Deck%20(17).png', alt: 'Deck 17' },
+          { src: '/images/real%20estate/Deck%20(18).png', alt: 'Deck 18' },
+          { src: '/images/real%20estate/Deck%20(19).png', alt: 'Deck 19' },
+          { src: '/images/real%20estate/Deck%20(20).png', alt: 'Deck 20' },
+          { src: '/images/real%20estate/Deck%20(21).png', alt: 'Deck 21' },
+          { src: '/images/real%20estate/Deck%20(22).png', alt: 'Deck 22' },
+          { src: '/images/real%20estate/Deck%20(23).png', alt: 'Deck 23' },
+          { src: '/images/real%20estate/Deck%20(24).png', alt: 'Deck 24' },
+          { src: '/images/real%20estate/Deck%20(25).png', alt: 'Deck 25' },
+          { src: '/images/real%20estate/Deck%20(26).png', alt: 'Deck 26' },
+          { src: '/images/real%20estate/Deck%20(27).png', alt: 'Deck 27' },
+          { src: '/images/real%20estate/Deck%20(28).png', alt: 'Deck 28' },
+          { src: '/images/real%20estate/Deck%20(29).png', alt: 'Deck 29' },
+          { src: '/images/real%20estate/Deck%20(30).png', alt: 'Deck 30' },
+          { src: '/images/real%20estate/Deck%20(31).png', alt: 'Deck 31' },
+          { src: '/images/real%20estate/Deck%20(32).png', alt: 'Deck 32' },
+          { src: '/images/real%20estate/Deck%20(33).png', alt: 'Deck 33' },
+          { src: '/images/real%20estate/Deck%20(34).png', alt: 'Deck 34' },
+          { src: '/images/real%20estate/Deck%20(35).png', alt: 'Deck 35' },
+          { src: '/images/real%20estate/Deck%20(36).png', alt: 'Deck 36' },
+          { src: '/images/real%20estate/Deck%20(37).png', alt: 'Deck 37' },
+          { src: '/images/real%20estate/Deck%20(38).png', alt: 'Deck 38' },
+          { src: '/images/real%20estate/Deck%20(39).png', alt: 'Deck 39' }
         ]
       },
       { 
@@ -918,10 +953,9 @@
       const locationText = document.getElementById('lightbox-location-text');
       const counter = document.getElementById('lightbox-counter');
       
-      // For now, use a placeholder SVG since images don't exist yet
-      // When you add real images, replace this with: img.src = currentProject.images[currentImageIndex].src;
+      // Use the actual image path - now pointing to your Deck images
       const image = currentProject.images[currentImageIndex];
-      img.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\' viewBox=\'0 0 800 600\'%3E%3Crect width=\'800\' height=\'600\' fill=\'%2311131f\'/%3E%3Ctext x=\'400\' y=\'300\' font-family=\'Inter\' font-size=\'20\' fill=\'%239ca3af\' text-anchor=\'middle\'%3E' + encodeURIComponent(image.alt) + '%3C/text%3E%3C/svg%3E';
+      img.src = image.src;
       
       title.textContent = currentProject.name;
       locationText.textContent = currentProject.location;
