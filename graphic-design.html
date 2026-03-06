@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luke Bianchi · Real Estate Photography</title>
+  <title>Luke Bianchi · Graphic Design</title>
 
   <!-- Tailwind + Three.js + Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -64,14 +64,14 @@
       transform: translateY(0);
     }
 
-    /* Image card styles */
+    /* Image card styles - matching photography page */
     .image-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
       border-radius: 1rem;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1 / 1;
       position: relative;
       cursor: pointer;
     }
@@ -108,6 +108,18 @@
       opacity: 1;
     }
     
+    .image-card .project-title {
+      color: white;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .image-card .project-category {
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+    
     .image-card .photo-count {
       position: absolute;
       top: 1rem;
@@ -116,7 +128,7 @@
       color: white;
       padding: 0.25rem 0.75rem;
       border-radius: 9999px;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       font-weight: 600;
       z-index: 2;
     }
@@ -126,7 +138,7 @@
       background: #11131f;
       border: 2px dashed #374151;
       border-radius: 1rem;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 1 / 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -173,7 +185,7 @@
       border: 1px solid rgba(59,130,246,0.3);
     }
 
-    /* Lightbox Styles */
+    /* Lightbox Styles - matching photography page */
     .lightbox {
       position: fixed;
       top: 0;
@@ -236,19 +248,10 @@
       margin-bottom: 0.25rem;
     }
     
-    .lightbox-location {
+    .lightbox-category {
       color: #9ca3af;
       font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.25rem;
       margin-bottom: 0.5rem;
-    }
-    
-    .lightbox-location svg {
-      width: 1.2rem;
-      height: 1.2rem;
     }
     
     .lightbox-counter {
@@ -267,13 +270,15 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
+      padding-bottom: 4px;
     }
     
     .lightbox-close:hover {
@@ -291,23 +296,19 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
+      padding-bottom: 4px;
     }
     
     .lightbox-nav:hover {
       background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .lightbox-nav.disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      pointer-events: none;
     }
     
     .lightbox-prev {
@@ -369,114 +370,109 @@
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <button class="lightbox-nav lightbox-prev" onclick="changeProjectImage(-1)" id="prevBtn">&#8249;</button>
-    <button class="lightbox-nav lightbox-next" onclick="changeProjectImage(1)" id="nextBtn">&#8250;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="changeProjectImage(-1)">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" onclick="changeProjectImage(1)">&#8250;</button>
     <div class="lightbox-content">
       <div class="lightbox-image-container">
         <img id="lightbox-img" src="" alt="">
       </div>
       <div class="lightbox-info">
         <div id="lightbox-title" class="lightbox-title"></div>
-        <div id="lightbox-location" class="lightbox-location">
-          <svg fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <span id="lightbox-location-text"></span>
-        </div>
+        <div id="lightbox-category" class="lightbox-category"></div>
         <div id="lightbox-counter" class="lightbox-counter"></div>
       </div>
     </div>
   </div>
 
-  <!-- REAL ESTATE PORTFOLIO SECTION -->
+  <!-- GRAPHIC DESIGN PORTFOLIO SECTION -->
   <section class="pt-32 pb-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Real Estate Photography</h1>
-      <p class="text-gray-400 mb-12 text-xl reveal">Architecture · interiors · twilight · drone</p>
+      <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Graphic Design</h1>
+      <p class="text-gray-400 mb-12 text-xl reveal">Brand identity · print · digital — minimal and bold.</p>
       
       <!-- ROW 1 - 3 project folders -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Modern Loft (3 images) -->
+        <!-- Project 1 - Frog Skateboard (with 8 images) -->
         <div class="placeholder-card reveal" onclick="openProject(0)">
-          <div class="placeholder-icon">🏢</div>
-          <div class="placeholder-title">Modern Loft</div>
-          <div class="placeholder-subtitle">Downtown · Interior</div>
-          <div class="placeholder-count">3 photos</div>
+          <div class="placeholder-icon">🐸</div>
+          <div class="placeholder-title">Frog Skateboard</div>
+          <div class="placeholder-subtitle">Skateboard Design · Branding</div>
+          <div class="placeholder-count">8 photos</div>
         </div>
         
-        <!-- Project 2 - Suburban Home (4 images) -->
+        <!-- Project 2 - Editorial -->
         <div class="placeholder-card reveal" onclick="openProject(1)">
-          <div class="placeholder-icon">🏠</div>
-          <div class="placeholder-title">Suburban Home</div>
-          <div class="placeholder-subtitle">Family Residence · Pool</div>
+          <div class="placeholder-icon">📖</div>
+          <div class="placeholder-title">Editorial</div>
+          <div class="placeholder-subtitle">Magazines · Books · Reports</div>
           <div class="placeholder-count">4 photos</div>
         </div>
         
-        <!-- Project 3 - Commercial Space (3 images) -->
+        <!-- Project 3 - Motion -->
         <div class="placeholder-card reveal" onclick="openProject(2)">
-          <div class="placeholder-icon">🏬</div>
-          <div class="placeholder-title">Commercial Space</div>
-          <div class="placeholder-subtitle">Retail · Office</div>
+          <div class="placeholder-icon">🎬</div>
+          <div class="placeholder-title">Motion</div>
+          <div class="placeholder-subtitle">Animation · Video Graphics</div>
           <div class="placeholder-count">3 photos</div>
         </div>
         
       </div>
       
-      <!-- ROW 2 - 3 project folders -->
+      <!-- ROW 2 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 4 - Luxury Estate (5 images) -->
+        <!-- Project 4 - Packaging -->
         <div class="placeholder-card reveal" onclick="openProject(3)">
-          <div class="placeholder-icon">🏰</div>
-          <div class="placeholder-title">Luxury Estate</div>
-          <div class="placeholder-subtitle">Hillside · Panoramic</div>
-          <div class="placeholder-count">5 photos</div>
+          <div class="placeholder-icon">📦</div>
+          <div class="placeholder-title">Packaging</div>
+          <div class="placeholder-subtitle">Product · Labels · Unboxing</div>
+          <div class="placeholder-count">4 photos</div>
         </div>
         
-        <!-- Project 5 - Twilight Series (3 images) -->
+        <!-- Project 5 - Digital -->
         <div class="placeholder-card reveal" onclick="openProject(4)">
-          <div class="placeholder-icon">🌆</div>
-          <div class="placeholder-title">Twilight Series</div>
-          <div class="placeholder-subtitle">Golden Hour · Exterior</div>
+          <div class="placeholder-icon">💻</div>
+          <div class="placeholder-title">Digital</div>
+          <div class="placeholder-subtitle">Web · Social · Email</div>
           <div class="placeholder-count">3 photos</div>
         </div>
         
-        <!-- Project 6 - Drone Photography (4 images) -->
+        <!-- Project 6 - Print -->
         <div class="placeholder-card reveal" onclick="openProject(5)">
-          <div class="placeholder-icon">🚁</div>
-          <div class="placeholder-title">Drone Photography</div>
-          <div class="placeholder-subtitle">Aerial · Property Context</div>
+          <div class="placeholder-icon">🖨️</div>
+          <div class="placeholder-title">Print</div>
+          <div class="placeholder-subtitle">Posters · Flyers · Signage</div>
           <div class="placeholder-count">4 photos</div>
         </div>
         
       </div>
       
-      <!-- ROW 3 - 3 project folders -->
+      <!-- ROW 3 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 7 - Interior Design (4 images) -->
+        <!-- Project 7 - Illustration -->
         <div class="placeholder-card reveal" onclick="openProject(6)">
-          <div class="placeholder-icon">🪑</div>
-          <div class="placeholder-title">Interior Design</div>
-          <div class="placeholder-subtitle">Styled Living · Details</div>
-          <div class="placeholder-count">4 photos</div>
-        </div>
-        
-        <!-- Project 8 - New Construction (3 images) -->
-        <div class="placeholder-card reveal" onclick="openProject(7)">
-          <div class="placeholder-icon">🏗️</div>
-          <div class="placeholder-title">New Construction</div>
-          <div class="placeholder-subtitle">Modern Build · Progress</div>
+          <div class="placeholder-icon">🎨</div>
+          <div class="placeholder-title">Illustration</div>
+          <div class="placeholder-subtitle">Custom Art · Graphics</div>
           <div class="placeholder-count">3 photos</div>
         </div>
         
-        <!-- Project 9 - Vacation Rentals (4 images) -->
-        <div class="placeholder-card reveal" onclick="openProject(8)">
-          <div class="placeholder-icon">🌴</div>
-          <div class="placeholder-title">Vacation Rentals</div>
-          <div class="placeholder-subtitle">Beach House · Airbnb</div>
+        <!-- Project 8 - Typography -->
+        <div class="placeholder-card reveal" onclick="openProject(7)">
+          <div class="placeholder-icon">🔤</div>
+          <div class="placeholder-title">Typography</div>
+          <div class="placeholder-subtitle">Type Design · Lettering</div>
           <div class="placeholder-count">4 photos</div>
+        </div>
+        
+        <!-- Project 9 - UI/UX -->
+        <div class="placeholder-card reveal" onclick="openProject(8)">
+          <div class="placeholder-icon">📱</div>
+          <div class="placeholder-title">UI/UX</div>
+          <div class="placeholder-subtitle">App Design · Interface</div>
+          <div class="placeholder-count">3 photos</div>
         </div>
         
       </div>
@@ -715,94 +711,96 @@
 
     })();
 
-    // ---------- PROJECT-BASED LIGHTBOX ----------
-    // Each project is its own gallery with multiple images
+    // ---------- PROJECT-BASED LIGHTBOX WITH FROG SKATEBOARD IMAGES ----------
     const projects = [
       { 
-        name: 'Modern Loft',
-        location: 'Downtown',
+        name: 'Frog Skateboard',
+        category: 'Skateboard Design · Branding',
         images: [
-          { src: '/images/real-estate/modern-loft-1.jpg', alt: 'Modern Loft - Living Room' },
-          { src: '/images/real-estate/modern-loft-2.jpg', alt: 'Modern Loft - Kitchen' },
-          { src: '/images/real-estate/modern-loft-3.jpg', alt: 'Modern Loft - Bedroom' }
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(1).png', alt: 'Frog Skateboard 1' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(2).png', alt: 'Frog Skateboard 2' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(3).png', alt: 'Frog Skateboard 3' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(4).png', alt: 'Frog Skateboard 4' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(5).png', alt: 'Frog Skateboard 5' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(6).png', alt: 'Frog Skateboard 6' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(7).png', alt: 'Frog Skateboard 7' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(8).png', alt: 'Frog Skateboard 8' }
         ]
       },
       { 
-        name: 'Suburban Home',
-        location: 'Family Residence',
+        name: 'Editorial',
+        category: 'Magazines · Books · Reports',
         images: [
-          { src: '/images/real-estate/suburban-1.jpg', alt: 'Suburban Home - Exterior' },
-          { src: '/images/real-estate/suburban-2.jpg', alt: 'Suburban Home - Pool' },
-          { src: '/images/real-estate/suburban-3.jpg', alt: 'Suburban Home - Garden' },
-          { src: '/images/real-estate/suburban-4.jpg', alt: 'Suburban Home - Interior' }
+          { src: '/images/Graphic%20Design/editorial-1.jpg', alt: 'Editorial 1' },
+          { src: '/images/Graphic%20Design/editorial-2.jpg', alt: 'Editorial 2' },
+          { src: '/images/Graphic%20Design/editorial-3.jpg', alt: 'Editorial 3' },
+          { src: '/images/Graphic%20Design/editorial-4.jpg', alt: 'Editorial 4' }
         ]
       },
       { 
-        name: 'Commercial Space',
-        location: 'Retail District',
+        name: 'Motion',
+        category: 'Animation · Video Graphics',
         images: [
-          { src: '/images/real-estate/commercial-1.jpg', alt: 'Commercial - Exterior' },
-          { src: '/images/real-estate/commercial-2.jpg', alt: 'Commercial - Office' },
-          { src: '/images/real-estate/commercial-3.jpg', alt: 'Commercial - Retail' }
+          { src: '/images/Graphic%20Design/motion-1.jpg', alt: 'Motion 1' },
+          { src: '/images/Graphic%20Design/motion-2.jpg', alt: 'Motion 2' },
+          { src: '/images/Graphic%20Design/motion-3.jpg', alt: 'Motion 3' }
         ]
       },
       { 
-        name: 'Luxury Estate',
-        location: 'Hillside',
+        name: 'Packaging',
+        category: 'Product · Labels · Unboxing',
         images: [
-          { src: '/images/real-estate/luxury-1.jpg', alt: 'Luxury Estate - Exterior' },
-          { src: '/images/real-estate/luxury-2.jpg', alt: 'Luxury Estate - Pool' },
-          { src: '/images/real-estate/luxury-3.jpg', alt: 'Luxury Estate - View' },
-          { src: '/images/real-estate/luxury-4.jpg', alt: 'Luxury Estate - Interior' },
-          { src: '/images/real-estate/luxury-5.jpg', alt: 'Luxury Estate - Garden' }
+          { src: '/images/Graphic%20Design/packaging-1.jpg', alt: 'Packaging 1' },
+          { src: '/images/Graphic%20Design/packaging-2.jpg', alt: 'Packaging 2' },
+          { src: '/images/Graphic%20Design/packaging-3.jpg', alt: 'Packaging 3' },
+          { src: '/images/Graphic%20Design/packaging-4.jpg', alt: 'Packaging 4' }
         ]
       },
       { 
-        name: 'Twilight Series',
-        location: 'Various',
+        name: 'Digital',
+        category: 'Web · Social · Email',
         images: [
-          { src: '/images/real-estate/twilight-1.jpg', alt: 'Twilight - Golden Hour' },
-          { src: '/images/real-estate/twilight-2.jpg', alt: 'Twilight - Blue Hour' },
-          { src: '/images/real-estate/twilight-3.jpg', alt: 'Twilight - Night' }
+          { src: '/images/Graphic%20Design/digital-1.jpg', alt: 'Digital 1' },
+          { src: '/images/Graphic%20Design/digital-2.jpg', alt: 'Digital 2' },
+          { src: '/images/Graphic%20Design/digital-3.jpg', alt: 'Digital 3' }
         ]
       },
       { 
-        name: 'Drone Photography',
-        location: 'Aerial',
+        name: 'Print',
+        category: 'Posters · Flyers · Signage',
         images: [
-          { src: '/images/real-estate/drone-1.jpg', alt: 'Drone - Property Overview' },
-          { src: '/images/real-estate/drone-2.jpg', alt: 'Drone - Neighborhood' },
-          { src: '/images/real-estate/drone-3.jpg', alt: 'Drone - Landscape' },
-          { src: '/images/real-estate/drone-4.jpg', alt: 'Drone - Aerial View' }
+          { src: '/images/Graphic%20Design/print-1.jpg', alt: 'Print 1' },
+          { src: '/images/Graphic%20Design/print-2.jpg', alt: 'Print 2' },
+          { src: '/images/Graphic%20Design/print-3.jpg', alt: 'Print 3' },
+          { src: '/images/Graphic%20Design/print-4.jpg', alt: 'Print 4' }
         ]
       },
       { 
-        name: 'Interior Design',
-        location: 'Styled Living',
+        name: 'Illustration',
+        category: 'Custom Art · Graphics',
         images: [
-          { src: '/images/real-estate/interior-1.jpg', alt: 'Interior - Living Room' },
-          { src: '/images/real-estate/interior-2.jpg', alt: 'Interior - Kitchen' },
-          { src: '/images/real-estate/interior-3.jpg', alt: 'Interior - Bedroom' },
-          { src: '/images/real-estate/interior-4.jpg', alt: 'Interior - Details' }
+          { src: '/images/Graphic%20Design/illustration-1.jpg', alt: 'Illustration 1' },
+          { src: '/images/Graphic%20Design/illustration-2.jpg', alt: 'Illustration 2' },
+          { src: '/images/Graphic%20Design/illustration-3.jpg', alt: 'Illustration 3' }
         ]
       },
       { 
-        name: 'New Construction',
-        location: 'Modern Build',
+        name: 'Typography',
+        category: 'Type Design · Lettering',
         images: [
-          { src: '/images/real-estate/construction-1.jpg', alt: 'Construction - Exterior' },
-          { src: '/images/real-estate/construction-2.jpg', alt: 'Construction - Progress' },
-          { src: '/images/real-estate/construction-3.jpg', alt: 'Construction - Interior' }
+          { src: '/images/Graphic%20Design/typography-1.jpg', alt: 'Typography 1' },
+          { src: '/images/Graphic%20Design/typography-2.jpg', alt: 'Typography 2' },
+          { src: '/images/Graphic%20Design/typography-3.jpg', alt: 'Typography 3' },
+          { src: '/images/Graphic%20Design/typography-4.jpg', alt: 'Typography 4' }
         ]
       },
       { 
-        name: 'Vacation Rentals',
-        location: 'Beach House',
+        name: 'UI/UX',
+        category: 'App Design · Interface',
         images: [
-          { src: '/images/real-estate/vacation-1.jpg', alt: 'Vacation - Exterior' },
-          { src: '/images/real-estate/vacation-2.jpg', alt: 'Vacation - Beach' },
-          { src: '/images/real-estate/vacation-3.jpg', alt: 'Vacation - Interior' },
-          { src: '/images/real-estate/vacation-4.jpg', alt: 'Vacation - Sunset' }
+          { src: '/images/Graphic%20Design/uiux-1.jpg', alt: 'UI/UX 1' },
+          { src: '/images/Graphic%20Design/uiux-2.jpg', alt: 'UI/UX 2' },
+          { src: '/images/Graphic%20Design/uiux-3.jpg', alt: 'UI/UX 3' }
         ]
       }
     ];
@@ -844,16 +842,15 @@
       
       const img = document.getElementById('lightbox-img');
       const title = document.getElementById('lightbox-title');
-      const locationText = document.getElementById('lightbox-location-text');
+      const category = document.getElementById('lightbox-category');
       const counter = document.getElementById('lightbox-counter');
       
-      // In placeholder mode, show the image path info
-      // When you add real images, replace this with actual image src
+      // Use the actual image path
       const image = currentProject.images[currentImageIndex];
-      img.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'%3E%3Crect width=\'600\' height=\'400\' fill=\'%2311131f\'/%3E%3Ctext x=\'300\' y=\'200\' font-family=\'Inter\' font-size=\'16\' fill=\'%239ca3af\' text-anchor=\'middle\'%3E' + encodeURIComponent(image.alt) + '%3C/text%3E%3C/svg%3E';
+      img.src = image.src;
       
       title.textContent = currentProject.name;
-      locationText.textContent = currentProject.location;
+      category.textContent = currentProject.category;
       counter.textContent = `📸 ${currentImageIndex + 1} of ${currentProject.images.length}`;
     }
 
