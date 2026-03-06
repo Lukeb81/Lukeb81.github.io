@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Luke Bianchi · Real Estate Photography</title>
 
-  <!-- Tailwind + Three.js + Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -30,15 +29,12 @@
     }
     section { scroll-margin-top: 80px; }
 
-    /* nav link animation */
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
       color: #d1d5db;
     }
-    .nav-link:hover {
-      color: white;
-    }
+    .nav-link:hover { color: white; }
     .nav-link::after {
       content: '';
       position: absolute;
@@ -49,11 +45,8 @@
       background: linear-gradient(90deg, #3b82f6, #8b5cf6);
       transition: width 0.3s ease;
     }
-    .nav-link:hover::after { 
-      width: 100%; 
-    }
+    .nav-link:hover::after { width: 100%; }
 
-    /* fade-up reveal */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -64,7 +57,7 @@
       transform: translateY(0);
     }
 
-    /* Project card with image - like graphic design page */
+    /* Project card with image */
     .project-card {
       background: #11131f;
       transition: all 0.3s;
@@ -80,19 +73,13 @@
       transform: translateY(-6px);
       box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
     }
-    
     .project-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
-    
-    .project-card:hover img {
-      transform: scale(1.05);
-    }
-    
-    /* Overlay hidden by default, shows on hover */
+    .project-card:hover img { transform: scale(1.05); }
     .project-card .overlay {
       position: absolute;
       bottom: 0;
@@ -104,23 +91,17 @@
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
-    
-    .project-card:hover .overlay {
-      opacity: 1;
-    }
-    
+    .project-card:hover .overlay { opacity: 1; }
     .project-card .project-title {
       color: white;
       font-weight: 600;
       font-size: 1.25rem;
       margin-bottom: 0.25rem;
     }
-    
     .project-card .project-subtitle {
       color: #9ca3af;
       font-size: 0.875rem;
     }
-    
     .project-card .photo-count {
       position: absolute;
       top: 1rem;
@@ -134,7 +115,7 @@
       z-index: 2;
     }
 
-    /* Placeholder card - dashed border style */
+    /* Placeholder card */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
@@ -151,29 +132,21 @@
       cursor: pointer;
       position: relative;
     }
-    
     .placeholder-card:hover {
       border-color: #3b82f6;
       color: #9ca3af;
       background: #1a1f2e;
     }
-    
-    .placeholder-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
+    .placeholder-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
     .placeholder-title {
       font-weight: 600;
       color: white;
       margin-bottom: 0.25rem;
     }
-    
     .placeholder-subtitle {
       font-size: 0.75rem;
       color: #6b7280;
     }
-    
     .placeholder-count {
       position: absolute;
       top: 1rem;
@@ -187,7 +160,7 @@
       z-index: 2;
     }
 
-    /* Lightbox Styles */
+    /* Lightbox */
     .lightbox {
       position: fixed;
       top: 0;
@@ -204,12 +177,10 @@
       visibility: hidden;
       transition: all 0.3s ease;
     }
-    
     .lightbox.active {
       opacity: 1;
       visibility: visible;
     }
-    
     .lightbox-content {
       position: relative;
       max-width: 90vw;
@@ -218,38 +189,19 @@
       flex-direction: column;
       align-items: center;
     }
-    
-    .lightbox-image-container {
-      position: relative;
-    }
-    
     .lightbox-image-container img {
       max-width: 100%;
       max-height: 80vh;
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
     }
-    
-    .lightbox.active .lightbox-image-container img {
-      transform: scale(1);
-    }
-    
     .lightbox-info {
       margin-top: 1rem;
       text-align: center;
       color: white;
-      width: 100%;
     }
-    
-    .lightbox-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-    
+    .lightbox-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
     .lightbox-location {
       color: #9ca3af;
       font-size: 1rem;
@@ -257,20 +209,12 @@
       align-items: center;
       justify-content: center;
       gap: 0.25rem;
-      margin-bottom: 0.5rem;
     }
-    
-    .lightbox-location svg {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
-    
     .lightbox-counter {
       color: #9ca3af;
       font-size: 0.875rem;
       margin-top: 0.5rem;
     }
-    
     .lightbox-close {
       position: absolute;
       top: 2rem;
@@ -282,21 +226,17 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
       font-size: 2rem;
-      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
-      padding-bottom: 4px;
     }
-    
     .lightbox-close:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: rotate(90deg);
     }
-    
     .lightbox-nav {
       position: absolute;
       top: 50%;
@@ -308,29 +248,17 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
       font-size: 2rem;
-      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
       z-index: 1001;
-      padding-bottom: 4px;
     }
-    
-    .lightbox-nav:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .lightbox-prev {
-      left: 2rem;
-    }
-    
-    .lightbox-next {
-      right: 2rem;
-    }
+    .lightbox-nav:hover { background: rgba(255, 255, 255, 0.2); }
+    .lightbox-prev { left: 2rem; }
+    .lightbox-next { right: 2rem; }
 
-    /* Social icon styles */
     .social-icon {
       display: flex;
       align-items: center;
@@ -350,7 +278,6 @@
       box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3);
     }
 
-    /* Form styles */
     input, textarea {
       background: #0a0c14;
       border: 1px solid #252a3a;
@@ -364,10 +291,8 @@
 </head>
 <body>
 
-  <!-- canvas starfield (background) -->
   <canvas id="starfield"></canvas>
 
-  <!-- navigation -->
   <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 bg-transparent backdrop-blur-sm">
     <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm md:text-base">
       <a href="index.html" class="nav-link text-gray-300 hover:text-white">Home</a>
@@ -378,7 +303,6 @@
     </div>
   </nav>
 
-  <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
     <button class="lightbox-nav lightbox-prev" onclick="changeProjectImage(-1)">&#8249;</button>
@@ -389,27 +313,19 @@
       </div>
       <div class="lightbox-info">
         <div id="lightbox-title" class="lightbox-title"></div>
-        <div id="lightbox-location" class="lightbox-location">
-          <svg fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <span id="lightbox-location-text"></span>
-        </div>
+        <div id="lightbox-location" class="lightbox-location"></div>
         <div id="lightbox-counter" class="lightbox-counter"></div>
       </div>
     </div>
   </div>
 
-  <!-- REAL ESTATE PORTFOLIO SECTION -->
   <section class="pt-32 pb-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Real Estate Photography</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Architecture · interiors · twilight · drone</p>
       
-      <!-- ROW 1 -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Deck (with cover image) -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/real%20estate/Deck%20(1).png" alt="Deck Project">
           <div class="photo-count">39 photos</div>
@@ -419,7 +335,6 @@
           </div>
         </div>
         
-        <!-- Project 2 - Suburban Home (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(1)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🏠</div>
@@ -427,7 +342,6 @@
           <div class="placeholder-subtitle">Family Residence · Pool</div>
         </div>
         
-        <!-- Project 3 - Commercial Space (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(2)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏬</div>
@@ -437,10 +351,8 @@
         
       </div>
       
-      <!-- ROW 2 -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 4 - Luxury Estate (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(3)">
           <div class="placeholder-count">5 photos</div>
           <div class="placeholder-icon">🏰</div>
@@ -448,7 +360,6 @@
           <div class="placeholder-subtitle">Hillside · Panoramic</div>
         </div>
         
-        <!-- Project 5 - Twilight Series (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(4)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🌆</div>
@@ -456,7 +367,6 @@
           <div class="placeholder-subtitle">Golden Hour · Exterior</div>
         </div>
         
-        <!-- Project 6 - Drone Photography (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(5)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🚁</div>
@@ -466,10 +376,8 @@
         
       </div>
       
-      <!-- ROW 3 -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 7 - Interior Design (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(6)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🪑</div>
@@ -477,7 +385,6 @@
           <div class="placeholder-subtitle">Styled Living · Details</div>
         </div>
         
-        <!-- Project 8 - New Construction (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(7)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏗️</div>
@@ -485,7 +392,6 @@
           <div class="placeholder-subtitle">Modern Build · Progress</div>
         </div>
         
-        <!-- Project 9 - Vacation Rentals (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(8)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🌴</div>
@@ -495,10 +401,8 @@
         
       </div>
       
-      <!-- ROW 4 -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 10 - Condos (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(9)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏙️</div>
@@ -506,7 +410,6 @@
           <div class="placeholder-subtitle">High-Rise · Downtown</div>
         </div>
         
-        <!-- Project 11 - Staged Homes (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(10)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">✨</div>
@@ -514,7 +417,6 @@
           <div class="placeholder-subtitle">Professionally Staged</div>
         </div>
         
-        <!-- Project 12 - Virtual Tours (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(11)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🔄</div>
@@ -527,11 +429,9 @@
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
   <section id="contact" class="py-32 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
       
-      <!-- left side - info -->
       <div class="reveal">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's connect</h2>
         <p class="text-gray-400 mb-8 text-lg leading-relaxed">
@@ -543,23 +443,16 @@
           <p><span class="text-blue-400 font-medium">Location:</span> <span class="text-gray-300">Ocean Township, NJ/Remote</span></p>
         </div>
         
-        <!-- Social icons -->
         <div class="mt-8 flex gap-4">
           <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
-            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
           </a>
-          
           <a href="https://linkedin.com/in/luke-bianchi-8561b6388/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065z"/>
-            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065z"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- right side - contact form -->
       <div class="bg-gray-900/60 p-8 rounded-2xl backdrop-blur-sm border border-gray-800 reveal">
         <form id="contactForm" action="https://formspree.io/f/mbdavgjb" method="POST" class="space-y-6">
           <input type="hidden" name="_subject" value="New Portfolio Contact from LukeBianchi.design">
@@ -588,33 +481,191 @@
     </div>
   </section>
 
-  <!-- footer -->
   <footer class="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
     <p>© 2026 Luke Bianchi</p>
   </footer>
 
   <script>
-    (function() {
-      // ---------- THREE.JS STATIC STARFIELD ----------
-      const canvas = document.getElementById('starfield');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      camera.position.z = 60;
+    // Starfield
+    const canvas = document.getElementById('starfield');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 60;
 
-      function createStarTexture() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 64;
-        canvas.height = 64;
-        const ctx = canvas.getContext('2d');
-        
-        ctx.clearRect(0, 0, 64, 64);
-        
-        const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-        gradient.addColorStop(0, 'rgba(255,255,255,1)');
-        gradient.addColorStop(0.3, 'rgba(255,255,255,0.9)');
-        gradient.addColorStop(0.5, 'rgba(255,255,255,0.5)');
-        gradient.addColorStop(0.7, 'rgba(255
+    function createStarTexture() {
+      const c = document.createElement('canvas');
+      c.width = 64; c.height = 64;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, 'rgba(255,255,255,1)');
+      g.addColorStop(0.5, 'rgba(255,255,255,0.5)');
+      g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(c);
+    }
+
+    const starTexture = createStarTexture();
+    
+    const l1g = new THREE.BufferGeometry();
+    const p1 = [];
+    for(let i=0; i<2000; i++) {
+      const r = 100 + Math.random() * 100;
+      const t = Math.random() * Math.PI * 2;
+      const p = Math.acos((Math.random() * 2) - 1);
+      p1.push(r * Math.sin(p) * Math.cos(t), r * Math.sin(p) * Math.sin(t), r * Math.cos(p));
+    }
+    l1g.setAttribute('position', new THREE.Float32BufferAttribute(p1, 3));
+    const l1m = new THREE.PointsMaterial({ size: 0.2, map: starTexture, color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending });
+    scene.add(new THREE.Points(l1g, l1m));
+
+    const l2g = new THREE.BufferGeometry();
+    const p2 = [];
+    for(let i=0; i<1000; i++) {
+      const r = 40 + Math.random() * 60;
+      const t = Math.random() * Math.PI * 2;
+      const p = Math.acos((Math.random() * 2) - 1);
+      p2.push(r * Math.sin(p) * Math.cos(t), r * Math.sin(p) * Math.sin(t), r * Math.cos(p));
+    }
+    l2g.setAttribute('position', new THREE.Float32BufferAttribute(p2, 3));
+    const l2m = new THREE.PointsMaterial({ size: 0.3, map: starTexture, color: 0xaaccff, transparent: true, blending: THREE.AdditiveBlending });
+    const l2 = new THREE.Points(l2g, l2m);
+    scene.add(l2);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      scene.children[0].rotation.y += 0.0001;
+      l2.rotation.y += 0.00005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Reveal
+    document.querySelectorAll('.reveal').forEach(r => {
+      new IntersectionObserver((e) => {
+        e.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+      }, { threshold: 0.1 }).observe(r);
+    });
+
+    // Form
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if(!name || !email || !message) {
+        feedback.textContent = 'Please fill in all fields.';
+        feedback.style.color = '#fbbf24';
+        return;
+      }
+      
+      feedback.textContent = 'Sending...';
+      try {
+        const r = await fetch('https://formspree.io/f/mbdavgjb', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+        feedback.textContent = r.ok ? 'Thanks! I will reply within 24h.' : 'Error. Please try again.';
+        feedback.style.color = r.ok ? '#4ade80' : '#f87171';
+        if(r.ok) form.reset();
+      } catch {
+        feedback.textContent = 'Network error.';
+        feedback.style.color = '#f87171';
+      }
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50) {
+        nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3');
+        nav.classList.remove('py-5');
+      } else {
+        nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3');
+        nav.classList.add('py-5');
+      }
+    });
+
+    // Projects data
+    const projects = [
+      { name: 'Deck', location: 'Outdoor Living Space', images: [] },
+      { name: 'Suburban Home', location: 'Family Residence', images: [] },
+      { name: 'Commercial Space', location: 'Retail District', images: [] },
+      { name: 'Luxury Estate', location: 'Hillside', images: [] },
+      { name: 'Twilight Series', location: 'Various', images: [] },
+      { name: 'Drone Photography', location: 'Aerial', images: [] },
+      { name: 'Interior Design', location: 'Styled Living', images: [] },
+      { name: 'New Construction', location: 'Modern Build', images: [] },
+      { name: 'Vacation Rentals', location: 'Beach House', images: [] },
+      { name: 'Condos', location: 'Downtown', images: [] },
+      { name: 'Staged Homes', location: 'Various', images: [] },
+      { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
+    ];
+
+    // Add Deck images
+    for(let i=1; i<=39; i++) {
+      projects[0].images.push({ src: `/images/real%20estate/Deck%20(${i}).png`, alt: `Deck ${i}` });
+    }
+
+    let currentProject = null;
+    let currentImageIndex = 0;
+
+    function openProject(index) {
+      currentProject = projects[index];
+      currentImageIndex = 0;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+      currentProject = null;
+    }
+
+    function changeProjectImage(dir) {
+      if(!currentProject) return;
+      currentImageIndex += dir;
+      if(currentImageIndex < 0) currentImageIndex = currentProject.images.length - 1;
+      if(currentImageIndex >= currentProject.images.length) currentImageIndex = 0;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      if(!currentProject) return;
+      const img = document.getElementById('lightbox-img');
+      const image = currentProject.images[currentImageIndex];
+      img.src = image.src;
+      document.getElementById('lightbox-title').textContent = currentProject.name;
+      document.getElementById('lightbox-location').textContent = currentProject.location;
+      document.getElementById('lightbox-counter').textContent = `${currentImageIndex + 1} of ${currentProject.images.length}`;
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if(e.target === this) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if(!document.getElementById('lightbox').classList.contains('active')) return;
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowLeft') changeProjectImage(-1);
+      if(e.key === 'ArrowRight') changeProjectImage(1);
+    });
+  </script>
+</body>
+</html>
