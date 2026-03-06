@@ -136,7 +136,7 @@
       z-index: 2;
     }
 
-    /* Placeholder card styles - THIS WAS MISSING! */
+    /* Placeholder card styles */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
@@ -151,6 +151,7 @@
       text-align: center;
       padding: 1rem;
       cursor: pointer;
+      position: relative;
     }
     
     .placeholder-card:hover {
@@ -179,13 +180,12 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: rgba(59,130,246,0.9);
-      color: white;
+      background: rgba(59,130,246,0.2);
+      color: #93c5fd;
       padding: 0.25rem 0.75rem;
       border-radius: 9999px;
       font-size: 0.75rem;
-      font-weight: 600;
-      z-index: 2;
+      border: 1px solid rgba(59,130,246,0.3);
     }
 
     /* Lightbox Styles */
@@ -425,7 +425,7 @@
           <div class="photo-count">39 photos</div>
         </div>
         
-        <!-- Project 2 - Suburban Home (4 images) -->
+        <!-- Project 2 - Suburban Home (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(1)">
           <div class="placeholder-icon">🏠</div>
           <div class="placeholder-title">Suburban Home</div>
@@ -433,7 +433,7 @@
           <div class="placeholder-count">4 photos</div>
         </div>
         
-        <!-- Project 3 - Commercial Space (3 images) -->
+        <!-- Project 3 - Commercial Space (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(2)">
           <div class="placeholder-icon">🏬</div>
           <div class="placeholder-title">Commercial Space</div>
@@ -443,10 +443,10 @@
         
       </div>
       
-      <!-- ROW 2 - 3 project folders -->
+      <!-- ROW 2 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 4 - Luxury Estate (5 images) -->
+        <!-- Project 4 - Luxury Estate (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(3)">
           <div class="placeholder-icon">🏰</div>
           <div class="placeholder-title">Luxury Estate</div>
@@ -454,7 +454,7 @@
           <div class="placeholder-count">5 photos</div>
         </div>
         
-        <!-- Project 5 - Twilight Series (3 images) -->
+        <!-- Project 5 - Twilight Series (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(4)">
           <div class="placeholder-icon">🌆</div>
           <div class="placeholder-title">Twilight Series</div>
@@ -462,7 +462,7 @@
           <div class="placeholder-count">3 photos</div>
         </div>
         
-        <!-- Project 6 - Drone Photography (4 images) -->
+        <!-- Project 6 - Drone Photography (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(5)">
           <div class="placeholder-icon">🚁</div>
           <div class="placeholder-title">Drone Photography</div>
@@ -472,10 +472,10 @@
         
       </div>
       
-      <!-- ROW 3 - 3 project folders -->
+      <!-- ROW 3 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 7 - Interior Design (4 images) -->
+        <!-- Project 7 - Interior Design (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(6)">
           <div class="placeholder-icon">🪑</div>
           <div class="placeholder-title">Interior Design</div>
@@ -483,7 +483,7 @@
           <div class="placeholder-count">4 photos</div>
         </div>
         
-        <!-- Project 8 - New Construction (3 images) -->
+        <!-- Project 8 - New Construction (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(7)">
           <div class="placeholder-icon">🏗️</div>
           <div class="placeholder-title">New Construction</div>
@@ -491,7 +491,7 @@
           <div class="placeholder-count">3 photos</div>
         </div>
         
-        <!-- Project 9 - Vacation Rentals (4 images) -->
+        <!-- Project 9 - Vacation Rentals (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(8)">
           <div class="placeholder-icon">🌴</div>
           <div class="placeholder-title">Vacation Rentals</div>
@@ -501,10 +501,10 @@
         
       </div>
       
-      <!-- ROW 4 - 3 project folders -->
+      <!-- ROW 4 - 3 placeholder cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 10 - Condos (3 images) -->
+        <!-- Project 10 - Condos (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(9)">
           <div class="placeholder-icon">🏙️</div>
           <div class="placeholder-title">Condos</div>
@@ -512,7 +512,7 @@
           <div class="placeholder-count">3 photos</div>
         </div>
         
-        <!-- Project 11 - Staged Homes (4 images) -->
+        <!-- Project 11 - Staged Homes (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(10)">
           <div class="placeholder-icon">✨</div>
           <div class="placeholder-title">Staged Homes</div>
@@ -520,7 +520,7 @@
           <div class="placeholder-count">4 photos</div>
         </div>
         
-        <!-- Project 12 - Virtual Tours (3 images) -->
+        <!-- Project 12 - Virtual Tours (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(11)">
           <div class="placeholder-icon">🔄</div>
           <div class="placeholder-title">Virtual Tours</div>
@@ -811,112 +811,18 @@
           { src: '/images/real%20estate/Deck%20(39).png', alt: 'Deck 39' }
         ]
       },
-      { 
-        name: 'Suburban Home',
-        location: 'Family Residence',
-        images: [
-          { src: '/images/real-estate/suburban-1.jpg', alt: 'Suburban Home - Exterior' },
-          { src: '/images/real-estate/suburban-2.jpg', alt: 'Suburban Home - Pool' },
-          { src: '/images/real-estate/suburban-3.jpg', alt: 'Suburban Home - Garden' },
-          { src: '/images/real-estate/suburban-4.jpg', alt: 'Suburban Home - Interior' }
-        ]
-      },
-      { 
-        name: 'Commercial Space',
-        location: 'Retail District',
-        images: [
-          { src: '/images/real-estate/commercial-1.jpg', alt: 'Commercial - Exterior' },
-          { src: '/images/real-estate/commercial-2.jpg', alt: 'Commercial - Office' },
-          { src: '/images/real-estate/commercial-3.jpg', alt: 'Commercial - Retail' }
-        ]
-      },
-      { 
-        name: 'Luxury Estate',
-        location: 'Hillside',
-        images: [
-          { src: '/images/real-estate/luxury-1.jpg', alt: 'Luxury Estate - Exterior' },
-          { src: '/images/real-estate/luxury-2.jpg', alt: 'Luxury Estate - Pool' },
-          { src: '/images/real-estate/luxury-3.jpg', alt: 'Luxury Estate - View' },
-          { src: '/images/real-estate/luxury-4.jpg', alt: 'Luxury Estate - Interior' },
-          { src: '/images/real-estate/luxury-5.jpg', alt: 'Luxury Estate - Garden' }
-        ]
-      },
-      { 
-        name: 'Twilight Series',
-        location: 'Various',
-        images: [
-          { src: '/images/real-estate/twilight-1.jpg', alt: 'Twilight - Golden Hour' },
-          { src: '/images/real-estate/twilight-2.jpg', alt: 'Twilight - Blue Hour' },
-          { src: '/images/real-estate/twilight-3.jpg', alt: 'Twilight - Night' }
-        ]
-      },
-      { 
-        name: 'Drone Photography',
-        location: 'Aerial',
-        images: [
-          { src: '/images/real-estate/drone-1.jpg', alt: 'Drone - Property Overview' },
-          { src: '/images/real-estate/drone-2.jpg', alt: 'Drone - Neighborhood' },
-          { src: '/images/real-estate/drone-3.jpg', alt: 'Drone - Landscape' },
-          { src: '/images/real-estate/drone-4.jpg', alt: 'Drone - Aerial View' }
-        ]
-      },
-      { 
-        name: 'Interior Design',
-        location: 'Styled Living',
-        images: [
-          { src: '/images/real-estate/interior-1.jpg', alt: 'Interior - Living Room' },
-          { src: '/images/real-estate/interior-2.jpg', alt: 'Interior - Kitchen' },
-          { src: '/images/real-estate/interior-3.jpg', alt: 'Interior - Bedroom' },
-          { src: '/images/real-estate/interior-4.jpg', alt: 'Interior - Details' }
-        ]
-      },
-      { 
-        name: 'New Construction',
-        location: 'Modern Build',
-        images: [
-          { src: '/images/real-estate/construction-1.jpg', alt: 'Construction - Exterior' },
-          { src: '/images/real-estate/construction-2.jpg', alt: 'Construction - Progress' },
-          { src: '/images/real-estate/construction-3.jpg', alt: 'Construction - Interior' }
-        ]
-      },
-      { 
-        name: 'Vacation Rentals',
-        location: 'Beach House',
-        images: [
-          { src: '/images/real-estate/vacation-1.jpg', alt: 'Vacation - Exterior' },
-          { src: '/images/real-estate/vacation-2.jpg', alt: 'Vacation - Beach' },
-          { src: '/images/real-estate/vacation-3.jpg', alt: 'Vacation - Interior' },
-          { src: '/images/real-estate/vacation-4.jpg', alt: 'Vacation - Sunset' }
-        ]
-      },
-      { 
-        name: 'Condos',
-        location: 'Downtown',
-        images: [
-          { src: '/images/real-estate/condos-1.jpg', alt: 'Condos - Exterior' },
-          { src: '/images/real-estate/condos-2.jpg', alt: 'Condos - Interior' },
-          { src: '/images/real-estate/condos-3.jpg', alt: 'Condos - View' }
-        ]
-      },
-      { 
-        name: 'Staged Homes',
-        location: 'Various',
-        images: [
-          { src: '/images/real-estate/staged-1.jpg', alt: 'Staged - Living Room' },
-          { src: '/images/real-estate/staged-2.jpg', alt: 'Staged - Dining Room' },
-          { src: '/images/real-estate/staged-3.jpg', alt: 'Staged - Bedroom' },
-          { src: '/images/real-estate/staged-4.jpg', alt: 'Staged - Kitchen' }
-        ]
-      },
-      { 
-        name: 'Virtual Tours',
-        location: '360° Panoramic',
-        images: [
-          { src: '/images/real-estate/virtual-1.jpg', alt: 'Virtual - Living Room 360' },
-          { src: '/images/real-estate/virtual-2.jpg', alt: 'Virtual - Kitchen 360' },
-          { src: '/images/real-estate/virtual-3.jpg', alt: 'Virtual - Exterior 360' }
-        ]
-      }
+      // All other projects remain as placeholders
+      { name: 'Suburban Home', location: 'Family Residence', images: [] },
+      { name: 'Commercial Space', location: 'Retail District', images: [] },
+      { name: 'Luxury Estate', location: 'Hillside', images: [] },
+      { name: 'Twilight Series', location: 'Various', images: [] },
+      { name: 'Drone Photography', location: 'Aerial', images: [] },
+      { name: 'Interior Design', location: 'Styled Living', images: [] },
+      { name: 'New Construction', location: 'Modern Build', images: [] },
+      { name: 'Vacation Rentals', location: 'Beach House', images: [] },
+      { name: 'Condos', location: 'Downtown', images: [] },
+      { name: 'Staged Homes', location: 'Various', images: [] },
+      { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
     ];
 
     let currentProject = null;
@@ -959,13 +865,20 @@
       const locationText = document.getElementById('lightbox-location-text');
       const counter = document.getElementById('lightbox-counter');
       
-      // Use the actual image path
-      const image = currentProject.images[currentImageIndex];
-      img.src = image.src;
-      
-      title.textContent = currentProject.name;
-      locationText.textContent = currentProject.location;
-      counter.textContent = `📸 ${currentImageIndex + 1} of ${currentProject.images.length}`;
+      // Check if there are images in this project
+      if (currentProject.images && currentProject.images.length > 0) {
+        const image = currentProject.images[currentImageIndex];
+        img.src = image.src;
+        title.textContent = currentProject.name;
+        locationText.textContent = currentProject.location;
+        counter.textContent = `📸 ${currentImageIndex + 1} of ${currentProject.images.length}`;
+      } else {
+        // Placeholder for projects without images
+        img.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\' viewBox=\'0 0 800 600\'%3E%3Crect width=\'800\' height=\'600\' fill=\'%2311131f\'/%3E%3Ctext x=\'400\' y=\'300\' font-family=\'Inter\' font-size=\'24\' fill=\'%239ca3af\' text-anchor=\'middle\'%3E' + encodeURIComponent(currentProject.name) + '%3C/text%3E%3Ctext x=\'400\' y=\'350\' font-family=\'Inter\' font-size=\'16\' fill=\'%236b7280\' text-anchor=\'middle\'%3EImages coming soon%3C/text%3E%3C/svg%3E';
+        title.textContent = currentProject.name;
+        locationText.textContent = currentProject.location;
+        counter.textContent = `📸 0 of 0`;
+      }
     }
 
     // Close lightbox on background click
