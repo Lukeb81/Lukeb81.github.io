@@ -64,7 +64,7 @@
       transform: translateY(0);
     }
 
-    /* Project card styles */
+    /* Project card styles - now with actual images */
     .project-card {
       background: #11131f;
       transition: all 0.3s;
@@ -135,58 +135,6 @@
       font-size: 0.75rem;
       font-weight: 600;
       z-index: 2;
-    }
-
-    /* Placeholder card */
-    .placeholder-card {
-      background: #11131f;
-      border: 2px dashed #374151;
-      border-radius: 1rem;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #6b7280;
-      transition: all 0.3s;
-      text-align: center;
-      padding: 1rem;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .placeholder-card:hover {
-      border-color: #3b82f6;
-      color: #9ca3af;
-      background: #1a1f2e;
-    }
-    
-    .placeholder-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .placeholder-title {
-      font-weight: 600;
-      color: white;
-      margin-bottom: 0.25rem;
-    }
-    
-    .placeholder-subtitle {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-    
-    .placeholder-count {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(59,130,246,0.2);
-      color: #93c5fd;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      border: 1px solid rgba(59,130,246,0.3);
     }
 
     /* Lightbox Styles */
@@ -411,12 +359,19 @@
       <!-- ROW 1 - 3 project folders -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Modern Loft (with all 39 Deck images) -->
-        <div class="placeholder-card reveal" onclick="openProject(0)">
-          <div class="placeholder-icon">🏢</div>
-          <div class="placeholder-title">Deck Project</div>
-          <div class="placeholder-subtitle">Outdoor Living Space</div>
-          <div class="placeholder-count">39 photos</div>
+        <!-- Project 1 - Deck (with all 39 images and first image as cover) -->
+        <div class="project-card reveal" onclick="openProject(0)">
+          <img src="/images/real%20estate/Deck%20(1).png" alt="Deck Project">
+          <div class="overlay">
+            <div class="project-title">Deck</div>
+            <div class="project-location">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Outdoor Living Space
+            </div>
+          </div>
+          <div class="photo-count">39 photos</div>
         </div>
         
         <!-- Project 2 - Suburban Home (4 images) -->
@@ -758,10 +713,10 @@
 
     })();
 
-    // ---------- PROJECT-BASED LIGHTBOX WITH EXACTLY 39 DECK IMAGES ----------
+    // ---------- PROJECT-BASED LIGHTBOX WITH DECK IMAGES ----------
     const projects = [
       { 
-        name: 'Deck Project',
+        name: 'Deck',
         location: 'Outdoor Living Space',
         images: [
           { src: '/images/real%20estate/Deck%20(1).png', alt: 'Deck 1' },
@@ -953,7 +908,7 @@
       const locationText = document.getElementById('lightbox-location-text');
       const counter = document.getElementById('lightbox-counter');
       
-      // Use the actual image path - now pointing to your Deck images
+      // Use the actual image path
       const image = currentProject.images[currentImageIndex];
       img.src = image.src;
       
