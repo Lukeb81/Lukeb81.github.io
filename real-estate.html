@@ -326,6 +326,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
+        <!-- Project 1 - Deck (with 39 images) -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/real%20estate/Deck%20(1).png" alt="Deck Project">
           <div class="photo-count">39 photos</div>
@@ -335,13 +336,17 @@
           </div>
         </div>
         
-        <div class="placeholder-card reveal" onclick="openProject(1)">
-          <div class="placeholder-count">4 photos</div>
-          <div class="placeholder-icon">🏠</div>
-          <div class="placeholder-title">Suburban Home</div>
-          <div class="placeholder-subtitle">Family Residence · Pool</div>
+        <!-- Project 2 - Master Addition (with 26 images) - NOW WITH IMAGES -->
+        <div class="project-card reveal" onclick="openProject(1)">
+          <img src="/images/real%20estate/Master%20Addition%20(1).png" alt="Master Addition">
+          <div class="photo-count">26 photos</div>
+          <div class="overlay">
+            <div class="project-title">Master Addition</div>
+            <div class="project-subtitle">Home Addition · Renovation</div>
+          </div>
         </div>
         
+        <!-- Project 3 - Commercial Space (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(2)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏬</div>
@@ -603,7 +608,7 @@
     // Projects data
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
-      { name: 'Suburban Home', location: 'Family Residence', images: [] },
+      { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
       { name: 'Commercial Space', location: 'Retail District', images: [] },
       { name: 'Luxury Estate', location: 'Hillside', images: [] },
       { name: 'Twilight Series', location: 'Various', images: [] },
@@ -616,9 +621,14 @@
       { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
     ];
 
-    // Add Deck images
-    for(let i=1; i<=39; i++) {
+    // Add Deck images (1-39)
+    for(let i = 1; i <= 39; i++) {
       projects[0].images.push({ src: `/images/real%20estate/Deck%20(${i}).png`, alt: `Deck ${i}` });
+    }
+
+    // Add Master Addition images (1-26)
+    for(let i = 1; i <= 26; i++) {
+      projects[1].images.push({ src: `/images/real%20estate/Master%20Addition%20(${i}).png`, alt: `Master Addition ${i}` });
     }
 
     let currentProject = null;
