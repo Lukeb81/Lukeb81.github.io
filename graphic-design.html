@@ -64,8 +64,8 @@
       transform: translateY(0);
     }
 
-    /* Image card styles - matching photography page */
-    .image-card {
+    /* Project card styles */
+    .project-card {
       background: #11131f;
       transition: all 0.3s;
       border: 1px solid rgba(59,130,246,0.1);
@@ -75,52 +75,52 @@
       position: relative;
       cursor: pointer;
     }
-    .image-card:hover {
+    .project-card:hover {
       border-color: #3b82f6;
       transform: translateY(-6px);
       box-shadow: 0 20px 30px -10px rgba(0,100,255,0.2);
     }
     
-    .image-card img {
+    .project-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
     
-    .image-card:hover img {
+    .project-card:hover img {
       transform: scale(1.05);
     }
     
-    .image-card .overlay {
+    .project-card .overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
       padding: 1.5rem 1rem 1rem 1rem;
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
     
-    .image-card:hover .overlay {
+    .project-card:hover .overlay {
       opacity: 1;
     }
     
-    .image-card .project-title {
+    .project-card .project-title {
       color: white;
       font-weight: 600;
       font-size: 1.25rem;
       margin-bottom: 0.25rem;
     }
     
-    .image-card .project-category {
+    .project-card .project-category {
       color: #9ca3af;
       font-size: 0.875rem;
     }
     
-    .image-card .photo-count {
+    .project-card .photo-count {
       position: absolute;
       top: 1rem;
       right: 1rem;
@@ -393,12 +393,14 @@
       <!-- ROW 1 - 3 project folders -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Frog Skateboard (with 8 images) -->
-        <div class="placeholder-card reveal" onclick="openProject(0)">
-          <div class="placeholder-icon">🐸</div>
-          <div class="placeholder-title">Frog Skateboard</div>
-          <div class="placeholder-subtitle">Skateboard Design · Branding</div>
-          <div class="placeholder-count">8 photos</div>
+        <!-- Project 1 - Frog Skateboard (with first image as cover) -->
+        <div class="project-card reveal" onclick="openProject(0)">
+          <img src="/images/Graphic%20Design/Frog%20Skateboard%20(1).png" alt="Frog Skateboard Project">
+          <div class="overlay">
+            <div class="project-title">Frog Skateboard</div>
+            <div class="project-category">Skateboard Design · Branding</div>
+          </div>
+          <div class="photo-count">8 photos</div>
         </div>
         
         <!-- Project 2 - Editorial -->
