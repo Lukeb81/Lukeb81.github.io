@@ -413,7 +413,7 @@
         
         <!-- Project 8 - Interior Renovations (20 photos) - FIXED PATH -->
         <div class="project-card reveal" onclick="openProject(8)">
-          <img src="/images/real%20estate/2%20Bathroom+Railings+Kitchen%20(1).png" alt="Interior Renovations">
+          <img src="/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(1).png" alt="Interior Renovations">
           <div class="photo-count">20 photos</div>
           <div class="overlay">
             <div class="project-title">Interior Renovations</div>
@@ -683,13 +683,13 @@
       projects[7].images.push({ src: `/images/real%20estate/Deck2%20(${i}).png`, alt: `Deck ${i}` });
     }
 
-    // Add Interior Renovations images (1-20) - FIXED PATH - using encodeURIComponent to handle special characters
+    // Add Interior Renovations images (1-20) - MANUALLY SPECIFIED WITH CORRECT PLUS SIGNS
     for(let i = 1; i <= 20; i++) {
-      // Create the filename exactly as it appears in GitHub
-      const filename = `2 Bathroom+Railings+Kitchen (${i}).png`;
-      // Use encodeURIComponent for the filename only, not the folder path
+      // Manually construct the URL with proper encoding
+      // The filename is: 2 Bathroom+Railings+Kitchen (i).png
+      const src = `/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(${i}).png`;
       projects[8].images.push({ 
-        src: `/images/real%20estate/${encodeURIComponent(filename)}`, 
+        src: src, 
         alt: `Interior Renovations ${i}` 
       });
     }
