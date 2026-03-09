@@ -411,10 +411,10 @@
           </div>
         </div>
         
-        <!-- Project 8 - Interior Renovations (19 photos) - NEW -->
+        <!-- Project 8 - Interior Renovations (19 photos) -->
         <div class="project-card reveal" onclick="openProject(8)">
           <img src="/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(1).png" alt="Interior Renovations">
-          <div class="photo-count">20 photos</div>
+          <div class="photo-count">19 photos</div>
           <div class="overlay">
             <div class="project-title">Interior Renovations</div>
             <div class="project-subtitle">Master Bathroom · Hall Bathroom · Railings · Kitchen</div>
@@ -425,12 +425,14 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 9 - Condos (placeholder) -->
-        <div class="placeholder-card reveal" onclick="openProject(9)">
-          <div class="placeholder-count">3 photos</div>
-          <div class="placeholder-icon">🏙️</div>
-          <div class="placeholder-title">Condos</div>
-          <div class="placeholder-subtitle">High-Rise · Downtown</div>
+        <!-- Project 9 - Apartment Kitchen (6 photos) - NEW -->
+        <div class="project-card reveal" onclick="openProject(9)">
+          <img src="/images/real%20estate/Apartment%20Kitchen%20(1).png" alt="Apartment Kitchen">
+          <div class="photo-count">6 photos</div>
+          <div class="overlay">
+            <div class="project-title">Apartment Kitchen</div>
+            <div class="project-subtitle">Apartment Kitchen · Renovation</div>
+          </div>
         </div>
         
         <!-- Project 10 - Staged Homes (placeholder) -->
@@ -625,7 +627,7 @@
       }
     });
 
-    // Projects data - UPDATED with Interior Renovations
+    // Projects data - UPDATED with Apartment Kitchen
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -636,7 +638,7 @@
       { name: 'Kitchen', location: 'Kitchen · Renovation', images: [] },
       { name: 'Deck', location: 'Deck', images: [] },
       { name: 'Interior Renovations', location: 'Master Bathroom · Hall Bathroom · Railings · Kitchen', images: [] },
-      { name: 'Condos', location: 'High-Rise · Downtown', images: [] },
+      { name: 'Apartment Kitchen', location: 'Apartment Kitchen · Renovation', images: [] },
       { name: 'Staged Homes', location: 'Professionally Staged', images: [] },
       { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
     ];
@@ -681,14 +683,23 @@
       projects[7].images.push({ src: `/images/real%20estate/Deck2%20(${i}).png`, alt: `Deck ${i}` });
     }
 
-    // Add Interior Renovations images (1-20, but note: missing 2, so we need to check which numbers exist)
-    // From your screenshot, the files are: 1-20
-    const interiorIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    // Add Interior Renovations images (1,3-20) - Project 8
+    const interiorIndices = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
     for(let i = 0; i < interiorIndices.length; i++) {
       const num = interiorIndices[i];
       projects[8].images.push({ 
         src: `/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(${num}).png`, 
         alt: `Interior Renovations ${num}` 
+      });
+    }
+
+    // Add Apartment Kitchen images (1,2,3,4,6,7) - Project 9 (missing 5)
+    const aptIndices = [1, 2, 3, 4, 6, 7];
+    for(let i = 0; i < aptIndices.length; i++) {
+      const num = aptIndices[i];
+      projects[9].images.push({ 
+        src: `/images/real%20estate/Apartment%20Kitchen%20(${num}).png`, 
+        alt: `Apartment Kitchen ${num}` 
       });
     }
 
