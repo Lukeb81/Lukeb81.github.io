@@ -57,7 +57,6 @@
       transform: translateY(0);
     }
 
-    /* Project card with image */
     .project-card {
       background: #11131f;
       transition: all 0.3s;
@@ -115,7 +114,6 @@
       z-index: 2;
     }
 
-    /* Placeholder card */
     .placeholder-card {
       background: #11131f;
       border: 2px dashed #374151;
@@ -160,7 +158,6 @@
       z-index: 2;
     }
 
-    /* Lightbox */
     .lightbox {
       position: fixed;
       top: 0;
@@ -394,13 +391,13 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 6 - Kitchen Renovation (10 photos) - FIXED PATH -->
+        <!-- Project 6 - Kitchen (10 photos) - FIXED with new name -->
         <div class="project-card reveal" onclick="openProject(6)">
-          <img src="/images/real%20estate/Kitchen_(1).png" alt="Kitchen Renovation">
+          <img src="/images/real%20estate/Kitchen2%20(1).png" alt="Kitchen2">
           <div class="photo-count">10 photos</div>
           <div class="overlay">
-            <div class="project-title">Kitchen Renovation</div>
-            <div class="project-subtitle">Modern Kitchen · Renovation</div>
+            <div class="project-title">Kitchen</div>
+            <div class="project-subtitle">Kitchen · Renovation</div>
           </div>
         </div>
         
@@ -624,7 +621,7 @@
       }
     });
 
-    // Projects data - UPDATED with correct paths for underscore images
+    // Projects data - UPDATED with Kitchen2
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -632,7 +629,7 @@
       { name: 'Kitchen Town House', location: 'Townhouse Kitchen · Design', images: [] },
       { name: 'Rebuild', location: 'Construction · Renovation', images: [] },
       { name: 'Front Porch + Sunroom', location: 'Outdoor Living · Sunroom Addition', images: [] },
-      { name: 'Kitchen Renovation', location: 'Modern Kitchen · Renovation', images: [] },
+      { name: 'Kitchen 2', location: 'Second Kitchen · Renovation', images: [] },
       { name: 'New Construction', location: 'Modern Build', images: [] },
       { name: 'Vacation Rentals', location: 'Beach House', images: [] },
       { name: 'Condos', location: 'Downtown', images: [] },
@@ -650,7 +647,7 @@
       projects[1].images.push({ src: `/images/real%20estate/Master%20Addition%20(${i}).png`, alt: `Master Addition ${i}` });
     }
 
-    // Add Kitchen images (1-15) - original with spaces
+    // Add Kitchen images (1-15)
     for(let i = 1; i <= 15; i++) {
       projects[2].images.push({ src: `/images/real%20estate/Kitchen%20(${i}).png`, alt: `Kitchen ${i}` });
     }
@@ -670,9 +667,9 @@
       projects[5].images.push({ src: `/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(${i}).png`, alt: `Front Porch + Sunroom ${i}` });
     }
 
-    // Add Kitchen Renovation images (1-10) - CORRECTED PATH (no %20, just underscores)
+    // Add Kitchen2 images (1-10) - NEW FIXED PATH
     for(let i = 1; i <= 10; i++) {
-      projects[6].images.push({ src: `/images/real%20estate/Kitchen_(${i}).png`, alt: `Kitchen Renovation ${i}` });
+      projects[6].images.push({ src: `/images/real%20estate/Kitchen2%20(${i}).png`, alt: `Kitchen 2 ${i}` });
     }
 
     let currentProject = null;
