@@ -683,11 +683,13 @@
       projects[7].images.push({ src: `/images/real%20estate/Deck2%20(${i}).png`, alt: `Deck ${i}` });
     }
 
-    // Add Interior Renovations images (1-20) - FIXED PATH
+    // Add Interior Renovations images (1-20) - FIXED PATH - using encodeURIComponent to handle special characters
     for(let i = 1; i <= 20; i++) {
-      // Using + signs instead of %2B for readability, but both work
+      // Create the filename exactly as it appears in GitHub
+      const filename = `2 Bathroom+Railings+Kitchen (${i}).png`;
+      // Use encodeURIComponent for the filename only, not the folder path
       projects[8].images.push({ 
-        src: `/images/real%20estate/2%20Bathroom+Railings+Kitchen%20(${i}).png`, 
+        src: `/images/real%20estate/${encodeURIComponent(filename)}`, 
         alt: `Interior Renovations ${i}` 
       });
     }
