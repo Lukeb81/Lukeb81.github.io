@@ -320,6 +320,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
+        <!-- Project 0 - Frog Skateboard -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/Graphic%20Design/Frog%20Skateboard%20(1).png" alt="Frog Skateboard Project">
           <div class="overlay">
@@ -329,13 +330,17 @@
           <div class="photo-count">8 photos</div>
         </div>
         
-        <div class="placeholder-card reveal" onclick="openProject(1)">
-          <div class="placeholder-icon">📖</div>
-          <div class="placeholder-title">Editorial</div>
-          <div class="placeholder-subtitle">Magazines · Books · Reports</div>
-          <div class="placeholder-count">4 photos</div>
+        <!-- Project 1 - Portfolio Project -->
+        <div class="project-card reveal" onclick="openProject(1)">
+          <img src="images/Graphic Design/Portfolio Project (1).png" alt="Portfolio Project">
+          <div class="overlay">
+            <div class="project-title">Portfolio Project</div>
+            <div class="project-category">Graphic Design</div>
+          </div>
+          <div class="photo-count">20 photos</div>
         </div>
-        
+
+        <!-- Project 2 - Motion -->
         <div class="placeholder-card reveal" onclick="openProject(2)">
           <div class="placeholder-icon">🎬</div>
           <div class="placeholder-title">Motion</div>
@@ -464,15 +469,13 @@
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       camera.position.z = 60;
 
       function createStarTexture() {
         const canvas = document.createElement('canvas');
-        canvas.width = 64;
-        canvas.height = 64;
+        canvas.width = 64; canvas.height = 64;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, 64, 64);
         const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
@@ -607,12 +610,32 @@
           { src: '/images/Graphic%20Design/Frog%20Skateboard%20(8).png', alt: 'Frog Skateboard 8' }
         ]
       },
-      { name: 'Editorial', category: 'Magazines · Books · Reports', images: [
-        { src: '/images/Graphic%20Design/editorial-1.jpg', alt: 'Editorial 1' },
-        { src: '/images/Graphic%20Design/editorial-2.jpg', alt: 'Editorial 2' },
-        { src: '/images/Graphic%20Design/editorial-3.jpg', alt: 'Editorial 3' },
-        { src: '/images/Graphic%20Design/editorial-4.jpg', alt: 'Editorial 4' }
-      ]},
+      {
+        name: 'Portfolio Project',
+        category: 'Graphic Design',
+        images: [
+          { src: 'images/Graphic Design/Portfolio Project (1).png', alt: 'Portfolio Project 1' },
+          { src: 'images/Graphic Design/Portfolio Project (2).png', alt: 'Portfolio Project 2' },
+          { src: 'images/Graphic Design/Portfolio Project (3).png', alt: 'Portfolio Project 3' },
+          { src: 'images/Graphic Design/Portfolio Project (4).png', alt: 'Portfolio Project 4' },
+          { src: 'images/Graphic Design/Portfolio Project (5).png', alt: 'Portfolio Project 5' },
+          { src: 'images/Graphic Design/Portfolio Project (6).png', alt: 'Portfolio Project 6' },
+          { src: 'images/Graphic Design/Portfolio Project (7).png', alt: 'Portfolio Project 7' },
+          { src: 'images/Graphic Design/Portfolio Project (8).png', alt: 'Portfolio Project 8' },
+          { src: 'images/Graphic Design/Portfolio Project (9).png', alt: 'Portfolio Project 9' },
+          { src: 'images/Graphic Design/Portfolio Project (10).png', alt: 'Portfolio Project 10' },
+          { src: 'images/Graphic Design/Portfolio Project (11).png', alt: 'Portfolio Project 11' },
+          { src: 'images/Graphic Design/Portfolio Project (12).png', alt: 'Portfolio Project 12' },
+          { src: 'images/Graphic Design/Portfolio Project (13).png', alt: 'Portfolio Project 13' },
+          { src: 'images/Graphic Design/Portfolio Project (14).png', alt: 'Portfolio Project 14' },
+          { src: 'images/Graphic Design/Portfolio Project (15).png', alt: 'Portfolio Project 15' },
+          { src: 'images/Graphic Design/Portfolio Project (16).png', alt: 'Portfolio Project 16' },
+          { src: 'images/Graphic Design/Portfolio Project (17).png', alt: 'Portfolio Project 17' },
+          { src: 'images/Graphic Design/Portfolio Project (18).png', alt: 'Portfolio Project 18' },
+          { src: 'images/Graphic Design/Portfolio Project (19).png', alt: 'Portfolio Project 19' },
+          { src: 'images/Graphic Design/Portfolio Project (20).png', alt: 'Portfolio Project 20' }
+        ]
+      },
       { name: 'Motion', category: 'Animation · Video Graphics', images: [
         { src: '/images/Graphic%20Design/motion-1.jpg', alt: 'Motion 1' },
         { src: '/images/Graphic%20Design/motion-2.jpg', alt: 'Motion 2' },
