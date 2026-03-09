@@ -394,7 +394,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 6 - Kitchen Renovation (10 photos) - NEW -->
+        <!-- Project 6 - Kitchen Renovation (10 photos) - FIXED PATH -->
         <div class="project-card reveal" onclick="openProject(6)">
           <img src="/images/real%20estate/Kitchen_(1).png" alt="Kitchen Renovation">
           <div class="photo-count">10 photos</div>
@@ -624,7 +624,7 @@
       }
     });
 
-    // Projects data - UPDATED with new Kitchen Renovation (underscore version)
+    // Projects data - UPDATED with correct paths for underscore images
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -670,7 +670,7 @@
       projects[5].images.push({ src: `/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(${i}).png`, alt: `Front Porch + Sunroom ${i}` });
     }
 
-    // Add Kitchen Renovation images (1-10) - with underscores
+    // Add Kitchen Renovation images (1-10) - CORRECTED PATH (no %20, just underscores)
     for(let i = 1; i <= 10; i++) {
       projects[6].images.push({ src: `/images/real%20estate/Kitchen_(${i}).png`, alt: `Kitchen Renovation ${i}` });
     }
