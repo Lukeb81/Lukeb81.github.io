@@ -391,7 +391,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 6 - Kitchen (10 photos) - FIXED with new name -->
+        <!-- Project 6 - Kitchen (10 photos) -->
         <div class="project-card reveal" onclick="openProject(6)">
           <img src="/images/real%20estate/Kitchen2%20(1).png" alt="Kitchen2">
           <div class="photo-count">10 photos</div>
@@ -401,12 +401,14 @@
           </div>
         </div>
         
-        <!-- Project 7 - New Construction (placeholder) -->
-        <div class="placeholder-card reveal" onclick="openProject(7)">
-          <div class="placeholder-count">3 photos</div>
-          <div class="placeholder-icon">🏗️</div>
-          <div class="placeholder-title">New Construction</div>
-          <div class="placeholder-subtitle">Modern Build · Progress</div>
+        <!-- Project 7 - Deck (12 photos) - FIXED: starts at 1 -->
+        <div class="project-card reveal" onclick="openProject(7)">
+          <img src="/images/real%20estate/Deck2%20(1).png" alt="Deck2 Project">
+          <div class="photo-count">12 photos</div>
+          <div class="overlay">
+            <div class="project-title">Deck</div>
+            <div class="project-subtitle">Deck</div>
+          </div>
         </div>
         
         <!-- Project 8 - Vacation Rentals (placeholder) -->
@@ -621,7 +623,7 @@
       }
     });
 
-    // Projects data - UPDATED with Kitchen2
+    // Projects data - UPDATED with Deck2 images starting at 1
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -630,46 +632,51 @@
       { name: 'Rebuild', location: 'Construction · Renovation', images: [] },
       { name: 'Front Porch + Sunroom', location: 'Outdoor Living · Sunroom Addition', images: [] },
       { name: 'Kitchen 2', location: 'Second Kitchen · Renovation', images: [] },
-      { name: 'New Construction', location: 'Modern Build', images: [] },
+      { name: 'Deck', location: 'Outdoor Deck Addition', images: [] },  // This is the new Deck2 project
       { name: 'Vacation Rentals', location: 'Beach House', images: [] },
       { name: 'Condos', location: 'Downtown', images: [] },
       { name: 'Staged Homes', location: 'Various', images: [] },
       { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
     ];
 
-    // Add Deck images (1-39)
+    // Add Deck images (1-39) - Project 0
     for(let i = 1; i <= 39; i++) {
       projects[0].images.push({ src: `/images/real%20estate/Deck%20(${i}).png`, alt: `Deck ${i}` });
     }
 
-    // Add Master Addition images (1-26)
+    // Add Master Addition images (1-26) - Project 1
     for(let i = 1; i <= 26; i++) {
       projects[1].images.push({ src: `/images/real%20estate/Master%20Addition%20(${i}).png`, alt: `Master Addition ${i}` });
     }
 
-    // Add Kitchen images (1-15)
+    // Add Kitchen images (1-15) - Project 2
     for(let i = 1; i <= 15; i++) {
       projects[2].images.push({ src: `/images/real%20estate/Kitchen%20(${i}).png`, alt: `Kitchen ${i}` });
     }
 
-    // Add Kitchen Town House images (1-8)
+    // Add Kitchen Town House images (1-8) - Project 3
     for(let i = 1; i <= 8; i++) {
       projects[3].images.push({ src: `/images/real%20estate/Kitchen%20Town%20House%20(${i}).png`, alt: `Kitchen Town House ${i}` });
     }
 
-    // Add Rebuild images (1-4)
+    // Add Rebuild images (1-4) - Project 4
     for(let i = 1; i <= 4; i++) {
       projects[4].images.push({ src: `/images/real%20estate/Rebuild%20(${i}).png`, alt: `Rebuild ${i}` });
     }
 
-    // Add Front Porch + Sunroom images (1-13)
+    // Add Front Porch + Sunroom images (1-13) - Project 5
     for(let i = 1; i <= 13; i++) {
       projects[5].images.push({ src: `/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(${i}).png`, alt: `Front Porch + Sunroom ${i}` });
     }
 
-    // Add Kitchen2 images (1-10) - NEW FIXED PATH
+    // Add Kitchen2 images (1-10) - Project 6
     for(let i = 1; i <= 10; i++) {
       projects[6].images.push({ src: `/images/real%20estate/Kitchen2%20(${i}).png`, alt: `Kitchen 2 ${i}` });
+    }
+
+    // Add Deck2 images (1-12) - Project 7 (display name "Deck")
+    for(let i = 1; i <= 12; i++) {
+      projects[7].images.push({ src: `/images/real%20estate/Deck2%20(${i}).png`, alt: `Deck ${i}` });
     }
 
     let currentProject = null;
