@@ -360,7 +360,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 3 - Kitchen Town House (8 photos) - NEW -->
+        <!-- Project 3 - Kitchen Town House (8 photos) -->
         <div class="project-card reveal" onclick="openProject(3)">
           <img src="/images/real%20estate/Kitchen%20Town%20House%20(1).png" alt="Kitchen Town House">
           <div class="photo-count">8 photos</div>
@@ -370,12 +370,14 @@
           </div>
         </div>
         
-        <!-- Project 4 - Twilight Series (placeholder) -->
-        <div class="placeholder-card reveal" onclick="openProject(4)">
-          <div class="placeholder-count">3 photos</div>
-          <div class="placeholder-icon">🌆</div>
-          <div class="placeholder-title">Twilight Series</div>
-          <div class="placeholder-subtitle">Golden Hour · Exterior</div>
+        <!-- Project 4 - Rebuild (4 photos) - NEW -->
+        <div class="project-card reveal" onclick="openProject(4)">
+          <img src="/images/real%20estate/Rebuild%20(1).png" alt="Rebuild">
+          <div class="photo-count">4 photos</div>
+          <div class="overlay">
+            <div class="project-title">Rebuild</div>
+            <div class="project-subtitle">Construction · Renovation</div>
+          </div>
         </div>
         
         <!-- Project 5 - Drone Photography (placeholder) -->
@@ -618,13 +620,13 @@
       }
     });
 
-    // Projects data - UPDATED with Kitchen Town House
+    // Projects data - UPDATED with Rebuild
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
       { name: 'Kitchen', location: 'Kitchen Design · Renovation', images: [] },
       { name: 'Kitchen Town House', location: 'Townhouse Kitchen · Design', images: [] },
-      { name: 'Twilight Series', location: 'Various', images: [] },
+      { name: 'Rebuild', location: 'Construction · Renovation', images: [] },
       { name: 'Drone Photography', location: 'Aerial', images: [] },
       { name: 'Interior Design', location: 'Styled Living', images: [] },
       { name: 'New Construction', location: 'Modern Build', images: [] },
@@ -652,6 +654,11 @@
     // Add Kitchen Town House images (1-8)
     for(let i = 1; i <= 8; i++) {
       projects[3].images.push({ src: `/images/real%20estate/Kitchen%20Town%20House%20(${i}).png`, alt: `Kitchen Town House ${i}` });
+    }
+
+    // Add Rebuild images (1-4)
+    for(let i = 1; i <= 4; i++) {
+      projects[4].images.push({ src: `/images/real%20estate/Rebuild%20(${i}).png`, alt: `Rebuild ${i}` });
     }
 
     let currentProject = null;
