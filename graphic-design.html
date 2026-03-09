@@ -136,15 +136,8 @@
       background: #1a1f2e;
     }
     .placeholder-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .placeholder-title {
-      font-weight: 600;
-      color: white;
-      margin-bottom: 0.25rem;
-    }
-    .placeholder-subtitle {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
+    .placeholder-title { font-weight: 600; color: white; margin-bottom: 0.25rem; }
+    .placeholder-subtitle { font-size: 0.75rem; color: #6b7280; }
     .placeholder-count {
       position: absolute;
       top: 1rem;
@@ -159,10 +152,8 @@
 
     .lightbox {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
       z-index: 1000;
@@ -199,10 +190,8 @@
     .lightbox-counter { color: #9ca3af; font-size: 0.875rem; margin-top: 0.5rem; }
     .lightbox-close {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
+      top: 2rem; right: 2rem;
+      width: 50px; height: 50px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -222,8 +211,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
+      width: 50px; height: 50px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -246,8 +234,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 48px;
-      height: 48px;
+      width: 48px; height: 48px;
       border-radius: 50%;
       border: 1px solid #374151;
       color: #9ca3af;
@@ -261,15 +248,8 @@
       box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3);
     }
 
-    input, textarea {
-      background: #0a0c14;
-      border: 1px solid #252a3a;
-      transition: 0.2s;
-    }
-    input:focus, textarea:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
-    }
+    input, textarea { background: #0a0c14; border: 1px solid #252a3a; transition: 0.2s; }
+    input:focus, textarea:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
   </style>
 </head>
 <body>
@@ -309,7 +289,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 0 - Frog Skateboard (now 9 photos) -->
+        <!-- Project 0 - Frog Skateboard -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/Graphic%20Design/Frog%20Skateboard%20(1).png" alt="Frog Skateboard Project">
           <div class="overlay">
@@ -329,12 +309,14 @@
           <div class="photo-count">20 photos</div>
         </div>
 
-        <!-- Project 2 - Motion -->
-        <div class="placeholder-card reveal" onclick="openProject(2)">
-          <div class="placeholder-icon">🎬</div>
-          <div class="placeholder-title">Motion</div>
-          <div class="placeholder-subtitle">Animation · Video Graphics</div>
-          <div class="placeholder-count">3 photos</div>
+        <!-- Project 2 - Artist Homage -->
+        <div class="project-card reveal" onclick="openProject(2)">
+          <img src="images/Graphic Design/Artist Homage (1).png" alt="Artist Homage">
+          <div class="overlay">
+            <div class="project-title">Artist Homage</div>
+            <div class="project-category">Graphic Design</div>
+          </div>
+          <div class="photo-count">9 photos</div>
         </div>
         
       </div>
@@ -539,52 +521,29 @@
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
-        if (!name || !email || !message) {
-          feedback.textContent = '⚠️ Please fill in all fields.';
-          feedback.style.color = '#fbbf24';
-          return;
-        }
-        if (!email.includes('@') || !email.includes('.')) {
-          feedback.textContent = '📧 Please enter a valid email.';
-          feedback.style.color = '#f87171';
-          return;
-        }
-        feedback.textContent = '⏱️ Sending...';
-        feedback.style.color = '#9ca3af';
+        if (!name || !email || !message) { feedback.textContent = '⚠️ Please fill in all fields.'; feedback.style.color = '#fbbf24'; return; }
+        if (!email.includes('@') || !email.includes('.')) { feedback.textContent = '📧 Please enter a valid email.'; feedback.style.color = '#f87171'; return; }
+        feedback.textContent = '⏱️ Sending...'; feedback.style.color = '#9ca3af';
         try {
           const response = await fetch('https://formspree.io/f/mbdavgjb', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, message, _subject: 'New Portfolio Contact from LukeBianchi.design' })
           });
-          if (response.ok) {
-            feedback.textContent = '✨ Thanks! I\'ll reply within 24h.';
-            feedback.style.color = '#4ade80';
-            form.reset();
-          } else {
-            feedback.textContent = '❌ Something went wrong. Please try again.';
-            feedback.style.color = '#f87171';
-          }
-        } catch (error) {
-          feedback.textContent = '❌ Network error. Please check your connection.';
-          feedback.style.color = '#f87171';
-        }
+          if (response.ok) { feedback.textContent = '✨ Thanks! I\'ll reply within 24h.'; feedback.style.color = '#4ade80'; form.reset(); }
+          else { feedback.textContent = '❌ Something went wrong. Please try again.'; feedback.style.color = '#f87171'; }
+        } catch (error) { feedback.textContent = '❌ Network error. Please check your connection.'; feedback.style.color = '#f87171'; }
       });
 
       const nav = document.getElementById('navbar');
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.remove('py-5');
-        } else {
-          nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3');
-          nav.classList.add('py-5');
-        }
+        if (window.scrollY > 50) { nav.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3'); nav.classList.remove('py-5'); }
+        else { nav.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3'); nav.classList.add('py-5'); }
       });
     })();
 
     const projects = [
-      { 
+      {
         name: 'Frog Skateboard',
         category: 'Skateboard Design · Branding',
         images: [
@@ -625,11 +584,21 @@
           { src: 'images/Graphic Design/Portfolio Project (20).png', alt: 'Portfolio Project 20' }
         ]
       },
-      { name: 'Motion', category: 'Animation · Video Graphics', images: [
-        { src: '/images/Graphic%20Design/motion-1.jpg', alt: 'Motion 1' },
-        { src: '/images/Graphic%20Design/motion-2.jpg', alt: 'Motion 2' },
-        { src: '/images/Graphic%20Design/motion-3.jpg', alt: 'Motion 3' }
-      ]},
+      {
+        name: 'Artist Homage',
+        category: 'Graphic Design',
+        images: [
+          { src: 'images/Graphic Design/Artist Homage (1).png', alt: 'Artist Homage 1' },
+          { src: 'images/Graphic Design/Artist Homage (2).png', alt: 'Artist Homage 2' },
+          { src: 'images/Graphic Design/Artist Homage (3).png', alt: 'Artist Homage 3' },
+          { src: 'images/Graphic Design/Artist Homage (4).png', alt: 'Artist Homage 4' },
+          { src: 'images/Graphic Design/Artist Homage (5).png', alt: 'Artist Homage 5' },
+          { src: 'images/Graphic Design/Artist Homage (6).png', alt: 'Artist Homage 6' },
+          { src: 'images/Graphic Design/Artist Homage (7).png', alt: 'Artist Homage 7' },
+          { src: 'images/Graphic Design/Artist Homage (8).png', alt: 'Artist Homage 8' },
+          { src: 'images/Graphic Design/Artist Homage (9).png', alt: 'Artist Homage 9' }
+        ]
+      },
       { name: 'Packaging', category: 'Product · Labels · Unboxing', images: [
         { src: '/images/Graphic%20Design/packaging-1.jpg', alt: 'Packaging 1' },
         { src: '/images/Graphic%20Design/packaging-2.jpg', alt: 'Packaging 2' },
