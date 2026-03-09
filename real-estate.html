@@ -414,7 +414,7 @@
         <!-- Project 8 - Interior Renovations (19 photos) - NEW -->
         <div class="project-card reveal" onclick="openProject(8)">
           <img src="/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(1).png" alt="Interior Renovations">
-          <div class="photo-count">19 photos</div>
+          <div class="photo-count">20 photos</div>
           <div class="overlay">
             <div class="project-title">Interior Renovations</div>
             <div class="project-subtitle">Master Bathroom · Hall Bathroom · Railings · Kitchen</div>
@@ -682,9 +682,8 @@
     }
 
     // Add Interior Renovations images (1-20, but note: missing 2, so we need to check which numbers exist)
-    // From your screenshot, the files are: 1,3-20 (missing 2)
-    // That's 1 + (20-3+1) = 1 + 18 = 19 photos
-    const interiorIndices = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    // From your screenshot, the files are: 1-20
+    const interiorIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
     for(let i = 0; i < interiorIndices.length; i++) {
       const num = interiorIndices[i];
       projects[8].images.push({ 
