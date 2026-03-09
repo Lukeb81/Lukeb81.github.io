@@ -173,10 +173,7 @@
       visibility: hidden;
       transition: all 0.3s ease;
     }
-    .lightbox.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .lightbox.active { opacity: 1; visibility: visible; }
     .lightbox-content {
       position: relative;
       max-width: 90vw;
@@ -196,12 +193,7 @@
       transition: transform 0.3s ease;
     }
     .lightbox.active .lightbox-image-container img { transform: scale(1); }
-    .lightbox-info {
-      margin-top: 1rem;
-      text-align: center;
-      color: white;
-      width: 100%;
-    }
+    .lightbox-info { margin-top: 1rem; text-align: center; color: white; width: 100%; }
     .lightbox-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
     .lightbox-category { color: #9ca3af; font-size: 1rem; margin-bottom: 0.5rem; }
     .lightbox-counter { color: #9ca3af; font-size: 0.875rem; margin-top: 0.5rem; }
@@ -225,10 +217,7 @@
       z-index: 1001;
       padding-bottom: 4px;
     }
-    .lightbox-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: rotate(90deg);
-    }
+    .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
     .lightbox-nav {
       position: absolute;
       top: 50%;
@@ -320,14 +309,14 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 0 - Frog Skateboard -->
+        <!-- Project 0 - Frog Skateboard (now 9 photos) -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/Graphic%20Design/Frog%20Skateboard%20(1).png" alt="Frog Skateboard Project">
           <div class="overlay">
             <div class="project-title">Frog Skateboard</div>
             <div class="project-category">Skateboard Design · Branding</div>
           </div>
-          <div class="photo-count">8 photos</div>
+          <div class="photo-count">9 photos</div>
         </div>
         
         <!-- Project 1 - Portfolio Project -->
@@ -436,7 +425,6 @@
           <input type="hidden" name="_subject" value="New Portfolio Contact from LukeBianchi.design">
           <input type="hidden" name="_replyto" value="email">
           <input type="text" name="_gotcha" style="display:none">
-          
           <div>
             <input type="text" id="name" name="name" placeholder="Your name" required 
                    class="w-full p-3 rounded-lg bg-black/60 border border-gray-700 focus:border-blue-500 outline-none text-white">
@@ -607,7 +595,8 @@
           { src: '/images/Graphic%20Design/Frog%20Skateboard%20(5).png', alt: 'Frog Skateboard 5' },
           { src: '/images/Graphic%20Design/Frog%20Skateboard%20(6).png', alt: 'Frog Skateboard 6' },
           { src: '/images/Graphic%20Design/Frog%20Skateboard%20(7).png', alt: 'Frog Skateboard 7' },
-          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(8).png', alt: 'Frog Skateboard 8' }
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(8).png', alt: 'Frog Skateboard 8' },
+          { src: '/images/Graphic%20Design/Frog%20Skateboard%20(9).png', alt: 'Frog Skateboard 9' }
         ]
       },
       {
