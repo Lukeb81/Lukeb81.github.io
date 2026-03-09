@@ -323,7 +323,6 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 0 - Deck (39 photos) -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="images/real estate/Deck (1).png" alt="Deck Project">
           <div class="photo-count">39 photos</div>
@@ -333,7 +332,6 @@
           </div>
         </div>
         
-        <!-- Project 1 - Master Addition (26 photos) -->
         <div class="project-card reveal" onclick="openProject(1)">
           <img src="images/real estate/Master Addition (1).png" alt="Master Addition">
           <div class="photo-count">26 photos</div>
@@ -343,7 +341,6 @@
           </div>
         </div>
         
-        <!-- Project 2 - Kitchen (15 photos) -->
         <div class="project-card reveal" onclick="openProject(2)">
           <img src="images/real estate/Kitchen (1).png" alt="Kitchen">
           <div class="photo-count">15 photos</div>
@@ -357,7 +354,6 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 3 - Kitchen Town House (8 photos) -->
         <div class="project-card reveal" onclick="openProject(3)">
           <img src="images/real estate/Kitchen Town House (1).png" alt="Kitchen Town House">
           <div class="photo-count">8 photos</div>
@@ -367,7 +363,6 @@
           </div>
         </div>
         
-        <!-- Project 4 - Rebuild (4 photos) -->
         <div class="project-card reveal" onclick="openProject(4)">
           <img src="images/real estate/Rebuild (1).png" alt="Rebuild">
           <div class="photo-count">4 photos</div>
@@ -377,7 +372,6 @@
           </div>
         </div>
         
-        <!-- Project 5 - Front Porch + Sunroom (13 photos) -->
         <div class="project-card reveal" onclick="openProject(5)">
           <img src="images/real estate/Front Porch + Sunroom (1).png" alt="Front Porch + Sunroom">
           <div class="photo-count">13 photos</div>
@@ -391,7 +385,6 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 6 - Kitchen (10 photos) -->
         <div class="project-card reveal" onclick="openProject(6)">
           <img src="images/real estate/Kitchen2 (1).png" alt="Kitchen2">
           <div class="photo-count">10 photos</div>
@@ -401,7 +394,6 @@
           </div>
         </div>
         
-        <!-- Project 7 - Deck (12 photos) -->
         <div class="project-card reveal" onclick="openProject(7)">
           <img src="images/real estate/Deck2 (1).png" alt="Deck2 Project">
           <div class="photo-count">12 photos</div>
@@ -411,9 +403,9 @@
           </div>
         </div>
         
-        <!-- Project 8 - Interior Renovations (20 photos) -->
+        <!-- Project 8 - updated to match new filename -->
         <div class="project-card reveal" onclick="openProject(8)">
-          <img src="images/real estate/2 Bathroom+Railings+Kitchen (1).png" alt="Interior Renovations">
+          <img src="images/real estate/BathroomRailingsKitchen (1).png" alt="Interior Renovations">
           <div class="photo-count">20 photos</div>
           <div class="overlay">
             <div class="project-title">Interior Renovations</div>
@@ -425,7 +417,6 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Project 9 - Apartment Kitchen (6 photos) -->
         <div class="project-card reveal" onclick="openProject(9)">
           <img src="images/real estate/Apartment Kitchen (1).png" alt="Apartment Kitchen">
           <div class="photo-count">6 photos</div>
@@ -435,7 +426,6 @@
           </div>
         </div>
         
-        <!-- Project 10 - Staged Homes (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(10)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">✨</div>
@@ -443,7 +433,6 @@
           <div class="placeholder-subtitle">Professionally Staged</div>
         </div>
         
-        <!-- Project 11 - Virtual Tours (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(11)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🔄</div>
@@ -513,7 +502,6 @@
   </footer>
 
   <script>
-    // Starfield
     const canvas = document.getElementById('starfield');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -577,14 +565,12 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Reveal
     document.querySelectorAll('.reveal').forEach(r => {
       new IntersectionObserver((e) => {
         e.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
       }, { threshold: 0.1 }).observe(r);
     });
 
-    // Form
     const form = document.getElementById('contactForm');
     const feedback = document.getElementById('formFeedback');
     form.addEventListener('submit', async (e) => {
@@ -615,7 +601,6 @@
       }
     });
 
-    // Nav scroll
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       if(window.scrollY > 50) {
@@ -627,7 +612,6 @@
       }
     });
 
-    // Projects data
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -643,59 +627,38 @@
       { name: 'Virtual Tours', location: '360° Panoramic', images: [] }
     ];
 
-    // Add Deck images (1-39) - Project 0
     for(let i = 1; i <= 39; i++) {
       projects[0].images.push({ src: `images/real estate/Deck (${i}).png`, alt: `Deck ${i}` });
     }
-
-    // Add Master Addition images (1-26) - Project 1
     for(let i = 1; i <= 26; i++) {
       projects[1].images.push({ src: `images/real estate/Master Addition (${i}).png`, alt: `Master Addition ${i}` });
     }
-
-    // Add Kitchen images (1-15) - Project 2
     for(let i = 1; i <= 15; i++) {
       projects[2].images.push({ src: `images/real estate/Kitchen (${i}).png`, alt: `Kitchen ${i}` });
     }
-
-    // Add Kitchen Town House images (1-8) - Project 3
     for(let i = 1; i <= 8; i++) {
       projects[3].images.push({ src: `images/real estate/Kitchen Town House (${i}).png`, alt: `Kitchen Town House ${i}` });
     }
-
-    // Add Rebuild images (1-4) - Project 4
     for(let i = 1; i <= 4; i++) {
       projects[4].images.push({ src: `images/real estate/Rebuild (${i}).png`, alt: `Rebuild ${i}` });
     }
-
-    // Add Front Porch + Sunroom images (1-13) - Project 5
     for(let i = 1; i <= 13; i++) {
       projects[5].images.push({ src: `images/real estate/Front Porch + Sunroom (${i}).png`, alt: `Front Porch + Sunroom ${i}` });
     }
-
-    // Add Kitchen2 images (1-10) - Project 6
     for(let i = 1; i <= 10; i++) {
       projects[6].images.push({ src: `images/real estate/Kitchen2 (${i}).png`, alt: `Kitchen ${i}` });
     }
-
-    // Add Deck2 images (1-12) - Project 7
     for(let i = 1; i <= 12; i++) {
       projects[7].images.push({ src: `images/real estate/Deck2 (${i}).png`, alt: `Deck ${i}` });
     }
-
-    // Add Interior Renovations images (1-20) - Project 8
+    // Project 8 - updated to match new filename BathroomRailingsKitchen
     for(let i = 1; i <= 20; i++) {
-      projects[8].images.push({ src: `images/real estate/2 Bathroom+Railings+Kitchen (${i}).png`, alt: `Interior Renovations ${i}` });
+      projects[8].images.push({ src: `images/real estate/BathroomRailingsKitchen (${i}).png`, alt: `Interior Renovations ${i}` });
     }
-
-    // Add Apartment Kitchen images (1,2,3,4,6,7) - Project 9 (missing 5)
     const aptIndices = [1, 2, 3, 4, 6, 7];
     for(let i = 0; i < aptIndices.length; i++) {
       const num = aptIndices[i];
-      projects[9].images.push({ 
-        src: `images/real estate/Apartment Kitchen (${num}).png`, 
-        alt: `Apartment Kitchen ${num}` 
-      });
+      projects[9].images.push({ src: `images/real estate/Apartment Kitchen (${num}).png`, alt: `Apartment Kitchen ${num}` });
     }
 
     let currentProject = null;
