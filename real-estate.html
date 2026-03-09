@@ -411,9 +411,9 @@
           </div>
         </div>
         
-        <!-- Project 8 - Interior Renovations (20 photos) - FIXED -->
+        <!-- Project 8 - Interior Renovations (20 photos) - FIXED PATH -->
         <div class="project-card reveal" onclick="openProject(8)">
-          <img src="/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(1).png" alt="Interior Renovations">
+          <img src="/images/real%20estate/2%20Bathroom+Railings+Kitchen%20(1).png" alt="Interior Renovations">
           <div class="photo-count">20 photos</div>
           <div class="overlay">
             <div class="project-title">Interior Renovations</div>
@@ -683,10 +683,11 @@
       projects[7].images.push({ src: `/images/real%20estate/Deck2%20(${i}).png`, alt: `Deck ${i}` });
     }
 
-    // Add Interior Renovations images (1-20) - FIXED: all 20 images
+    // Add Interior Renovations images (1-20) - FIXED PATH
     for(let i = 1; i <= 20; i++) {
+      // Using + signs instead of %2B for readability, but both work
       projects[8].images.push({ 
-        src: `/images/real%20estate/2%20Bathroom%2BRailings%2BKitchen%20(${i}).png`, 
+        src: `/images/real%20estate/2%20Bathroom+Railings+Kitchen%20(${i}).png`, 
         alt: `Interior Renovations ${i}` 
       });
     }
