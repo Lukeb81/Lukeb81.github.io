@@ -326,7 +326,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 1 - Deck (39 photos) -->
+        <!-- Project 0 - Deck (39 photos) -->
         <div class="project-card reveal" onclick="openProject(0)">
           <img src="/images/real%20estate/Deck%20(1).png" alt="Deck Project">
           <div class="photo-count">39 photos</div>
@@ -336,7 +336,7 @@
           </div>
         </div>
         
-        <!-- Project 2 - Master Addition (26 photos) -->
+        <!-- Project 1 - Master Addition (26 photos) -->
         <div class="project-card reveal" onclick="openProject(1)">
           <img src="/images/real%20estate/Master%20Addition%20(1).png" alt="Master Addition">
           <div class="photo-count">26 photos</div>
@@ -346,7 +346,7 @@
           </div>
         </div>
         
-        <!-- Project 3 - Kitchen (15 photos) - NOW WITH IMAGES -->
+        <!-- Project 2 - Kitchen (15 photos) -->
         <div class="project-card reveal" onclick="openProject(2)">
           <img src="/images/real%20estate/Kitchen%20(1).png" alt="Kitchen">
           <div class="photo-count">15 photos</div>
@@ -360,13 +360,17 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <div class="placeholder-card reveal" onclick="openProject(3)">
-          <div class="placeholder-count">5 photos</div>
-          <div class="placeholder-icon">🏰</div>
-          <div class="placeholder-title">Luxury Estate</div>
-          <div class="placeholder-subtitle">Hillside · Panoramic</div>
+        <!-- Project 3 - Kitchen Town House (8 photos) - NEW -->
+        <div class="project-card reveal" onclick="openProject(3)">
+          <img src="/images/real%20estate/Kitchen%20Town%20House%20(1).png" alt="Kitchen Town House">
+          <div class="photo-count">8 photos</div>
+          <div class="overlay">
+            <div class="project-title">Kitchen Town House</div>
+            <div class="project-subtitle">Townhouse Kitchen · Design</div>
+          </div>
         </div>
         
+        <!-- Project 4 - Twilight Series (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(4)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🌆</div>
@@ -374,6 +378,7 @@
           <div class="placeholder-subtitle">Golden Hour · Exterior</div>
         </div>
         
+        <!-- Project 5 - Drone Photography (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(5)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🚁</div>
@@ -385,6 +390,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
+        <!-- Project 6 - Interior Design (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(6)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🪑</div>
@@ -392,6 +398,7 @@
           <div class="placeholder-subtitle">Styled Living · Details</div>
         </div>
         
+        <!-- Project 7 - New Construction (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(7)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏗️</div>
@@ -399,6 +406,7 @@
           <div class="placeholder-subtitle">Modern Build · Progress</div>
         </div>
         
+        <!-- Project 8 - Vacation Rentals (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(8)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">🌴</div>
@@ -410,6 +418,7 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
+        <!-- Project 9 - Condos (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(9)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🏙️</div>
@@ -417,6 +426,7 @@
           <div class="placeholder-subtitle">High-Rise · Downtown</div>
         </div>
         
+        <!-- Project 10 - Staged Homes (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(10)">
           <div class="placeholder-count">4 photos</div>
           <div class="placeholder-icon">✨</div>
@@ -424,6 +434,7 @@
           <div class="placeholder-subtitle">Professionally Staged</div>
         </div>
         
+        <!-- Project 11 - Virtual Tours (placeholder) -->
         <div class="placeholder-card reveal" onclick="openProject(11)">
           <div class="placeholder-count">3 photos</div>
           <div class="placeholder-icon">🔄</div>
@@ -607,12 +618,12 @@
       }
     });
 
-    // Projects data
+    // Projects data - UPDATED with Kitchen Town House
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
       { name: 'Kitchen', location: 'Kitchen Design · Renovation', images: [] },
-      { name: 'Luxury Estate', location: 'Hillside', images: [] },
+      { name: 'Kitchen Town House', location: 'Townhouse Kitchen · Design', images: [] },
       { name: 'Twilight Series', location: 'Various', images: [] },
       { name: 'Drone Photography', location: 'Aerial', images: [] },
       { name: 'Interior Design', location: 'Styled Living', images: [] },
@@ -636,6 +647,11 @@
     // Add Kitchen images (1-15)
     for(let i = 1; i <= 15; i++) {
       projects[2].images.push({ src: `/images/real%20estate/Kitchen%20(${i}).png`, alt: `Kitchen ${i}` });
+    }
+
+    // Add Kitchen Town House images (1-8)
+    for(let i = 1; i <= 8; i++) {
+      projects[3].images.push({ src: `/images/real%20estate/Kitchen%20Town%20House%20(${i}).png`, alt: `Kitchen Town House ${i}` });
     }
 
     let currentProject = null;
