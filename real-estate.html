@@ -380,7 +380,7 @@
           </div>
         </div>
         
-        <!-- Project 5 - Front Porch + Sunroom (13 photos) - NEW -->
+        <!-- Project 5 - Front Porch + Sunroom (13 photos) -->
         <div class="project-card reveal" onclick="openProject(5)">
           <img src="/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(1).png" alt="Front Porch + Sunroom">
           <div class="photo-count">13 photos</div>
@@ -394,12 +394,14 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         
-        <!-- Project 6 - Interior Design (placeholder) -->
-        <div class="placeholder-card reveal" onclick="openProject(6)">
-          <div class="placeholder-count">4 photos</div>
-          <div class="placeholder-icon">🪑</div>
-          <div class="placeholder-title">Interior Design</div>
-          <div class="placeholder-subtitle">Styled Living · Details</div>
+        <!-- Project 6 - Kitchen Renovation (10 photos) - NEW -->
+        <div class="project-card reveal" onclick="openProject(6)">
+          <img src="/images/real%20estate/Kitchen_(1).png" alt="Kitchen Renovation">
+          <div class="photo-count">10 photos</div>
+          <div class="overlay">
+            <div class="project-title">Kitchen Renovation</div>
+            <div class="project-subtitle">Modern Kitchen · Renovation</div>
+          </div>
         </div>
         
         <!-- Project 7 - New Construction (placeholder) -->
@@ -622,7 +624,7 @@
       }
     });
 
-    // Projects data - UPDATED with Front Porch + Sunroom
+    // Projects data - UPDATED with new Kitchen Renovation (underscore version)
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
@@ -630,7 +632,7 @@
       { name: 'Kitchen Town House', location: 'Townhouse Kitchen · Design', images: [] },
       { name: 'Rebuild', location: 'Construction · Renovation', images: [] },
       { name: 'Front Porch + Sunroom', location: 'Outdoor Living · Sunroom Addition', images: [] },
-      { name: 'Interior Design', location: 'Styled Living', images: [] },
+      { name: 'Kitchen Renovation', location: 'Modern Kitchen · Renovation', images: [] },
       { name: 'New Construction', location: 'Modern Build', images: [] },
       { name: 'Vacation Rentals', location: 'Beach House', images: [] },
       { name: 'Condos', location: 'Downtown', images: [] },
@@ -648,7 +650,7 @@
       projects[1].images.push({ src: `/images/real%20estate/Master%20Addition%20(${i}).png`, alt: `Master Addition ${i}` });
     }
 
-    // Add Kitchen images (1-15)
+    // Add Kitchen images (1-15) - original with spaces
     for(let i = 1; i <= 15; i++) {
       projects[2].images.push({ src: `/images/real%20estate/Kitchen%20(${i}).png`, alt: `Kitchen ${i}` });
     }
@@ -666,6 +668,11 @@
     // Add Front Porch + Sunroom images (1-13)
     for(let i = 1; i <= 13; i++) {
       projects[5].images.push({ src: `/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(${i}).png`, alt: `Front Porch + Sunroom ${i}` });
+    }
+
+    // Add Kitchen Renovation images (1-10) - with underscores
+    for(let i = 1; i <= 10; i++) {
+      projects[6].images.push({ src: `/images/real%20estate/Kitchen_(${i}).png`, alt: `Kitchen Renovation ${i}` });
     }
 
     let currentProject = null;
