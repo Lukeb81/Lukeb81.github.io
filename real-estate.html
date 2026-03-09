@@ -370,7 +370,7 @@
           </div>
         </div>
         
-        <!-- Project 4 - Rebuild (4 photos) - NEW -->
+        <!-- Project 4 - Rebuild (4 photos) -->
         <div class="project-card reveal" onclick="openProject(4)">
           <img src="/images/real%20estate/Rebuild%20(1).png" alt="Rebuild">
           <div class="photo-count">4 photos</div>
@@ -380,12 +380,14 @@
           </div>
         </div>
         
-        <!-- Project 5 - Drone Photography (placeholder) -->
-        <div class="placeholder-card reveal" onclick="openProject(5)">
-          <div class="placeholder-count">4 photos</div>
-          <div class="placeholder-icon">🚁</div>
-          <div class="placeholder-title">Drone Photography</div>
-          <div class="placeholder-subtitle">Aerial · Property Context</div>
+        <!-- Project 5 - Front Porch + Sunroom (13 photos) - NEW -->
+        <div class="project-card reveal" onclick="openProject(5)">
+          <img src="/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(1).png" alt="Front Porch + Sunroom">
+          <div class="photo-count">13 photos</div>
+          <div class="overlay">
+            <div class="project-title">Front Porch + Sunroom</div>
+            <div class="project-subtitle">Outdoor Living · Sunroom Addition</div>
+          </div>
         </div>
         
       </div>
@@ -620,14 +622,14 @@
       }
     });
 
-    // Projects data - UPDATED with Rebuild
+    // Projects data - UPDATED with Front Porch + Sunroom
     const projects = [
       { name: 'Deck', location: 'Outdoor Living Space', images: [] },
       { name: 'Master Addition', location: 'Home Addition · Renovation', images: [] },
       { name: 'Kitchen', location: 'Kitchen Design · Renovation', images: [] },
       { name: 'Kitchen Town House', location: 'Townhouse Kitchen · Design', images: [] },
       { name: 'Rebuild', location: 'Construction · Renovation', images: [] },
-      { name: 'Drone Photography', location: 'Aerial', images: [] },
+      { name: 'Front Porch + Sunroom', location: 'Outdoor Living · Sunroom Addition', images: [] },
       { name: 'Interior Design', location: 'Styled Living', images: [] },
       { name: 'New Construction', location: 'Modern Build', images: [] },
       { name: 'Vacation Rentals', location: 'Beach House', images: [] },
@@ -659,6 +661,11 @@
     // Add Rebuild images (1-4)
     for(let i = 1; i <= 4; i++) {
       projects[4].images.push({ src: `/images/real%20estate/Rebuild%20(${i}).png`, alt: `Rebuild ${i}` });
+    }
+
+    // Add Front Porch + Sunroom images (1-13)
+    for(let i = 1; i <= 13; i++) {
+      projects[5].images.push({ src: `/images/real%20estate/Front%20Porch%20%2B%20Sunroom%20(${i}).png`, alt: `Front Porch + Sunroom ${i}` });
     }
 
     let currentProject = null;
