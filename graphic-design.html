@@ -195,55 +195,32 @@
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      font-size: 2rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1001;
-      padding-bottom: 4px;
+      color: white; font-size: 2rem; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease; z-index: 1001; padding-bottom: 4px;
     }
     .lightbox-close:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
     .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px; height: 50px;
-      border-radius: 50%;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 50px; height: 50px; border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      font-size: 2rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 1001;
-      padding-bottom: 4px;
+      color: white; font-size: 2rem; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease; z-index: 1001; padding-bottom: 4px;
     }
     .lightbox-nav:hover { background: rgba(255, 255, 255, 0.2); }
     .lightbox-prev { left: 2rem; }
     .lightbox-next { right: 2rem; }
 
     .social-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      border: 1px solid #374151;
-      color: #9ca3af;
-      transition: all 0.3s ease;
-      background: rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid #374151; color: #9ca3af;
+      transition: all 0.3s ease; background: rgba(0,0,0,0.3);
     }
     .social-icon:hover {
-      border-color: #3b82f6;
-      color: #3b82f6;
+      border-color: #3b82f6; color: #3b82f6;
       transform: translateY(-3px);
       box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3);
     }
@@ -322,12 +299,15 @@
       </div>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        
-        <div class="placeholder-card reveal" onclick="openProject(3)">
-          <div class="placeholder-icon">📦</div>
-          <div class="placeholder-title">Packaging</div>
-          <div class="placeholder-subtitle">Product · Labels · Unboxing</div>
-          <div class="placeholder-count">4 photos</div>
+
+        <!-- Project 3 - Black and White Poster -->
+        <div class="project-card reveal" onclick="openProject(3)">
+          <img src="images/Graphic Design/Black and white poster (1).png" alt="Black and White Poster">
+          <div class="overlay">
+            <div class="project-title">Black and White Poster</div>
+            <div class="project-category">Poster Design · Print</div>
+          </div>
+          <div class="photo-count">8 photos</div>
         </div>
         
         <div class="placeholder-card reveal" onclick="openProject(4)">
@@ -599,12 +579,20 @@
           { src: 'images/Graphic Design/Artist Homage (9).png', alt: 'Artist Homage 9' }
         ]
       },
-      { name: 'Packaging', category: 'Product · Labels · Unboxing', images: [
-        { src: '/images/Graphic%20Design/packaging-1.jpg', alt: 'Packaging 1' },
-        { src: '/images/Graphic%20Design/packaging-2.jpg', alt: 'Packaging 2' },
-        { src: '/images/Graphic%20Design/packaging-3.jpg', alt: 'Packaging 3' },
-        { src: '/images/Graphic%20Design/packaging-4.jpg', alt: 'Packaging 4' }
-      ]},
+      {
+        name: 'Black and White Poster',
+        category: 'Poster Design · Print',
+        images: [
+          { src: 'images/Graphic Design/Black and white poster (1).png', alt: 'Black and White Poster 1' },
+          { src: 'images/Graphic Design/Black and white poster (2).png', alt: 'Black and White Poster 2' },
+          { src: 'images/Graphic Design/Black and white poster (3).png', alt: 'Black and White Poster 3' },
+          { src: 'images/Graphic Design/Black and white poster (4).png', alt: 'Black and White Poster 4' },
+          { src: 'images/Graphic Design/Black and white poster (5).png', alt: 'Black and White Poster 5' },
+          { src: 'images/Graphic Design/Black and white poster (6).png', alt: 'Black and White Poster 6' },
+          { src: 'images/Graphic Design/Black and white poster (7).png', alt: 'Black and White Poster 7' },
+          { src: 'images/Graphic Design/Black and white poster (8).png', alt: 'Black and White Poster 8' }
+        ]
+      },
       { name: 'Digital', category: 'Web · Social · Email', images: [
         { src: '/images/Graphic%20Design/digital-1.jpg', alt: 'Digital 1' },
         { src: '/images/Graphic%20Design/digital-2.jpg', alt: 'Digital 2' },
