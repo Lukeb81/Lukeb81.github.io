@@ -41,18 +41,13 @@
     .lightbox-info { margin-top: 1rem; text-align: center; color: white; }
     .lightbox-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
     .lightbox-category { color: #9ca3af; font-size: 1rem; }
+    .lightbox-counter { color: #6b7280; font-size: 0.875rem; margin-top: 0.25rem; }
     .lightbox-close { position: absolute; top: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 2rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 1001; padding-bottom: 4px; }
     .lightbox-close:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
     .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 2rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 1001; padding-bottom: 4px; }
     .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
     .lightbox-prev { left: 2rem; }
     .lightbox-next { right: 2rem; }
-
-    .placeholder-card { background: #11131f; border: 2px dashed #374151; border-radius: 1rem; aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #6b7280; transition: all 0.3s; text-align: center; padding: 1rem; }
-    .placeholder-card:hover { border-color: #3b82f6; color: #9ca3af; background: #1a1f2e; }
-    .placeholder-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .placeholder-title { font-weight: 600; color: white; margin-bottom: 0.25rem; }
-    .placeholder-subtitle { font-size: 0.75rem; color: #6b7280; }
 
     .social-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid #374151; color: #9ca3af; transition: all 0.3s ease; background: rgba(0,0,0,0.3); }
     .social-icon:hover { border-color: #3b82f6; color: #3b82f6; transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3); }
@@ -84,6 +79,7 @@
       <div class="lightbox-info">
         <div id="lightbox-title" class="lightbox-title"></div>
         <div id="lightbox-category" class="lightbox-category"></div>
+        <div id="lightbox-counter" class="lightbox-counter"></div>
       </div>
     </div>
   </div>
@@ -92,7 +88,7 @@
     <div class="max-w-6xl mx-auto">
       <h1 class="text-5xl md:text-6xl font-bold mb-4 reveal">Photography</h1>
       <p class="text-gray-400 mb-12 text-xl reveal">Portrait · urban · documentary</p>
-      
+
       <!-- ROW 1 -->
       <div class="grid md:grid-cols-3 gap-8 mb-8">
         <div class="image-card reveal" onclick="openLightbox(0)">
@@ -119,39 +115,154 @@
           <img src="/images/IMG_1398.jpg" alt="IMG 1398">
           <div class="overlay"><div class="photo-title">IMG 1398</div><div class="photo-category">Portrait · Documentary</div></div>
         </div>
-        <div class="placeholder-card reveal">
-          <div class="placeholder-icon">🌿</div>
-          <div class="placeholder-title">Nature Study 01</div>
-          <div class="placeholder-subtitle">Documentary · Nature</div>
+        <div class="image-card reveal" onclick="openLightbox(5)">
+          <img src="/images/photography/Angle.png" alt="Angle">
+          <div class="overlay"><div class="photo-title">Angle</div><div class="photo-category">Urban · Architecture</div></div>
         </div>
       </div>
 
       <!-- ROW 3 -->
       <div class="grid md:grid-cols-3 gap-8 mb-8">
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🌃</div><div class="placeholder-title">Night Photography 01</div><div class="placeholder-subtitle">Urban · Night</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">👤</div><div class="placeholder-title">Portrait 02</div><div class="placeholder-subtitle">Portrait · Environmental</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🏙️</div><div class="placeholder-title">City Series 02</div><div class="placeholder-subtitle">Urban · Street</div></div>
+        <div class="image-card reveal" onclick="openLightbox(6)">
+          <img src="/images/photography/Barg.png" alt="Barg">
+          <div class="overlay"><div class="photo-title">Barg</div><div class="photo-category">Documentary</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(7)">
+          <img src="/images/photography/Beach (1).png" alt="Beach 1">
+          <div class="overlay"><div class="photo-title">Beach I</div><div class="photo-category">Landscape · Coastal</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(8)">
+          <img src="/images/photography/Beach (2).png" alt="Beach 2">
+          <div class="overlay"><div class="photo-title">Beach II</div><div class="photo-category">Landscape · Coastal</div></div>
+        </div>
       </div>
 
       <!-- ROW 4 -->
       <div class="grid md:grid-cols-3 gap-8 mb-8">
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🌅</div><div class="placeholder-title">Sunrise Series</div><div class="placeholder-subtitle">Documentary · Landscape</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🚶</div><div class="placeholder-title">Street Photography</div><div class="placeholder-subtitle">Urban · Candid</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🖤</div><div class="placeholder-title">Black & White 01</div><div class="placeholder-subtitle">Monochrome · Documentary</div></div>
+        <div class="image-card reveal" onclick="openLightbox(9)">
+          <img src="/images/photography/Boat (1).png" alt="Boat 1">
+          <div class="overlay"><div class="photo-title">Boat I</div><div class="photo-category">Documentary · Coastal</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(10)">
+          <img src="/images/photography/Boat (2).png" alt="Boat 2">
+          <div class="overlay"><div class="photo-title">Boat II</div><div class="photo-category">Documentary · Coastal</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(11)">
+          <img src="/images/photography/Boat.png" alt="Boat">
+          <div class="overlay"><div class="photo-title">Boat</div><div class="photo-category">Documentary · Coastal</div></div>
+        </div>
       </div>
 
       <!-- ROW 5 -->
       <div class="grid md:grid-cols-3 gap-8 mb-8">
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🌊</div><div class="placeholder-title">Coastal Series</div><div class="placeholder-subtitle">Documentary · Seascape</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">👥</div><div class="placeholder-title">Group Portrait</div><div class="placeholder-subtitle">Portrait · Event</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🏗️</div><div class="placeholder-title">Construction Series</div><div class="placeholder-subtitle">Urban · Industrial</div></div>
+        <div class="image-card reveal" onclick="openLightbox(12)">
+          <img src="/images/photography/Bulb.png" alt="Bulb">
+          <div class="overlay"><div class="photo-title">Bulb</div><div class="photo-category">Abstract · Still Life</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(13)">
+          <img src="/images/photography/Cloud (1).png" alt="Cloud 1">
+          <div class="overlay"><div class="photo-title">Cloud I</div><div class="photo-category">Landscape · Sky</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(14)">
+          <img src="/images/photography/Cloud (2).png" alt="Cloud 2">
+          <div class="overlay"><div class="photo-title">Cloud II</div><div class="photo-category">Landscape · Sky</div></div>
+        </div>
       </div>
 
       <!-- ROW 6 -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div class="image-card reveal" onclick="openLightbox(15)">
+          <img src="/images/photography/Concrete.png" alt="Concrete">
+          <div class="overlay"><div class="photo-title">Concrete</div><div class="photo-category">Urban · Industrial</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(16)">
+          <img src="/images/photography/Fish.png" alt="Fish">
+          <div class="overlay"><div class="photo-title">Fish</div><div class="photo-category">Nature · Wildlife</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(17)">
+          <img src="/images/photography/Gap.png" alt="Gap">
+          <div class="overlay"><div class="photo-title">Gap</div><div class="photo-category">Urban · Abstract</div></div>
+        </div>
+      </div>
+
+      <!-- ROW 7 -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div class="image-card reveal" onclick="openLightbox(18)">
+          <img src="/images/photography/Mountain.png" alt="Mountain">
+          <div class="overlay"><div class="photo-title">Mountain</div><div class="photo-category">Landscape · Nature</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(19)">
+          <img src="/images/photography/NYC Skyline (1).png" alt="NYC Skyline 1">
+          <div class="overlay"><div class="photo-title">NYC Skyline I</div><div class="photo-category">Urban · Cityscape</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(20)">
+          <img src="/images/photography/NYC Skyline (2).png" alt="NYC Skyline 2">
+          <div class="overlay"><div class="photo-title">NYC Skyline II</div><div class="photo-category">Urban · Cityscape</div></div>
+        </div>
+      </div>
+
+      <!-- ROW 8 -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div class="image-card reveal" onclick="openLightbox(21)">
+          <img src="/images/photography/NYC Skyline (3).png" alt="NYC Skyline 3">
+          <div class="overlay"><div class="photo-title">NYC Skyline III</div><div class="photo-category">Urban · Cityscape</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(22)">
+          <img src="/images/photography/NYC Skyline (4).png" alt="NYC Skyline 4">
+          <div class="overlay"><div class="photo-title">NYC Skyline IV</div><div class="photo-category">Urban · Cityscape</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(23)">
+          <img src="/images/photography/Paper Lantern.png" alt="Paper Lantern">
+          <div class="overlay"><div class="photo-title">Paper Lantern</div><div class="photo-category">Documentary · Culture</div></div>
+        </div>
+      </div>
+
+      <!-- ROW 9 -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div class="image-card reveal" onclick="openLightbox(24)">
+          <img src="/images/photography/Rock.png" alt="Rock">
+          <div class="overlay"><div class="photo-title">Rock</div><div class="photo-category">Nature · Landscape</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(25)">
+          <img src="/images/photography/Salmon.png" alt="Salmon">
+          <div class="overlay"><div class="photo-title">Salmon</div><div class="photo-category">Nature · Wildlife</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(26)">
+          <img src="/images/photography/Sea.png" alt="Sea">
+          <div class="overlay"><div class="photo-title">Sea</div><div class="photo-category">Landscape · Coastal</div></div>
+        </div>
+      </div>
+
+      <!-- ROW 10 -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div class="image-card reveal" onclick="openLightbox(27)">
+          <img src="/images/photography/Shore.png" alt="Shore">
+          <div class="overlay"><div class="photo-title">Shore</div><div class="photo-category">Landscape · Coastal</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(28)">
+          <img src="/images/photography/Sunrise (1).png" alt="Sunrise 1">
+          <div class="overlay"><div class="photo-title">Sunrise I</div><div class="photo-category">Landscape · Golden Hour</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(29)">
+          <img src="/images/photography/Sunrise (2).png" alt="Sunrise 2">
+          <div class="overlay"><div class="photo-title">Sunrise II</div><div class="photo-category">Landscape · Golden Hour</div></div>
+        </div>
+      </div>
+
+      <!-- ROW 11 -->
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🍂</div><div class="placeholder-title">Seasonal Series</div><div class="placeholder-subtitle">Documentary · Nature</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🎭</div><div class="placeholder-title">Performance</div><div class="placeholder-subtitle">Documentary · Event</div></div>
-        <div class="placeholder-card reveal"><div class="placeholder-icon">🌌</div><div class="placeholder-title">Night Sky</div><div class="placeholder-subtitle">Documentary · Astrophotography</div></div>
+        <div class="image-card reveal" onclick="openLightbox(30)">
+          <img src="/images/photography/Sunset.png" alt="Sunset">
+          <div class="overlay"><div class="photo-title">Sunset</div><div class="photo-category">Landscape · Golden Hour</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(31)">
+          <img src="/images/photography/sunset (1).png" alt="Sunset 1">
+          <div class="overlay"><div class="photo-title">Sunset I</div><div class="photo-category">Landscape · Golden Hour</div></div>
+        </div>
+        <div class="image-card reveal" onclick="openLightbox(32)">
+          <img src="/images/photography/sunset (2).png" alt="Sunset 2">
+          <div class="overlay"><div class="photo-title">Sunset II</div><div class="photo-category">Landscape · Golden Hour</div></div>
+        </div>
       </div>
 
     </div>
@@ -167,7 +278,6 @@
           <p><span class="text-blue-400 font-medium">Phone:</span> <span class="text-gray-300">+1 (732) 768‑8857</span></p>
           <p><span class="text-blue-400 font-medium">Location:</span> <span class="text-gray-300">Ocean Township, NJ/Remote</span></p>
         </div>
-
         <div class="mt-8 flex gap-4">
           <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -261,11 +371,39 @@
     })();
 
     const images = [
-      { src: '/images/Burst%201.JPG', title: 'Burst', category: 'Urban · Documentary' },
-      { src: '/images/Shallow-space.JPG', title: 'Shallow Space', category: 'Urban · Architecture' },
-      { src: '/images/IMG-1426.jpg', title: 'IMG 1426', category: 'Portrait · Documentary' },
-      { src: '/images/IMG_1358%20copy.jpg', title: 'IMG 1358', category: 'Portrait · Documentary' },
-      { src: '/images/IMG_1398.jpg', title: 'IMG 1398', category: 'Portrait · Documentary' }
+      { src: '/images/Burst%201.JPG',              title: 'Burst',          category: 'Urban · Documentary' },
+      { src: '/images/Shallow-space.JPG',           title: 'Shallow Space',  category: 'Urban · Architecture' },
+      { src: '/images/IMG-1426.jpg',                title: 'IMG 1426',       category: 'Portrait · Documentary' },
+      { src: '/images/IMG_1358%20copy.jpg',         title: 'IMG 1358',       category: 'Portrait · Documentary' },
+      { src: '/images/IMG_1398.jpg',                title: 'IMG 1398',       category: 'Portrait · Documentary' },
+      { src: '/images/photography/Angle.png',                    title: 'Angle',          category: 'Urban · Architecture' },
+      { src: '/images/photography/Barg.png',                     title: 'Barg',           category: 'Documentary' },
+      { src: '/images/photography/Beach (1).png',                title: 'Beach I',        category: 'Landscape · Coastal' },
+      { src: '/images/photography/Beach (2).png',                title: 'Beach II',       category: 'Landscape · Coastal' },
+      { src: '/images/photography/Boat (1).png',                 title: 'Boat I',         category: 'Documentary · Coastal' },
+      { src: '/images/photography/Boat (2).png',                 title: 'Boat II',        category: 'Documentary · Coastal' },
+      { src: '/images/photography/Boat.png',                     title: 'Boat',           category: 'Documentary · Coastal' },
+      { src: '/images/photography/Bulb.png',                     title: 'Bulb',           category: 'Abstract · Still Life' },
+      { src: '/images/photography/Cloud (1).png',                title: 'Cloud I',        category: 'Landscape · Sky' },
+      { src: '/images/photography/Cloud (2).png',                title: 'Cloud II',       category: 'Landscape · Sky' },
+      { src: '/images/photography/Concrete.png',                 title: 'Concrete',       category: 'Urban · Industrial' },
+      { src: '/images/photography/Fish.png',                     title: 'Fish',           category: 'Nature · Wildlife' },
+      { src: '/images/photography/Gap.png',                      title: 'Gap',            category: 'Urban · Abstract' },
+      { src: '/images/photography/Mountain.png',                 title: 'Mountain',       category: 'Landscape · Nature' },
+      { src: '/images/photography/NYC Skyline (1).png',          title: 'NYC Skyline I',  category: 'Urban · Cityscape' },
+      { src: '/images/photography/NYC Skyline (2).png',          title: 'NYC Skyline II', category: 'Urban · Cityscape' },
+      { src: '/images/photography/NYC Skyline (3).png',          title: 'NYC Skyline III',category: 'Urban · Cityscape' },
+      { src: '/images/photography/NYC Skyline (4).png',          title: 'NYC Skyline IV', category: 'Urban · Cityscape' },
+      { src: '/images/photography/Paper Lantern.png',            title: 'Paper Lantern',  category: 'Documentary · Culture' },
+      { src: '/images/photography/Rock.png',                     title: 'Rock',           category: 'Nature · Landscape' },
+      { src: '/images/photography/Salmon.png',                   title: 'Salmon',         category: 'Nature · Wildlife' },
+      { src: '/images/photography/Sea.png',                      title: 'Sea',            category: 'Landscape · Coastal' },
+      { src: '/images/photography/Shore.png',                    title: 'Shore',          category: 'Landscape · Coastal' },
+      { src: '/images/photography/Sunrise (1).png',              title: 'Sunrise I',      category: 'Landscape · Golden Hour' },
+      { src: '/images/photography/Sunrise (2).png',              title: 'Sunrise II',     category: 'Landscape · Golden Hour' },
+      { src: '/images/photography/Sunset.png',                   title: 'Sunset',         category: 'Landscape · Golden Hour' },
+      { src: '/images/photography/sunset (1).png',               title: 'Sunset I',       category: 'Landscape · Golden Hour' },
+      { src: '/images/photography/sunset (2).png',               title: 'Sunset II',      category: 'Landscape · Golden Hour' }
     ];
 
     let currentIndex = 0;
@@ -276,8 +414,9 @@
       document.getElementById('lightbox-img').src = images[currentIndex].src;
       document.getElementById('lightbox-title').textContent = images[currentIndex].title;
       document.getElementById('lightbox-category').textContent = images[currentIndex].category;
+      document.getElementById('lightbox-counter').textContent = `📸 ${currentIndex + 1} of ${images.length}`;
     }
-    function changeImage(direction) { currentIndex+=direction; if(currentIndex<0)currentIndex=images.length-1; if(currentIndex>=images.length)currentIndex=0; updateLightbox(); }
+    function changeImage(d) { currentIndex+=d; if(currentIndex<0)currentIndex=images.length-1; if(currentIndex>=images.length)currentIndex=0; updateLightbox(); }
 
     document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
     document.addEventListener('keydown',function(e){if(!document.getElementById('lightbox').classList.contains('active'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeImage(-1);if(e.key==='ArrowRight')changeImage(1);});
