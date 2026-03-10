@@ -29,39 +29,6 @@
 
     input, textarea { background: #0a0c14; border: 1px solid #252a3a; transition: 0.2s; }
     input:focus, textarea:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
-
-    /* Hero name wrapper */
-    #hero-name {
-      position: relative;
-      display: inline-block;
-    }
-
-    /* Astronaut */
-    #astronaut {
-      position: absolute;
-      width: 52px;
-      height: 52px;
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 0.05s linear;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
-      user-select: none;
-    }
-
-    #astronaut.flip {
-      transform: scaleX(-1);
-    }
-
-    .controls-hint {
-      position: absolute;
-      bottom: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.65rem;
-      color: #4b5563;
-      white-space: nowrap;
-      letter-spacing: 0.05em;
-    }
   </style>
 </head>
 <body>
@@ -80,63 +47,9 @@
 
   <section id="hero" class="h-screen flex items-center justify-center text-center px-6 relative">
     <div class="reveal active">
-
-      <div id="hero-name" class="inline-block mb-6">
-        <h1 class="text-6xl md:text-8xl font-bold tracking-tight">
-          Luke <span class="text-blue-500">Bianchi</span>
-        </h1>
-
-        <!-- SVG Astronaut -->
-        <div id="astronaut" title="Use arrow keys or WASD to move!">
-          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-            <!-- Shadow -->
-            <ellipse cx="50" cy="115" rx="18" ry="4" fill="rgba(0,0,0,0.25)"/>
-            <!-- Backpack -->
-            <rect x="62" y="52" width="16" height="22" rx="4" fill="#c0681a"/>
-            <rect x="64" y="56" width="12" height="6" rx="2" fill="#e07820"/>
-            <!-- Body suit -->
-            <rect x="32" y="52" width="36" height="32" rx="10" fill="#e8874a"/>
-            <!-- Left arm -->
-            <rect x="20" y="55" width="14" height="9" rx="4" fill="#e8874a"/>
-            <circle cx="19" cy="60" r="5" fill="#f0c090"/>
-            <!-- Right arm -->
-            <rect x="66" y="55" width="14" height="9" rx="4" fill="#e8874a"/>
-            <circle cx="81" cy="60" r="5" fill="#f0c090"/>
-            <!-- Legs -->
-            <rect x="36" y="80" width="11" height="20" rx="5" fill="#e8874a"/>
-            <rect x="52" y="80" width="11" height="20" rx="5" fill="#e8874a"/>
-            <!-- Boots -->
-            <ellipse cx="42" cy="100" rx="8" ry="5" fill="#555"/>
-            <ellipse cx="58" cy="100" rx="8" ry="5" fill="#555"/>
-            <!-- Suit details -->
-            <rect x="43" y="58" width="14" height="3" rx="1.5" fill="#c0681a" opacity="0.5"/>
-            <rect x="43" y="64" width="10" height="3" rx="1.5" fill="#c0681a" opacity="0.4"/>
-            <!-- Chest button -->
-            <circle cx="50" cy="72" r="3" fill="#c0681a"/>
-            <circle cx="50" cy="72" r="1.5" fill="#e07820"/>
-            <!-- Helmet -->
-            <circle cx="50" cy="38" r="22" fill="#f5e6d0"/>
-            <circle cx="50" cy="38" r="20" fill="#f0dfc8"/>
-            <!-- Visor -->
-            <ellipse cx="50" cy="40" rx="13" ry="14" fill="#1a1a2e"/>
-            <ellipse cx="50" cy="40" rx="11" ry="12" fill="#0d1117"/>
-            <!-- Visor shine -->
-            <ellipse cx="44" cy="33" rx="4" ry="3" fill="rgba(255,255,255,0.15)" transform="rotate(-15 44 33)"/>
-            <ellipse cx="43" cy="31" rx="2" ry="1.5" fill="rgba(255,255,255,0.25)" transform="rotate(-15 43 31)"/>
-            <!-- Helmet ring -->
-            <circle cx="50" cy="38" r="22" fill="none" stroke="#d4a060" stroke-width="2.5"/>
-            <!-- Helmet side detail -->
-            <circle cx="30" cy="38" r="4" fill="#e8874a"/>
-            <circle cx="30" cy="38" r="2.5" fill="#c0681a"/>
-            <!-- Antenna -->
-            <line x1="60" y1="18" x2="65" y2="8" stroke="#d4a060" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="65" cy="7" r="2.5" fill="#f0c040"/>
-          </svg>
-        </div>
-
-        <div class="controls-hint">↑ ↓ ← → or W A S D to move</div>
-      </div>
-
+      <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
+        Luke <span class="text-blue-500">Bianchi</span>
+      </h1>
       <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">Graphic Designer & Photographer — capturing stories, crafting visuals.</p>
       <div class="flex gap-4 justify-center">
         <a href="graphic-design.html" class="group px-8 py-3 border border-white/20 rounded-full hover:border-blue-500 transition inline-flex items-center gap-2 backdrop-blur-sm bg-black/20">
@@ -151,6 +64,7 @@
 
   <section id="contact" class="py-32 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+      
       <div class="reveal">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's connect</h2>
         <p class="text-gray-400 mb-8 text-lg leading-relaxed">Interested in working together? Have a project in mind? Feel free to reach out — I'd love to hear from you.</p>
@@ -159,6 +73,7 @@
           <p><span class="text-blue-400 font-medium">Phone:</span> <span class="text-gray-300">+1 (732) 768‑8857</span></p>
           <p><span class="text-blue-400 font-medium">Location:</span> <span class="text-gray-300">Ocean Township, NJ/Remote</span></p>
         </div>
+
         <div class="mt-8 flex gap-4">
           <a href="https://instagram.com/lukebianchi81" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -193,85 +108,6 @@
   </footer>
 
   <script>
-    // ---- ASTRONAUT CONTROLLER ----
-    const astronaut = document.getElementById('astronaut');
-    const heroName  = document.getElementById('hero-name');
-
-    // Start position: sitting on top of the "L" (top-left of the name)
-    let ax = -8, ay = -58;
-    const speed = 3;
-    const keys = {};
-
-    // Place astronaut relative to hero-name container
-    function placeAstronaut() {
-      astronaut.style.left = ax + 'px';
-      astronaut.style.top  = ay + 'px';
-    }
-    placeAstronaut();
-
-    // Idle bounce animation
-    let idleTime = 0;
-    let moving = false;
-
-    window.addEventListener('keydown', e => {
-      keys[e.key] = true;
-      // Prevent page scroll when using arrows
-      if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
-    });
-    window.addEventListener('keyup',   e => { keys[e.key] = false; });
-
-    // Mobile touch drag
-    let touchStartX = 0, touchStartY = 0, astStartX = 0, astStartY = 0;
-    astronaut.addEventListener('touchstart', e => {
-      const t = e.touches[0];
-      touchStartX = t.clientX; touchStartY = t.clientY;
-      astStartX = ax; astStartY = ay;
-    }, { passive: true });
-    astronaut.addEventListener('touchmove', e => {
-      const t = e.touches[0];
-      ax = astStartX + (t.clientX - touchStartX);
-      ay = astStartY + (t.clientY - touchStartY);
-      placeAstronaut();
-      e.preventDefault();
-    }, { passive: false });
-
-    let facingRight = true;
-
-    function gameLoop() {
-      moving = false;
-      let dx = 0, dy = 0;
-
-      if (keys['ArrowLeft']  || keys['a'] || keys['A']) { dx -= speed; }
-      if (keys['ArrowRight'] || keys['d'] || keys['D']) { dx += speed; }
-      if (keys['ArrowUp']    || keys['w'] || keys['W']) { dy -= speed; }
-      if (keys['ArrowDown']  || keys['s'] || keys['S']) { dy += speed; }
-
-      if (dx !== 0 || dy !== 0) {
-        moving = true;
-        ax += dx;
-        ay += dy;
-
-        // Flip based on horizontal direction
-        if (dx > 0 && !facingRight) { facingRight = true;  astronaut.style.transform = 'scaleX(1)'; }
-        if (dx < 0 &&  facingRight) { facingRight = false; astronaut.style.transform = 'scaleX(-1)'; }
-
-        placeAstronaut();
-      }
-
-      // Idle bounce
-      if (!moving) {
-        idleTime += 0.07;
-        const bounce = Math.sin(idleTime) * 3;
-        astronaut.style.transform = (facingRight ? 'scaleX(1)' : 'scaleX(-1)') + ` translateY(${bounce}px)`;
-      } else {
-        idleTime = 0;
-      }
-
-      requestAnimationFrame(gameLoop);
-    }
-    gameLoop();
-
-    // ---- THREE.JS STARFIELD ----
     (function() {
       const canvas = document.getElementById('starfield');
       const scene = new THREE.Scene();
